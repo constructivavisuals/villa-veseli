@@ -281,7 +281,7 @@ function About() {
         </div>
 
         <div style={{ position: "relative" }}>
-          <img src={IMGS[3]} style={{
+          <img src={IMGS[1]} style={{
             width: "100%", height: "clamp(380px,50vw,580px)", objectFit: "cover",
           }} />
           <div style={{
