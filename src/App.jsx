@@ -688,8 +688,8 @@ function Contact() {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 28, marginBottom: 44, textAlign: "center" }} className="ci">
           {[
-            { label: "Telefon", value: "+420 XXX XXX XXX" },
-            { label: "Email", value: "info@vilaveseli.cz" },
+            { label: "Telefon", value: "+420 737 373 430" },
+            { label: "Email", value: "info@vilavysokeveseli.cz" },
             { label: "Lokalita", value: "1. máje, Vysoké Veselí" },
           ].map((c, i) => (
             <div key={i}>
