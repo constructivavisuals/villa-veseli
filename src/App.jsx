@@ -752,7 +752,10 @@ function Footer() {
 function StickyBar() {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    const h = () => setVisible(window.scrollY > 600);
+    const h = () => {
+      const atBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 80;
+      setVisible(window.scrollY > 600 && !atBottom);
+    };
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
