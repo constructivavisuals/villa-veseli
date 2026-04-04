@@ -869,19 +869,13 @@ function InteractiveMap() {
   const [tooltip, setTooltip] = useState({ x: 0, y: 0 });
   const mapRef = useRef(null);
 
-  // viewBox = 2048x1365 (aerial-golden.jpg actual dimensions)
-  // Polygons traced from zone-ref-page2..5.png (2432x1620) scaled by 0.842
+  // viewBox = 2048x1365 — polygons verified with debug overlay
   const zones = [
-    // Zone 1 — Přízemí/Sklep (page2): stone base of front facade + cellar entrance right
-    { id: "basement", points: "893,855 1272,810 1288,790 1390,780 1395,875 1297,885 1280,1020 893,1060" },
-    // Zone 2 — 1. NP (page3): white stucco band with large windows
-    { id: "floor1", points: "893,855 1280,810 1340,795 1345,720 1280,725 1280,660 893,695" },
-    // Zone 3 — 2. NP / Střecha (page4): entire roof structure from above
-    { id: "floor2", points: "840,630 900,590 1095,445 1300,410 1370,380 1370,320 1090,330 860,395 795,530" },
-    // Zone 4 — Chatky (page5 = one cabin, expanded to all 6)
-    { id: "cabins", points: "310,230 740,180 785,260 870,250 880,540 700,580 650,640 310,530" },
-    // Zone 5 — Solární panely (left side rows)
-    { id: "solar", points: "55,100 310,40 350,460 75,500" },
+    { id: "basement", points: "935,885 1330,840 1350,820 1435,815 1440,938 1350,945 1330,1048 935,1090" },
+    { id: "floor1", points: "935,885 1330,840 1350,820 1435,815 1435,705 1345,698 935,740" },
+    { id: "floor2", points: "900,655 1080,490 1345,588 1410,400 1395,340 1075,325 840,380 840,510" },
+    { id: "cabins", points: "370,505 425,390 465,325 560,275 690,238 840,205 875,295 850,420 745,480 620,525 475,545 370,545" },
+    { id: "solar", points: "72,58 305,18 328,295 88,348" },
   ];
 
   const zoneImages = {
