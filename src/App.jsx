@@ -211,7 +211,7 @@ function Hero({ ready }) {
           <span style={{
             fontFamily: SANS, fontSize: 9, color: "rgba(255,255,255,0.4)",
             letterSpacing: 4, textTransform: "uppercase",
-          }}>Scroll Down</span>
+          }}>Scrollujte dolů</span>
         </div>
       </div>
       <style>{`@keyframes sp{0%,100%{opacity:1;transform:translateY(0)}50%{opacity:.2;transform:translateY(6px)}}@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}`}</style>
