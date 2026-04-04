@@ -31,6 +31,7 @@ const T = {
     navLinks: [
       { id: "about", label: "O vile" },
       { id: "gallery", label: "Galerie" },
+      { id: "explore", label: "Areál" },
       { id: "params", label: "Parametry" },
       { id: "potential", label: "Potenciál" },
       { id: "location", label: "Lokalita" },
@@ -137,6 +138,37 @@ const T = {
     stickyCta: "Domluvit prohlídku",
     // Marquee
     marquee: "  ✦  Ihned k nastěhování  ✦  Přímý prodej bez realitky  ✦  Akční cena  ✦  Pozemek 6 748 m²  ✦  6 chatek v ceně  ✦  Solární panely  ✦  Bazén  ✦  Ihned k nastěhování  ✦  Přímý prodej bez realitky  ✦  Akční cena  ✦  Pozemek 6 748 m²  ✦  6 chatek v ceně  ✦  Solární panely  ✦  Bazén  ",
+    // Explore
+    exploreTag: "Interaktivní mapa",
+    exploreTitle1: "Prozkoumejte ",
+    exploreTitle2: "areál",
+    exploreHint: "Kliknutím na část areálu zobrazíte podrobnosti",
+    exploreZones: {
+      villa: {
+        name: "Hlavní vila",
+        title: "Hlavní vila — 2 podlaží",
+        tabs: ["1. NP", "2. NP"],
+        desc1: "Prostorná kuchyň s jídelnou, obývací pokoj s krbem, pracovna, koupelna s WC, vstupní hala se schodištěm do 2. NP",
+        desc2: "3 ložnice, kulečníkový sál, 2 koupelny, balkón s výhledem do zahrady",
+      },
+      cabins: {
+        name: "Chatky",
+        title: "6 samostatných chatek",
+        desc: "Každá chatka nabízí vlastní pokoj se dvěma lůžky a základním vybavením. Ideální pro pořádání dětských táborů, skupinových pobytů nebo pronájem.",
+        extra: "Součástí areálu je bazén se zastřešením",
+      },
+      solar: {
+        name: "Solární elektrárna",
+        title: "Solární elektrárna",
+        desc: "Fotovoltaická elektrárna na pozemku zajišťuje energetickou soběstačnost areálu a představuje dodatečný zdroj příjmů z prodeje přebytků do sítě.",
+      },
+      garden: {
+        name: "Zahrada a pozemek",
+        title: "Pozemek 6 748 m²",
+        desc: "Rozlehlý pozemek s udržovanou zelení, dlážděným dvorem a dostatkem prostoru pro další rozvoj — parkování, sportovní hřiště, wellness zóna.",
+      },
+    },
+    exploreClose: "Zavřít",
     // Splash
     splashTitle: "Vila Vysoké Veselí",
   },
@@ -144,6 +176,7 @@ const T = {
     navLinks: [
       { id: "about", label: "About" },
       { id: "gallery", label: "Gallery" },
+      { id: "explore", label: "Explore" },
       { id: "params", label: "Details" },
       { id: "potential", label: "Potential" },
       { id: "location", label: "Location" },
@@ -240,12 +273,43 @@ const T = {
     stickyReady: "Move-in ready",
     stickyCta: "Book a viewing",
     marquee: "  ✦  Move-in ready  ✦  Direct sale — no agency  ✦  Special price  ✦  Land 6,748 m²  ✦  6 cabins included  ✦  Solar panels  ✦  Pool  ✦  Move-in ready  ✦  Direct sale — no agency  ✦  Special price  ✦  Land 6,748 m²  ✦  6 cabins included  ✦  Solar panels  ✦  Pool  ",
+    exploreTag: "Interactive map",
+    exploreTitle1: "Explore the ",
+    exploreTitle2: "grounds",
+    exploreHint: "Click on a part of the property to see details",
+    exploreZones: {
+      villa: {
+        name: "Main villa",
+        title: "Main villa — 2 floors",
+        tabs: ["Ground floor", "First floor"],
+        desc1: "Spacious kitchen with dining area, living room with fireplace, study, bathroom with WC, entrance hall with staircase to the first floor",
+        desc2: "3 bedrooms, billiard room, 2 bathrooms, balcony with garden views",
+      },
+      cabins: {
+        name: "Cabins",
+        title: "6 separate cabins",
+        desc: "Each cabin offers its own room with two beds and basic amenities. Ideal for organizing children's camps, group stays, or rental.",
+        extra: "The grounds include a covered swimming pool",
+      },
+      solar: {
+        name: "Solar power plant",
+        title: "Solar power plant",
+        desc: "The photovoltaic power plant on the property ensures energy self-sufficiency and represents an additional source of income from selling surplus energy to the grid.",
+      },
+      garden: {
+        name: "Garden & grounds",
+        title: "Plot 6,748 m²",
+        desc: "Expansive grounds with maintained greenery, paved courtyard, and ample space for further development — parking, sports facilities, wellness zone.",
+      },
+    },
+    exploreClose: "Close",
     splashTitle: "Vila Vysoké Veselí",
   },
   de: {
     navLinks: [
       { id: "about", label: "Über die Villa" },
       { id: "gallery", label: "Galerie" },
+      { id: "explore", label: "Gelände" },
       { id: "params", label: "Details" },
       { id: "potential", label: "Potenzial" },
       { id: "location", label: "Lage" },
@@ -342,6 +406,36 @@ const T = {
     stickyReady: "Sofort bezugsfertig",
     stickyCta: "Besichtigung vereinbaren",
     marquee: "  ✦  Sofort bezugsfertig  ✦  Direktverkauf ohne Makler  ✦  Aktionspreis  ✦  Grundstück 6.748 m²  ✦  6 Hütten inklusive  ✦  Solarpanele  ✦  Pool  ✦  Sofort bezugsfertig  ✦  Direktverkauf ohne Makler  ✦  Aktionspreis  ✦  Grundstück 6.748 m²  ✦  6 Hütten inklusive  ✦  Solarpanele  ✦  Pool  ",
+    exploreTag: "Interaktive Karte",
+    exploreTitle1: "Erkunden Sie das ",
+    exploreTitle2: "Gelände",
+    exploreHint: "Klicken Sie auf einen Teil des Areals, um Details anzuzeigen",
+    exploreZones: {
+      villa: {
+        name: "Hauptvilla",
+        title: "Hauptvilla — 2 Etagen",
+        tabs: ["Erdgeschoss", "Obergeschoss"],
+        desc1: "Geräumige Küche mit Essbereich, Wohnzimmer mit Kamin, Arbeitszimmer, Badezimmer mit WC, Eingangshalle mit Treppe ins Obergeschoss",
+        desc2: "3 Schlafzimmer, Billardsaal, 2 Badezimmer, Balkon mit Gartenblick",
+      },
+      cabins: {
+        name: "Hütten",
+        title: "6 separate Hütten",
+        desc: "Jede Hütte bietet ein eigenes Zimmer mit zwei Betten und Grundausstattung. Ideal für Kindercamps, Gruppenaufenthalte oder Vermietung.",
+        extra: "Zum Gelände gehört ein überdachter Swimmingpool",
+      },
+      solar: {
+        name: "Solaranlage",
+        title: "Solaranlage",
+        desc: "Die Photovoltaikanlage auf dem Grundstück sichert die Energieautarkie des Areals und stellt eine zusätzliche Einnahmequelle durch den Verkauf von Überschüssen ins Netz dar.",
+      },
+      garden: {
+        name: "Garten & Grundstück",
+        title: "Grundstück 6.748 m²",
+        desc: "Weitläufiges Grundstück mit gepflegtem Grün, gepflastertem Hof und ausreichend Platz für weitere Entwicklung — Parkplätze, Sportanlagen, Wellnessbereich.",
+      },
+    },
+    exploreClose: "Schließen",
     splashTitle: "Vila Vysoké Veselí",
   },
 };
@@ -748,6 +842,253 @@ function Gallery() {
       <style>{`
         @media(max-width:768px){.gfeat{aspect-ratio:4/3!important}}
         .thumbnail-strip::-webkit-scrollbar{display:none}
+      `}</style>
+    </section>
+  );
+}
+
+// ─── INTERACTIVE MAP ───
+function InteractiveMap() {
+  const t = useLang();
+  const [ref, vis] = useInView(0.08);
+  const [hovered, setHovered] = useState(null);
+  const [active, setActive] = useState(null);
+  const [floorTab, setFloorTab] = useState(0);
+  const [lightboxImg, setLightboxImg] = useState(null);
+  const [tooltip, setTooltip] = useState({ x: 0, y: 0 });
+  const mapRef = useRef(null);
+
+  const zones = [
+    { id: "villa", points: "1000,580 1350,500 1500,650 1520,1020 1400,1120 1050,1080 1000,760", fill: "rgba(111,127,94,0.35)" },
+    { id: "cabins", points: "530,260 900,200 1000,510 900,630 760,640 500,550", fill: "rgba(111,127,94,0.35)" },
+    { id: "solar", points: "100,170 550,70 580,500 140,580", fill: "rgba(111,127,94,0.25)" },
+    { id: "garden", points: "500,550 1000,580 1000,760 1050,1080 580,1160 280,870 280,610", fill: "rgba(111,127,94,0.2)" },
+  ];
+
+  const zoneData = {
+    villa: {
+      images1: ["/images/kuchyn.jpg", "/images/kuchyn-wide.jpg"],
+      images2: ["/images/loznice-1.jpg", "/images/loznice-2.jpg", "/images/pokoj.jpg"],
+      floorplanImg: "/images/floorplan-3d.jpg",
+    },
+    cabins: {
+      images: ["/images/chatky-bazen.jpg"],
+    },
+    solar: {},
+    garden: {
+      images: ["/images/aerial-golden.jpg"],
+    },
+  };
+
+  const handleMouseMove = (e) => {
+    if (!mapRef.current) return;
+    const rect = mapRef.current.getBoundingClientRect();
+    setTooltip({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  const zoneInfo = active ? t.exploreZones[active] : null;
+
+  return (
+    <section id="explore" ref={ref} style={{ background: DARK, padding: "clamp(64px,10vw,100px) 0" }}>
+      <div style={{
+        maxWidth: 1300, margin: "0 auto", padding: "0 clamp(16px,3vw,48px)",
+        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
+      }}>
+        <div style={{ textAlign: "center", marginBottom: 36 }}>
+          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.exploreTag}</span>
+          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(28px,3.5vw,46px)", fontWeight: 300, color: "#fff", margin: "8px 0 0" }}>
+            <span style={{ fontStyle: "italic" }}>{t.exploreTitle1}</span>{t.exploreTitle2}
+          </h2>
+          <p style={{ fontFamily: SANS, fontSize: 13, color: "rgba(255,255,255,0.4)", marginTop: 12 }}>
+            {t.exploreHint}
+          </p>
+        </div>
+
+        <div ref={mapRef} onMouseMove={handleMouseMove} style={{ position: "relative", width: "100%", cursor: "default" }}>
+          <img src="/images/aerial-golden.jpg" alt="" style={{
+            width: "100%", display: "block",
+            filter: hovered ? "brightness(0.65)" : "brightness(1)",
+            transition: "filter 0.4s ease",
+          }} />
+          <svg viewBox="0 0 2048 1365" style={{
+            position: "absolute", inset: 0, width: "100%", height: "100%",
+          }}>
+            {zones.map(z => (
+              <polygon
+                key={z.id}
+                points={z.points}
+                style={{
+                  fill: hovered === z.id ? z.fill : "transparent",
+                  stroke: hovered === z.id ? "rgba(255,255,255,0.8)" : "transparent",
+                  strokeWidth: 3,
+                  cursor: "pointer",
+                  transition: "fill 0.3s, stroke 0.3s",
+                }}
+                onMouseEnter={() => setHovered(z.id)}
+                onMouseLeave={() => setHovered(null)}
+                onClick={() => { setActive(z.id); setFloorTab(0); }}
+              />
+            ))}
+          </svg>
+
+          {/* Tooltip */}
+          {hovered && !active && (
+            <div style={{
+              position: "absolute",
+              left: tooltip.x + 16, top: tooltip.y - 12,
+              background: "rgba(0,0,0,0.85)", backdropFilter: "blur(8px)",
+              padding: "6px 14px", pointerEvents: "none",
+              border: `1px solid ${GOLD}`,
+            }}>
+              <span style={{ fontFamily: SANS, fontSize: 11, color: "#fff", letterSpacing: 1.5, textTransform: "uppercase", fontWeight: 500 }}>
+                {t.exploreZones[hovered]?.name}
+              </span>
+            </div>
+          )}
+
+          {/* Brightened zone overlay (clip to hovered polygon) */}
+          {hovered && (
+            <svg viewBox="0 0 2048 1365" style={{
+              position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none",
+            }}>
+              <defs>
+                <clipPath id={`clip-${hovered}`}>
+                  <polygon points={zones.find(z => z.id === hovered)?.points} />
+                </clipPath>
+              </defs>
+              <image
+                href="/images/aerial-golden.jpg"
+                width="2048" height="1365"
+                clipPath={`url(#clip-${hovered})`}
+                style={{ filter: "brightness(1.1)" }}
+              />
+            </svg>
+          )}
+        </div>
+
+        {/* Detail panel */}
+        {active && (
+          <div style={{
+            position: "fixed", top: 0, right: 0, bottom: 0, zIndex: 2000,
+            width: "min(480px, 100vw)", background: "#111",
+            borderLeft: "1px solid rgba(255,255,255,0.06)",
+            overflowY: "auto", padding: "24px",
+            animation: "slideIn 0.3s ease",
+          }}>
+            {/* Close button */}
+            <div onClick={() => setActive(null)} style={{
+              position: "sticky", top: 0, textAlign: "right", paddingBottom: 16, cursor: "pointer", zIndex: 1,
+            }}>
+              <span style={{ fontFamily: SANS, fontSize: 12, color: "rgba(255,255,255,0.5)", letterSpacing: 2 }}>
+                {t.exploreClose} ✕
+              </span>
+            </div>
+
+            <h3 style={{ fontFamily: SERIF, fontSize: 26, fontWeight: 300, color: "#fff", marginBottom: 20 }}>
+              {zoneInfo?.title}
+            </h3>
+
+            {/* Villa — with floor tabs */}
+            {active === "villa" && (
+              <>
+                <img src={zoneData.villa.floorplanImg} alt="" style={{
+                  width: "100%", marginBottom: 20, cursor: "pointer",
+                }} onClick={() => setLightboxImg(zoneData.villa.floorplanImg)} />
+
+                <div style={{ display: "flex", gap: 2, marginBottom: 20 }}>
+                  {zoneInfo.tabs.map((tab, i) => (
+                    <span key={i} onClick={() => setFloorTab(i)} style={{
+                      fontFamily: SANS, fontSize: 11, letterSpacing: 2, textTransform: "uppercase",
+                      padding: "10px 20px", cursor: "pointer", transition: "all 0.3s",
+                      color: floorTab === i ? "#fff" : "rgba(255,255,255,0.35)",
+                      background: floorTab === i ? "rgba(255,255,255,0.08)" : "transparent",
+                      border: floorTab === i ? "1px solid rgba(255,255,255,0.1)" : "1px solid transparent",
+                    }}>{tab}</span>
+                  ))}
+                </div>
+
+                <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: "rgba(255,255,255,0.6)", fontWeight: 300, marginBottom: 20 }}>
+                  {floorTab === 0 ? zoneInfo.desc1 : zoneInfo.desc2}
+                </p>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                  {(floorTab === 0 ? zoneData.villa.images1 : zoneData.villa.images2).map((img, i) => (
+                    <img key={i} src={img} alt="" style={{
+                      width: "100%", aspectRatio: "4/3", objectFit: "cover", cursor: "pointer",
+                    }} onClick={() => setLightboxImg(img)} />
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* Cabins */}
+            {active === "cabins" && (
+              <>
+                <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: "rgba(255,255,255,0.6)", fontWeight: 300, marginBottom: 20 }}>
+                  {zoneInfo.desc}
+                </p>
+                {zoneData.cabins.images.map((img, i) => (
+                  <img key={i} src={img} alt="" style={{
+                    width: "100%", marginBottom: 12, cursor: "pointer",
+                  }} onClick={() => setLightboxImg(img)} />
+                ))}
+                <div style={{
+                  marginTop: 8, padding: "14px 18px", background: "rgba(111,127,94,0.15)",
+                  borderLeft: `3px solid ${GOLD}`,
+                }}>
+                  <span style={{ fontFamily: SANS, fontSize: 13, color: "rgba(255,255,255,0.7)" }}>
+                    {zoneInfo.extra}
+                  </span>
+                </div>
+              </>
+            )}
+
+            {/* Solar */}
+            {active === "solar" && (
+              <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: "rgba(255,255,255,0.6)", fontWeight: 300 }}>
+                {zoneInfo.desc}
+              </p>
+            )}
+
+            {/* Garden */}
+            {active === "garden" && (
+              <>
+                <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: "rgba(255,255,255,0.6)", fontWeight: 300, marginBottom: 20 }}>
+                  {zoneInfo.desc}
+                </p>
+                {zoneData.garden.images.map((img, i) => (
+                  <img key={i} src={img} alt="" style={{
+                    width: "100%", cursor: "pointer",
+                  }} onClick={() => setLightboxImg(img)} />
+                ))}
+              </>
+            )}
+          </div>
+        )}
+
+        {/* Backdrop for panel on mobile */}
+        {active && (
+          <div onClick={() => setActive(null)} style={{
+            position: "fixed", inset: 0, zIndex: 1999, background: "rgba(0,0,0,0.6)",
+          }} />
+        )}
+
+        {/* Lightbox for detail images */}
+        {lightboxImg && (
+          <div onClick={() => setLightboxImg(null)} style={{
+            position: "fixed", inset: 0, zIndex: 3000, background: "rgba(0,0,0,0.94)",
+            backdropFilter: "blur(12px)", display: "flex", alignItems: "center", justifyContent: "center",
+            cursor: "zoom-out", padding: 20,
+          }}>
+            <img src={lightboxImg} style={{ maxWidth: "92vw", maxHeight: "88vh", objectFit: "contain" }} />
+            <div style={{ position: "absolute", top: 20, right: 24, fontFamily: SANS, fontSize: 13, color: "#fff", cursor: "pointer", letterSpacing: 3 }}>
+              ✕
+            </div>
+          </div>
+        )}
+      </div>
+      <style>{`
+        @keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
       `}</style>
     </section>
   );
@@ -1160,6 +1501,7 @@ export default function App() {
           <Hero ready={phase >= 4} />
           <About />
           <Gallery />
+          <InteractiveMap />
           <div style={{
             background: GOLD, padding: "14px 0", overflow: "hidden", whiteSpace: "nowrap",
           }}>
