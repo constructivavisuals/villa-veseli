@@ -119,14 +119,20 @@ function Nav() {
 }
 
 // ─── HERO ───
-function Hero() {
+function Hero({ ready }) {
   const [loaded, setLoaded] = useState(false);
+  const videoRef = useRef(null);
 
   useEffect(() => { setTimeout(() => setLoaded(true), 200); }, []);
+  useEffect(() => {
+    if (ready && videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, [ready]);
 
   return (
     <section style={{ position: "relative", width: "100%", height: "100vh", minHeight: 600, overflow: "hidden", background: DARK }}>
-      <video autoPlay muted loop playsInline style={{
+      <video ref={videoRef} muted loop playsInline preload="auto" style={{
         position: "absolute", inset: 0,
         width: "100%", height: "100%", objectFit: "cover",
         filter: "brightness(0.38) saturate(0.9)",
@@ -843,7 +849,7 @@ export default function App() {
         transition: "opacity 0.6s ease 0.2s",
       }}>
         <Nav />
-        <Hero />
+        <Hero ready={phase >= 4} />
         <About />
         <Gallery />
         {/* Urgency marquee strip */}
