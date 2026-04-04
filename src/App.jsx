@@ -126,6 +126,7 @@ function Hero({ ready }) {
   useEffect(() => { setTimeout(() => setLoaded(true), 200); }, []);
   useEffect(() => {
     if (ready && videoRef.current) {
+      videoRef.current.currentTime = 0;
       videoRef.current.play().catch(() => {});
     }
   }, [ready]);
