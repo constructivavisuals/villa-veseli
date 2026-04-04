@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, createContext, useContext } from "react";
 
 // Fonts
 const fontLink = document.createElement("link");
@@ -24,6 +24,335 @@ const IMGS = [
   "/images/pokoj.jpg",
 ];
 
+// ─── TRANSLATIONS ───
+const T = {
+  cs: {
+    // Nav
+    navLinks: [
+      { id: "about", label: "O vile" },
+      { id: "gallery", label: "Galerie" },
+      { id: "params", label: "Parametry" },
+      { id: "potential", label: "Potenciál" },
+      { id: "location", label: "Lokalita" },
+      { id: "contact", label: "Kontakt" },
+    ],
+    navCta: "Prohlídka",
+    // Hero
+    heroBadge: "Právě v prodeji",
+    heroTitle1: "Vila ve",
+    heroTitle2: "Vysokém Veselí",
+    heroSub: "400 m² · Pozemek 6 748 m²",
+    heroScroll: "Scrollujte dolů",
+    // About
+    aboutTag: "Exkluzivní nabídka · Ihned k nastěhování",
+    aboutTitle1: "Cihlová vila s ",
+    aboutTitle2: "výjimečným potenciálem",
+    aboutP1: "Unikátní cihlová vila v osobním vlastnictví ve Vysokém Veselí. Nemovitost o zastavěné ploše 400 m² se nachází na výjimečně prostorném pozemku o rozloze 6 748 m² a je ve velmi dobrém stavu, připravená k okamžitému nastěhování.",
+    aboutP2: "Na pozemku se nachází 6 samostatných chatek — ideální pro pořádání dětských táborů, skupinových pobytů či jiných volnočasových aktivit. Nemovitost nabízí garáž, sklep 20 m², balkón a terasu s výhledem do okolní přírody.",
+    aboutCta: "Domluvit prohlídku",
+    aboutPrice: "13 950 000 Kč",
+    aboutPriceSub: "Akční cena · Přímý prodej",
+    // Gallery
+    galleryTag: "Fotogalerie",
+    galleryTitle1: "Prohlédněte si ",
+    galleryTitle2: "vilu",
+    galleryTabs: [
+      { id: "all", label: "Vše" },
+      { id: "ext", label: "Exteriér" },
+      { id: "int", label: "Interiér" },
+    ],
+    galleryPhotos: [
+      "Vila — letecký pohled", "Pohled z boku", "Čelní pohled", "Pohled shora",
+      "Chatky a bazén", "Ložnice", "Kuchyň", "Ložnice II", "Pokoj",
+    ],
+    galleryClose: "ZAVŘÍT ✕",
+    // Params
+    paramsTag: "Specifikace",
+    paramsTitle1: "Parametry ",
+    paramsTitle2: "nemovitosti",
+    paramsStats: [
+      { value: "400", unit: "m²", label: "Zastavěná plocha" },
+      { value: "6 748", unit: "m²", label: "Pozemek" },
+      { value: "6", unit: "", label: "Chatek na pozemku" },
+      { value: "20", unit: "m²", label: "Sklep" },
+    ],
+    paramsFeatures: [
+      "Cihlová stavba", "Osobní vlastnictví", "Garáž + venkovní parkování",
+      "Balkón 10 m²", "Terasa 10 m²", "Sklep 20 m²",
+      "Solární panely", "Bazén se zastřešením", "6 samostatných chatek",
+    ],
+    paramsActionBadge: "Akční cena",
+    paramsPriceTag: "Cena nemovitosti",
+    paramsPrice: "13 950 000",
+    paramsPriceCurrency: "Kč",
+    paramsPriceSub: "Přímý prodej · Bez provize RK · Osobní vlastnictví",
+    paramsMortgage: "Hypotéka již od 57 144 Kč / měsíc",
+    paramsCta: "Mám zájem o prohlídku",
+    // Potential
+    potentialTag: "Možnosti využití",
+    potentialTitle1: "Výjimečný ",
+    potentialTitle2: "potenciál",
+    potentialItems: [
+      { title: "Rodinné sídlo", desc: "Prostorná vila ideální pro velkou rodinu s dostatkem soukromí a vlastní zahradou." },
+      { title: "Dětské tábory", desc: "6 chatek na pozemku vytváří zázemí pro organizaci letních táborů a pobytů." },
+      { title: "Wellness retreat", desc: "Klidné prostředí a rozlehlý pozemek nabízí potenciál pro rekreační či wellness provoz." },
+      { title: "Investice", desc: "Atraktivní poměr ceny a rozlohy pozemku s možností dalšího rozvoje." },
+    ],
+    // Location
+    locationTag: "Kde nás najdete",
+    locationTitle1: "Vysoké Veselí, ",
+    locationTitle2: "okres Jičín",
+    locationDesc: "Vysoké Veselí se nachází v malebném Královéhradeckém kraji, v blízkosti Českého ráje. Klidná lokalita s výbornou dostupností do Jičína i Hradce Králové.",
+    locationItems: [
+      { label: "Adresa", value: "1. máje, Vysoké Veselí" },
+      { label: "Praha", value: "cca 80 km" },
+      { label: "Hradec Králové", value: "cca 45 km" },
+      { label: "Český ráj", value: "15 min" },
+      { label: "Jičín — služby, školy", value: "10 min" },
+      { label: "MHD zastávka", value: "3 min pěšky" },
+    ],
+    // Contact
+    contactTag: "Nečekejte, zavolejte ještě dnes",
+    contactTitle1: "Domluvte si ",
+    contactTitle2: "prohlídku",
+    contactSub: "Nemovitost s tímto potenciálem a za tuto cenu se na trhu dlouho neudrží.",
+    contactInfo: [
+      { label: "Telefon", value: "+420 737 373 430" },
+      { label: "Email", value: "info@vilavysokeveseli.cz" },
+      { label: "Lokalita", value: "1. máje, Vysoké Veselí" },
+    ],
+    contactName: "Jméno a příjmení",
+    contactPhone: "Telefon",
+    contactEmail: "Email",
+    contactMessage: "Vaše zpráva — rád/a bych si domluvil/a prohlídku...",
+    contactSend: "Odeslat zprávu",
+    contactThanks: "Děkujeme za váš zájem",
+    contactThanksDesc: "Ozveme se vám co nejdříve.",
+    // Footer
+    footerRights: "© 2026 · Všechna práva vyhrazena",
+    // Sticky bar
+    stickyPrice: "13 950 000 Kč",
+    stickyBadge: "AKČNÍ CENA",
+    stickyReady: "Ihned k nastěhování",
+    stickyCta: "Domluvit prohlídku",
+    // Marquee
+    marquee: "  ✦  Ihned k nastěhování  ✦  Přímý prodej bez realitky  ✦  Akční cena  ✦  Pozemek 6 748 m²  ✦  6 chatek v ceně  ✦  Solární panely  ✦  Bazén  ✦  Ihned k nastěhování  ✦  Přímý prodej bez realitky  ✦  Akční cena  ✦  Pozemek 6 748 m²  ✦  6 chatek v ceně  ✦  Solární panely  ✦  Bazén  ",
+    // Splash
+    splashTitle: "Vila Vysoké Veselí",
+  },
+  en: {
+    navLinks: [
+      { id: "about", label: "About" },
+      { id: "gallery", label: "Gallery" },
+      { id: "params", label: "Details" },
+      { id: "potential", label: "Potential" },
+      { id: "location", label: "Location" },
+      { id: "contact", label: "Contact" },
+    ],
+    navCta: "Book a Tour",
+    heroBadge: "Now on sale",
+    heroTitle1: "Villa in",
+    heroTitle2: "Vysoké Veselí",
+    heroSub: "400 m² · Land 6,748 m²",
+    heroScroll: "Scroll down",
+    aboutTag: "Exclusive offer · Move-in ready",
+    aboutTitle1: "Brick villa with ",
+    aboutTitle2: "exceptional potential",
+    aboutP1: "A unique brick villa in private ownership in Vysoké Veselí. The property with a built-up area of 400 m² is situated on an exceptionally spacious plot of 6,748 m² and is in very good condition, ready for immediate move-in.",
+    aboutP2: "The grounds include 6 separate cabins — ideal for organizing children's camps, group stays, or other recreational activities. The property offers a garage, 20 m² cellar, balcony, and terrace with views of the surrounding nature.",
+    aboutCta: "Book a viewing",
+    aboutPrice: "13,950,000 CZK",
+    aboutPriceSub: "Special price · Direct sale",
+    galleryTag: "Photo gallery",
+    galleryTitle1: "Explore the ",
+    galleryTitle2: "villa",
+    galleryTabs: [
+      { id: "all", label: "All" },
+      { id: "ext", label: "Exterior" },
+      { id: "int", label: "Interior" },
+    ],
+    galleryPhotos: [
+      "Villa — aerial view", "Side view", "Front view", "Top view",
+      "Cabins & pool", "Bedroom", "Kitchen", "Bedroom II", "Room",
+    ],
+    galleryClose: "CLOSE ✕",
+    paramsTag: "Specifications",
+    paramsTitle1: "Property ",
+    paramsTitle2: "details",
+    paramsStats: [
+      { value: "400", unit: "m²", label: "Built-up area" },
+      { value: "6,748", unit: "m²", label: "Land" },
+      { value: "6", unit: "", label: "Cabins on premises" },
+      { value: "20", unit: "m²", label: "Cellar" },
+    ],
+    paramsFeatures: [
+      "Brick construction", "Private ownership", "Garage + outdoor parking",
+      "Balcony 10 m²", "Terrace 10 m²", "Cellar 20 m²",
+      "Solar panels", "Covered swimming pool", "6 separate cabins",
+    ],
+    paramsActionBadge: "Special price",
+    paramsPriceTag: "Property price",
+    paramsPrice: "13,950,000",
+    paramsPriceCurrency: "CZK",
+    paramsPriceSub: "Direct sale · No agency fee · Private ownership",
+    paramsMortgage: "Mortgage from 57,144 CZK / month",
+    paramsCta: "I'm interested in a viewing",
+    potentialTag: "Possible uses",
+    potentialTitle1: "Exceptional ",
+    potentialTitle2: "potential",
+    potentialItems: [
+      { title: "Family estate", desc: "Spacious villa ideal for a large family with plenty of privacy and a private garden." },
+      { title: "Children's camps", desc: "6 cabins on the grounds provide the perfect base for organizing summer camps and group stays." },
+      { title: "Wellness retreat", desc: "Peaceful setting and expansive grounds offer potential for recreational or wellness operations." },
+      { title: "Investment", desc: "Attractive price-to-area ratio with opportunities for further development." },
+    ],
+    locationTag: "Find us",
+    locationTitle1: "Vysoké Veselí, ",
+    locationTitle2: "Jičín district",
+    locationDesc: "Vysoké Veselí is located in the picturesque Hradec Králové Region, near the Bohemian Paradise. A quiet locality with excellent access to Jičín and Hradec Králové.",
+    locationItems: [
+      { label: "Address", value: "1. máje, Vysoké Veselí" },
+      { label: "Prague", value: "approx. 80 km" },
+      { label: "Hradec Králové", value: "approx. 45 km" },
+      { label: "Bohemian Paradise", value: "15 min" },
+      { label: "Jičín — services, schools", value: "10 min" },
+      { label: "Bus stop", value: "3 min walk" },
+    ],
+    contactTag: "Don't wait, call today",
+    contactTitle1: "Schedule a ",
+    contactTitle2: "viewing",
+    contactSub: "A property with this potential and at this price won't stay on the market for long.",
+    contactInfo: [
+      { label: "Phone", value: "+420 737 373 430" },
+      { label: "Email", value: "info@vilavysokeveseli.cz" },
+      { label: "Location", value: "1. máje, Vysoké Veselí" },
+    ],
+    contactName: "Full name",
+    contactPhone: "Phone",
+    contactEmail: "Email",
+    contactMessage: "Your message — I would like to schedule a viewing...",
+    contactSend: "Send message",
+    contactThanks: "Thank you for your interest",
+    contactThanksDesc: "We will get back to you as soon as possible.",
+    footerRights: "© 2026 · All rights reserved",
+    stickyPrice: "13,950,000 CZK",
+    stickyBadge: "SPECIAL PRICE",
+    stickyReady: "Move-in ready",
+    stickyCta: "Book a viewing",
+    marquee: "  ✦  Move-in ready  ✦  Direct sale — no agency  ✦  Special price  ✦  Land 6,748 m²  ✦  6 cabins included  ✦  Solar panels  ✦  Pool  ✦  Move-in ready  ✦  Direct sale — no agency  ✦  Special price  ✦  Land 6,748 m²  ✦  6 cabins included  ✦  Solar panels  ✦  Pool  ",
+    splashTitle: "Vila Vysoké Veselí",
+  },
+  de: {
+    navLinks: [
+      { id: "about", label: "Über die Villa" },
+      { id: "gallery", label: "Galerie" },
+      { id: "params", label: "Details" },
+      { id: "potential", label: "Potenzial" },
+      { id: "location", label: "Lage" },
+      { id: "contact", label: "Kontakt" },
+    ],
+    navCta: "Besichtigung",
+    heroBadge: "Jetzt im Verkauf",
+    heroTitle1: "Villa in",
+    heroTitle2: "Vysoké Veselí",
+    heroSub: "400 m² · Grundstück 6.748 m²",
+    heroScroll: "Nach unten scrollen",
+    aboutTag: "Exklusives Angebot · Sofort bezugsfertig",
+    aboutTitle1: "Ziegelvilla mit ",
+    aboutTitle2: "außergewöhnlichem Potenzial",
+    aboutP1: "Einzigartige Ziegelvilla in Privatbesitz in Vysoké Veselí. Das Gebäude mit einer bebauten Fläche von 400 m² befindet sich auf einem außergewöhnlich großzügigen Grundstück von 6.748 m² und ist in sehr gutem Zustand, sofort bezugsfertig.",
+    aboutP2: "Auf dem Grundstück befinden sich 6 separate Hütten — ideal für die Organisation von Kindercamps, Gruppenaufenthalten oder anderen Freizeitaktivitäten. Die Immobilie bietet eine Garage, einen 20 m² Keller, einen Balkon und eine Terrasse mit Blick auf die umliegende Natur.",
+    aboutCta: "Besichtigung vereinbaren",
+    aboutPrice: "13.950.000 CZK",
+    aboutPriceSub: "Aktionspreis · Direktverkauf",
+    galleryTag: "Fotogalerie",
+    galleryTitle1: "Besichtigen Sie die ",
+    galleryTitle2: "Villa",
+    galleryTabs: [
+      { id: "all", label: "Alle" },
+      { id: "ext", label: "Außen" },
+      { id: "int", label: "Innen" },
+    ],
+    galleryPhotos: [
+      "Villa — Luftaufnahme", "Seitenansicht", "Frontansicht", "Draufsicht",
+      "Hütten & Pool", "Schlafzimmer", "Küche", "Schlafzimmer II", "Zimmer",
+    ],
+    galleryClose: "SCHLIEßEN ✕",
+    paramsTag: "Spezifikationen",
+    paramsTitle1: "Immobilien",
+    paramsTitle2: "details",
+    paramsStats: [
+      { value: "400", unit: "m²", label: "Bebaute Fläche" },
+      { value: "6.748", unit: "m²", label: "Grundstück" },
+      { value: "6", unit: "", label: "Hütten auf dem Gelände" },
+      { value: "20", unit: "m²", label: "Keller" },
+    ],
+    paramsFeatures: [
+      "Ziegelbau", "Privatbesitz", "Garage + Außenparkplatz",
+      "Balkon 10 m²", "Terrasse 10 m²", "Keller 20 m²",
+      "Solarpanele", "Pool mit Überdachung", "6 separate Hütten",
+    ],
+    paramsActionBadge: "Aktionspreis",
+    paramsPriceTag: "Immobilienpreis",
+    paramsPrice: "13.950.000",
+    paramsPriceCurrency: "CZK",
+    paramsPriceSub: "Direktverkauf · Ohne Maklerprovision · Privatbesitz",
+    paramsMortgage: "Hypothek ab 57.144 CZK / Monat",
+    paramsCta: "Ich möchte eine Besichtigung",
+    potentialTag: "Nutzungsmöglichkeiten",
+    potentialTitle1: "Außergewöhnliches ",
+    potentialTitle2: "Potenzial",
+    potentialItems: [
+      { title: "Familiensitz", desc: "Geräumige Villa, ideal für eine große Familie mit viel Privatsphäre und eigenem Garten." },
+      { title: "Kindercamps", desc: "6 Hütten auf dem Gelände bieten die Basis für die Organisation von Sommercamps und Gruppenaufenthalten." },
+      { title: "Wellness-Retreat", desc: "Ruhige Umgebung und weitläufiges Grundstück bieten Potenzial für Erholungs- oder Wellnessbetrieb." },
+      { title: "Investition", desc: "Attraktives Preis-Flächen-Verhältnis mit Möglichkeiten zur Weiterentwicklung." },
+    ],
+    locationTag: "So finden Sie uns",
+    locationTitle1: "Vysoké Veselí, ",
+    locationTitle2: "Bezirk Jičín",
+    locationDesc: "Vysoké Veselí liegt in der malerischen Region Hradec Králové, in der Nähe des Böhmischen Paradieses. Ruhige Lage mit hervorragender Erreichbarkeit von Jičín und Hradec Králové.",
+    locationItems: [
+      { label: "Adresse", value: "1. máje, Vysoké Veselí" },
+      { label: "Prag", value: "ca. 80 km" },
+      { label: "Hradec Králové", value: "ca. 45 km" },
+      { label: "Böhmisches Paradies", value: "15 Min." },
+      { label: "Jičín — Dienste, Schulen", value: "10 Min." },
+      { label: "Bushaltestelle", value: "3 Min. zu Fuß" },
+    ],
+    contactTag: "Warten Sie nicht, rufen Sie noch heute an",
+    contactTitle1: "Vereinbaren Sie eine ",
+    contactTitle2: "Besichtigung",
+    contactSub: "Eine Immobilie mit diesem Potenzial und zu diesem Preis bleibt nicht lange auf dem Markt.",
+    contactInfo: [
+      { label: "Telefon", value: "+420 737 373 430" },
+      { label: "E-Mail", value: "info@vilavysokeveseli.cz" },
+      { label: "Standort", value: "1. máje, Vysoké Veselí" },
+    ],
+    contactName: "Vor- und Nachname",
+    contactPhone: "Telefon",
+    contactEmail: "E-Mail",
+    contactMessage: "Ihre Nachricht — Ich möchte eine Besichtigung vereinbaren...",
+    contactSend: "Nachricht senden",
+    contactThanks: "Vielen Dank für Ihr Interesse",
+    contactThanksDesc: "Wir melden uns so schnell wie möglich.",
+    footerRights: "© 2026 · Alle Rechte vorbehalten",
+    stickyPrice: "13.950.000 CZK",
+    stickyBadge: "AKTIONSPREIS",
+    stickyReady: "Sofort bezugsfertig",
+    stickyCta: "Besichtigung vereinbaren",
+    marquee: "  ✦  Sofort bezugsfertig  ✦  Direktverkauf ohne Makler  ✦  Aktionspreis  ✦  Grundstück 6.748 m²  ✦  6 Hütten inklusive  ✦  Solarpanele  ✦  Pool  ✦  Sofort bezugsfertig  ✦  Direktverkauf ohne Makler  ✦  Aktionspreis  ✦  Grundstück 6.748 m²  ✦  6 Hütten inklusive  ✦  Solarpanele  ✦  Pool  ",
+    splashTitle: "Vila Vysoké Veselí",
+  },
+};
+
+const LangContext = createContext("cs");
+
+function useLang() {
+  const lang = useContext(LangContext);
+  return T[lang];
+}
+
 // Images loaded inline
 
 const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -41,8 +370,27 @@ function useInView(threshold = 0.12) {
   return [ref, v];
 }
 
+// ─── LANG SWITCHER ───
+function LangSwitcher({ lang, setLang }) {
+  const langs = ["cs", "en", "de"];
+  return (
+    <div style={{ display: "flex", gap: 2, marginLeft: 16 }}>
+      {langs.map(l => (
+        <span key={l} onClick={() => setLang(l)} style={{
+          fontFamily: SANS, fontSize: 10, fontWeight: lang === l ? 600 : 400,
+          color: lang === l ? "#fff" : "rgba(255,255,255,0.4)",
+          cursor: "pointer", padding: "4px 7px", letterSpacing: 1,
+          textTransform: "uppercase", transition: "all 0.3s",
+          borderBottom: lang === l ? `1px solid ${GOLD}` : "1px solid transparent",
+        }}>{l}</span>
+      ))}
+    </div>
+  );
+}
+
 // ─── NAV ───
-function Nav() {
+function Nav({ lang, setLang }) {
+  const t = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -50,15 +398,6 @@ function Nav() {
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
-
-  const links = [
-    { id: "about", label: "O vile" },
-    { id: "gallery", label: "Galerie" },
-    { id: "params", label: "Parametry" },
-    { id: "potential", label: "Potenciál" },
-    { id: "location", label: "Lokalita" },
-    { id: "contact", label: "Kontakt" },
-  ];
 
   return (
     <>
@@ -77,7 +416,7 @@ function Nav() {
         }}>Vila Veselí</div>
 
         <div style={{ display: "flex", gap: 28, alignItems: "center" }} className="nd">
-          {links.map(l => (
+          {t.navLinks.map(l => (
             <span key={l.id} onClick={() => scrollTo(l.id)} style={{
               fontFamily: SANS, fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.6)",
               letterSpacing: 2.5, textTransform: "uppercase", cursor: "pointer", transition: "color 0.3s",
@@ -91,14 +430,18 @@ function Nav() {
             transition: "all 0.3s",
           }} onMouseEnter={e => { e.target.style.background = GOLD; e.target.style.color = "#fff"; }}
             onMouseLeave={e => { e.target.style.background = "#fff"; e.target.style.color = DARK; }}>
-            Prohlídka
+            {t.navCta}
           </span>
+          <LangSwitcher lang={lang} setLang={setLang} />
         </div>
 
-        <div onClick={() => setOpen(!open)} style={{ display: "none", flexDirection: "column", gap: 5, cursor: "pointer", zIndex: 1001 }} className="nb">
-          <span style={{ width: 26, height: 1.5, background: "#fff", transition: "all 0.3s", transform: open ? "rotate(45deg) translate(4.5px,4.5px)" : "none" }} />
-          <span style={{ width: 26, height: 1.5, background: "#fff", transition: "all 0.3s", opacity: open ? 0 : 1 }} />
-          <span style={{ width: 26, height: 1.5, background: "#fff", transition: "all 0.3s", transform: open ? "rotate(-45deg) translate(4.5px,-4.5px)" : "none" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }} className="nb-wrap">
+          <LangSwitcher lang={lang} setLang={setLang} />
+          <div onClick={() => setOpen(!open)} style={{ display: "none", flexDirection: "column", gap: 5, cursor: "pointer", zIndex: 1001 }} className="nb">
+            <span style={{ width: 26, height: 1.5, background: "#fff", transition: "all 0.3s", transform: open ? "rotate(45deg) translate(4.5px,4.5px)" : "none" }} />
+            <span style={{ width: 26, height: 1.5, background: "#fff", transition: "all 0.3s", opacity: open ? 0 : 1 }} />
+            <span style={{ width: 26, height: 1.5, background: "#fff", transition: "all 0.3s", transform: open ? "rotate(-45deg) translate(4.5px,-4.5px)" : "none" }} />
+          </div>
         </div>
       </nav>
 
@@ -106,20 +449,24 @@ function Nav() {
         position: "fixed", inset: 0, zIndex: 999, background: "rgba(11,11,11,0.97)",
         display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 28,
       }}>
-        {links.map(l => (
+        {t.navLinks.map(l => (
           <span key={l.id} onClick={() => { scrollTo(l.id); setOpen(false); }} style={{
             fontFamily: SERIF, fontSize: 26, color: "#fff", cursor: "pointer", letterSpacing: 3,
           }}>{l.label}</span>
         ))}
       </div>}
 
-      <style>{`@media(max-width:768px){.nd{display:none!important}.nb{display:flex!important}}`}</style>
+      <style>{`
+        .nb-wrap{display:none}
+        @media(max-width:768px){.nd{display:none!important}.nb-wrap{display:flex!important}.nb{display:flex!important}}
+      `}</style>
     </>
   );
 }
 
 // ─── HERO ───
 function Hero({ ready }) {
+  const t = useLang();
   const [loaded, setLoaded] = useState(false);
   const videoRef = useRef(null);
 
@@ -161,7 +508,7 @@ function Hero({ ready }) {
         }}>
           <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#4ade80", animation: "blink 2s ease-in-out infinite" }} />
           <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 3, color: "rgba(255,255,255,0.7)", textTransform: "uppercase", fontWeight: 500 }}>
-            Právě v prodeji
+            {t.heroBadge}
           </span>
         </div>
 
@@ -177,8 +524,8 @@ function Hero({ ready }) {
               fontFamily: SERIF, fontWeight: 300, color: "#fff",
               fontSize: "clamp(38px,7.5vw,96px)", lineHeight: 1.05, margin: 0, letterSpacing: 1,
             }}>
-              Vila ve<br />
-              <span style={{ fontStyle: "italic", fontWeight: 400, color: GOLD }}>Vysokém Veselí</span>
+              {t.heroTitle1}<br />
+              <span style={{ fontStyle: "italic", fontWeight: 400, color: GOLD }}>{t.heroTitle2}</span>
             </h1>
           </div>
           <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.25)", maxWidth: 180 }} />
@@ -189,10 +536,8 @@ function Hero({ ready }) {
           marginTop: 28, letterSpacing: 5, textTransform: "uppercase", fontWeight: 300,
           opacity: loaded ? 1 : 0, transition: "opacity 1.2s ease 1s",
         }}>
-          400 m² · Pozemek 6 748 m²
+          {t.heroSub}
         </p>
-
-
 
         <div onClick={() => scrollTo("about")} style={{
           position: "absolute", bottom: 44, left: "50%", transform: "translateX(-50%)",
@@ -211,7 +556,7 @@ function Hero({ ready }) {
           <span style={{
             fontFamily: SANS, fontSize: 9, color: "rgba(255,255,255,0.4)",
             letterSpacing: 4, textTransform: "uppercase",
-          }}>Scrollujte dolů</span>
+          }}>{t.heroScroll}</span>
         </div>
       </div>
       <style>{`@keyframes sp{0%,100%{opacity:1;transform:translateY(0)}50%{opacity:.2;transform:translateY(6px)}}@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}`}</style>
@@ -221,6 +566,7 @@ function Hero({ ready }) {
 
 // ─── ABOUT ───
 function About() {
+  const t = useLang();
   const [ref, vis] = useInView();
   return (
     <section id="about" ref={ref} style={{ background: "#f4f6f2", padding: "clamp(64px,10vw,140px) clamp(20px,6vw,100px)" }}>
@@ -231,23 +577,19 @@ function About() {
       }} className="ag">
         <div>
           <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>
-            Exkluzivní nabídka · Ihned k nastěhování
+            {t.aboutTag}
           </span>
           <h2 style={{
             fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300,
             color: "#1a1a1a", margin: "14px 0 24px", lineHeight: 1.2,
           }}>
-            Cihlová vila s <span style={{ fontStyle: "italic" }}>výjimečným potenciálem</span>
+            {t.aboutTitle1}<span style={{ fontStyle: "italic" }}>{t.aboutTitle2}</span>
           </h2>
           <p style={{ fontFamily: SANS, fontSize: 15, lineHeight: 1.85, color: "#666", fontWeight: 300, maxWidth: 520 }}>
-            Unikátní cihlová vila v osobním vlastnictví ve Vysokém Veselí. Nemovitost o zastavěné ploše 
-            400 m² se nachází na výjimečně prostorném pozemku o rozloze 6 748 m² a je ve velmi dobrém 
-            stavu, připravená k okamžitému nastěhování.
+            {t.aboutP1}
           </p>
           <p style={{ fontFamily: SANS, fontSize: 15, lineHeight: 1.85, color: "#666", fontWeight: 300, maxWidth: 520, marginTop: 16 }}>
-            Na pozemku se nachází 6 samostatných chatek — ideální pro pořádání dětských táborů, 
-            skupinových pobytů či jiných volnočasových aktivit. Nemovitost nabízí garáž, sklep 20 m², 
-            balkón a terasu s výhledem do okolní přírody.
+            {t.aboutP2}
           </p>
           <div style={{
             display: "inline-flex", alignItems: "center", gap: 10, marginTop: 28,
@@ -257,7 +599,7 @@ function About() {
             onMouseEnter={e => { e.currentTarget.style.background = GOLD; e.currentTarget.style.color = "#fff"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = DARK; }}>
             <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 3, textTransform: "uppercase", fontWeight: 500 }}>
-              Domluvit prohlídku
+              {t.aboutCta}
             </span>
             <span style={{ fontSize: 16 }}>→</span>
           </div>
@@ -270,9 +612,9 @@ function About() {
           <div style={{
             position: "absolute", bottom: -16, left: -16, background: GOLD, padding: "18px 26px",
           }} className="ab">
-            <span style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 600, color: "#fff", display: "block" }}>13 950 000 Kč</span>
+            <span style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 600, color: "#fff", display: "block" }}>{t.aboutPrice}</span>
             <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 3, color: "rgba(255,255,255,0.75)", textTransform: "uppercase" }}>
-              Akční cena · Přímý prodej
+              {t.aboutPriceSub}
             </span>
           </div>
         </div>
@@ -284,32 +626,18 @@ function About() {
 
 // ─── GALLERY ───
 function Gallery() {
+  const t = useLang();
   const [ref, vis] = useInView(0.08);
   const [active, setActive] = useState(0);
   const [lightbox, setLightbox] = useState(null);
   const [tab, setTab] = useState("all");
 
-  const photos = [
-    { src: IMGS[0], label: "Vila — letecký pohled", cat: "ext" },
-    { src: IMGS[1], label: "Pohled z boku", cat: "ext" },
-    { src: IMGS[2], label: "Čelní pohled", cat: "ext" },
-    { src: IMGS[3], label: "Pohled shora", cat: "ext" },
-    { src: IMGS[4], label: "Chatky a bazén", cat: "ext" },
-    { src: IMGS[5], label: "Ložnice", cat: "int" },
-    { src: IMGS[6], label: "Kuchyň", cat: "int" },
-    { src: IMGS[7], label: "Ložnice II", cat: "int" },
-    { src: IMGS[8], label: "Pokoj", cat: "int" },
-  ];
+  const cats = ["ext", "ext", "ext", "ext", "ext", "int", "int", "int", "int"];
+  const photos = IMGS.map((src, i) => ({ src, label: t.galleryPhotos[i], cat: cats[i] }));
 
   const filtered = tab === "all" ? photos : photos.filter(p => p.cat === tab);
-  const tabs = [
-    { id: "all", label: "Vše" },
-    { id: "ext", label: "Exteriér" },
-    { id: "int", label: "Interiér" },
-  ];
 
-  // Reset active when tab changes
-  const handleTab = (t) => { setTab(t); setActive(0); };
+  const handleTab = (tb) => { setTab(tb); setActive(0); };
 
   return (
     <section id="gallery" ref={ref} style={{ background: DARK, padding: "clamp(64px,10vw,100px) 0" }}>
@@ -317,28 +645,26 @@ function Gallery() {
         maxWidth: 1300, margin: "0 auto", padding: "0 clamp(16px,3vw,48px)",
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
       }}>
-        {/* Header + tabs */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 36, flexWrap: "wrap", gap: 20 }}>
           <div>
-            <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>Fotogalerie</span>
+            <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.galleryTag}</span>
             <h2 style={{ fontFamily: SERIF, fontSize: "clamp(28px,3.5vw,46px)", fontWeight: 300, color: "#fff", margin: "8px 0 0" }}>
-              Prohlédněte si <span style={{ fontStyle: "italic" }}>vilu</span>
+              {t.galleryTitle1}<span style={{ fontStyle: "italic" }}>{t.galleryTitle2}</span>
             </h2>
           </div>
           <div style={{ display: "flex", gap: 4 }}>
-            {tabs.map(t => (
-              <span key={t.id} onClick={() => handleTab(t.id)} style={{
+            {t.galleryTabs.map(tb => (
+              <span key={tb.id} onClick={() => handleTab(tb.id)} style={{
                 fontFamily: SANS, fontSize: 11, letterSpacing: 2, textTransform: "uppercase",
                 padding: "10px 20px", cursor: "pointer", transition: "all 0.3s",
-                color: tab === t.id ? "#fff" : "rgba(255,255,255,0.35)",
-                background: tab === t.id ? "rgba(255,255,255,0.08)" : "transparent",
-                border: tab === t.id ? `1px solid rgba(255,255,255,0.1)` : "1px solid transparent",
-              }}>{t.label}</span>
+                color: tab === tb.id ? "#fff" : "rgba(255,255,255,0.35)",
+                background: tab === tb.id ? "rgba(255,255,255,0.08)" : "transparent",
+                border: tab === tb.id ? `1px solid rgba(255,255,255,0.1)` : "1px solid transparent",
+              }}>{tb.label}</span>
             ))}
           </div>
         </div>
 
-        {/* Main featured image */}
         <div onClick={() => setLightbox(active)} style={{
           width: "100%", aspectRatio: "21/10", overflow: "hidden", cursor: "zoom-in",
           position: "relative", marginBottom: 4,
@@ -360,7 +686,6 @@ function Gallery() {
               {active + 1} / {filtered.length}
             </span>
           </div>
-          {/* Nav arrows on featured */}
           {filtered.length > 1 && <>
             <div onClick={e => { e.stopPropagation(); setActive((active - 1 + filtered.length) % filtered.length); }}
               style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "15%", cursor: "w-resize",
@@ -383,7 +708,6 @@ function Gallery() {
           </>}
         </div>
 
-        {/* Thumbnail strip */}
         <div style={{
           display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4,
           scrollbarWidth: "none",
@@ -404,7 +728,6 @@ function Gallery() {
         </div>
       </div>
 
-      {/* Lightbox */}
       {lightbox !== null && (
         <div onClick={() => setLightbox(null)} style={{
           position: "fixed", inset: 0, zIndex: 2000, background: "rgba(0,0,0,0.94)",
@@ -413,7 +736,7 @@ function Gallery() {
         }}>
           <img src={filtered[lightbox]?.src} style={{ maxWidth: "92vw", maxHeight: "88vh", objectFit: "contain" }} />
           <div style={{ position: "absolute", top: 20, right: 24, fontFamily: SANS, fontSize: 13, color: "#fff", cursor: "pointer", letterSpacing: 3 }}>
-            ZAVŘÍT ✕
+            {t.galleryClose}
           </div>
           <div onClick={e => { e.stopPropagation(); setLightbox((lightbox - 1 + filtered.length) % filtered.length); }}
             style={{ position: "absolute", left: 20, top: "50%", transform: "translateY(-50%)", color: "#fff", fontSize: 40, cursor: "pointer", padding: 20, userSelect: "none" }}>‹</div>
@@ -432,18 +755,8 @@ function Gallery() {
 
 // ─── PARAMS ───
 function Params() {
+  const t = useLang();
   const [ref, vis] = useInView();
-  const stats = [
-    { value: "400", unit: "m²", label: "Zastavěná plocha" },
-    { value: "6 748", unit: "m²", label: "Pozemek" },
-    { value: "6", unit: "", label: "Chatek na pozemku" },
-    { value: "20", unit: "m²", label: "Sklep" },
-  ];
-  const features = [
-    "Cihlová stavba", "Osobní vlastnictví", "Garáž + venkovní parkování",
-    "Balkón 10 m²", "Terasa 10 m²", "Sklep 20 m²",
-    "Solární panely", "Bazén se zastřešením", "6 samostatných chatek",
-  ];
 
   return (
     <section id="params" ref={ref} style={{ background: "#f4f6f2", padding: "clamp(64px,10vw,120px) clamp(20px,6vw,100px)" }}>
@@ -452,14 +765,14 @@ function Params() {
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
       }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>Specifikace</span>
+          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.paramsTag}</span>
           <h2 style={{ fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300, color: "#1a1a1a", margin: "12px 0 0" }}>
-            Parametry <span style={{ fontStyle: "italic" }}>nemovitosti</span>
+            {t.paramsTitle1}<span style={{ fontStyle: "italic" }}>{t.paramsTitle2}</span>
           </h2>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 3, marginBottom: 56 }} className="sg">
-          {stats.map((s, i) => (
+          {t.paramsStats.map((s, i) => (
             <div key={i} style={{
               background: DARK, padding: "clamp(28px,3vw,48px) 20px", textAlign: "center",
               opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(16px)",
@@ -476,7 +789,7 @@ function Params() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "rgba(0,0,0,0.06)" }} className="fg">
-          {features.map((f, i) => (
+          {t.paramsFeatures.map((f, i) => (
             <div key={i} style={{ background: "#f4f6f2", padding: "22px 24px", display: "flex", alignItems: "center", gap: 12 }}>
               <div style={{ width: 7, height: 7, background: GOLD, borderRadius: "50%", flexShrink: 0 }} />
               <span style={{ fontFamily: SANS, fontSize: 13.5, fontWeight: 400, color: "#444" }}>{f}</span>
@@ -492,18 +805,18 @@ function Params() {
             position: "absolute", top: 12, right: 16,
             fontFamily: SANS, fontSize: 9, letterSpacing: 2, color: "#fff",
             background: "#c0392b", padding: "5px 14px", textTransform: "uppercase", fontWeight: 600,
-          }}>Akční cena</div>
+          }}>{t.paramsActionBadge}</div>
           <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>
-            Cena nemovitosti
+            {t.paramsPriceTag}
           </span>
           <div style={{ fontFamily: SERIF, fontSize: "clamp(38px,5.5vw,68px)", fontWeight: 300, color: "#fff", marginTop: 10 }}>
-            13 950 000 <span style={{ fontSize: "0.45em", color: "rgba(255,255,255,0.4)" }}>Kč</span>
+            {t.paramsPrice} <span style={{ fontSize: "0.45em", color: "rgba(255,255,255,0.4)" }}>{t.paramsPriceCurrency}</span>
           </div>
           <p style={{ fontFamily: SANS, fontSize: 12, color: "rgba(255,255,255,0.4)", marginTop: 8, letterSpacing: 2 }}>
-            Přímý prodej · Bez provize RK · Osobní vlastnictví
+            {t.paramsPriceSub}
           </p>
           <p style={{ fontFamily: SANS, fontSize: 13, color: "rgba(255,255,255,0.55)", marginTop: 16 }}>
-            Hypotéka již od 57 144 Kč / měsíc
+            {t.paramsMortgage}
           </p>
           <div onClick={() => scrollTo("contact")} style={{
             display: "inline-flex", alignItems: "center", gap: 8,
@@ -513,7 +826,7 @@ function Params() {
             onMouseEnter={e => e.currentTarget.style.background = "#576a4a"}
             onMouseLeave={e => e.currentTarget.style.background = GOLD}>
             <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 3, textTransform: "uppercase", fontWeight: 500, color: "#fff" }}>
-              Mám zájem o prohlídku
+              {t.paramsCta}
             </span>
             <span style={{ color: "#fff", fontSize: 14 }}>→</span>
           </div>
@@ -526,6 +839,7 @@ function Params() {
 
 // ─── POTENTIAL ───
 function Potential() {
+  const t = useLang();
   const [ref, vis] = useInView();
   const svgStyle = { width: 36, height: 36, stroke: "#fff", strokeWidth: 1.5, fill: "none", strokeLinecap: "round", strokeLinejoin: "round" };
   const icons = [
@@ -533,12 +847,6 @@ function Potential() {
     <svg viewBox="0 0 24 24" style={svgStyle}><path d="M12 2L4 8v12h16V8z"/><path d="M9 22V12h6v10"/><path d="M2 22h20"/><circle cx="12" cy="7" r="1.5"/></svg>,
     <svg viewBox="0 0 24 24" style={svgStyle}><circle cx="12" cy="6" r="3"/><path d="M12 9v4"/><path d="M8 17c0-2.2 1.8-4 4-4s4 1.8 4 4"/><path d="M7 21l2-4"/><path d="M17 21l-2-4"/><path d="M12 13v8"/></svg>,
     <svg viewBox="0 0 24 24" style={svgStyle}><path d="M2 8l10-5 10 5-10 5z"/><path d="M6 10.5v5.5l6 3 6-3v-5.5"/><path d="M22 8v8"/></svg>,
-  ];
-  const items = [
-    { icon: icons[0], title: "Rodinné sídlo", desc: "Prostorná vila ideální pro velkou rodinu s dostatkem soukromí a vlastní zahradou." },
-    { icon: icons[1], title: "Dětské tábory", desc: "6 chatek na pozemku vytváří zázemí pro organizaci letních táborů a pobytů." },
-    { icon: icons[2], title: "Wellness retreat", desc: "Klidné prostředí a rozlehlý pozemek nabízí potenciál pro rekreační či wellness provoz." },
-    { icon: icons[3], title: "Investice", desc: "Atraktivní poměr ceny a rozlohy pozemku s možností dalšího rozvoje." },
   ];
 
   return (
@@ -556,21 +864,21 @@ function Potential() {
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
       }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>Možnosti využití</span>
+          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.potentialTag}</span>
           <h2 style={{ fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300, color: "#fff", margin: "12px 0 0" }}>
-            Výjimečný <span style={{ fontStyle: "italic" }}>potenciál</span>
+            {t.potentialTitle1}<span style={{ fontStyle: "italic" }}>{t.potentialTitle2}</span>
           </h2>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2 }} className="pg">
-          {items.map((item, i) => (
+          {t.potentialItems.map((item, i) => (
             <div key={i} style={{
               background: "rgba(255,255,255,0.03)", padding: "clamp(28px,3vw,44px) 24px",
               borderTop: `2px solid ${GOLD}`, textAlign: "center",
               transition: "background 0.3s",
             }} onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.06)"}
               onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.03)"}>
-              <div style={{ marginBottom: 16, display: "flex", justifyContent: "center" }}>{item.icon}</div>
+              <div style={{ marginBottom: 16, display: "flex", justifyContent: "center" }}>{icons[i]}</div>
               <h3 style={{ fontFamily: SERIF, fontSize: 22, fontWeight: 400, color: "#fff", marginBottom: 12 }}>{item.title}</h3>
               <p style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.7, color: "rgba(255,255,255,0.5)", fontWeight: 300 }}>{item.desc}</p>
             </div>
@@ -584,7 +892,18 @@ function Potential() {
 
 // ─── LOCATION ───
 function Location() {
+  const t = useLang();
   const [ref, vis] = useInView();
+  const s = { width: 20, height: 20, stroke: "#999", strokeWidth: 1.5, fill: "none", strokeLinecap: "round", strokeLinejoin: "round", flexShrink: 0 };
+  const locIcons = [
+    <svg viewBox="0 0 24 24" style={s}><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>,
+    <svg viewBox="0 0 24 24" style={s}><path d="M5 17h14M5 17l-1 3h16l-1-3M7 17V9l2-4h6l2 4v8"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/></svg>,
+    <svg viewBox="0 0 24 24" style={s}><rect x="3" y="10" width="6" height="11"/><rect x="9" y="4" width="6" height="17"/><rect x="15" y="8" width="6" height="13"/></svg>,
+    <svg viewBox="0 0 24 24" style={s}><path d="M4 20L8 10l4 6 4-8 4 12"/></svg>,
+    <svg viewBox="0 0 24 24" style={s}><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>,
+    <svg viewBox="0 0 24 24" style={s}><path d="M4 17V9h4l3-4h2l3 4h4v8"/><path d="M2 17h20"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/></svg>,
+  ];
+
   return (
     <section id="location" ref={ref} style={{ background: "#f4f6f2", padding: "clamp(64px,10vw,120px) clamp(20px,6vw,100px)" }}>
       <div style={{
@@ -592,9 +911,9 @@ function Location() {
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
       }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>Kde nás najdete</span>
+          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.locationTag}</span>
           <h2 style={{ fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300, color: "#1a1a1a", margin: "12px 0 0" }}>
-            Vysoké Veselí, <span style={{ fontStyle: "italic" }}>okres Jičín</span>
+            {t.locationTitle1}<span style={{ fontStyle: "italic" }}>{t.locationTitle2}</span>
           </h2>
         </div>
 
@@ -608,27 +927,15 @@ function Location() {
           </div>
           <div>
             <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: "#666", fontWeight: 300, marginBottom: 28 }}>
-              Vysoké Veselí se nachází v malebném Královéhradeckém kraji, v blízkosti Českého ráje. 
-              Klidná lokalita s výbornou dostupností do Jičína i Hradce Králové.
+              {t.locationDesc}
             </p>
-            {(() => {
-              const s = { width: 20, height: 20, stroke: "#999", strokeWidth: 1.5, fill: "none", strokeLinecap: "round", strokeLinejoin: "round", flexShrink: 0 };
-              const locItems = [
-                { icon: <svg viewBox="0 0 24 24" style={s}><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>, label: "Adresa", value: "1. máje, Vysoké Veselí" },
-                { icon: <svg viewBox="0 0 24 24" style={s}><path d="M5 17h14M5 17l-1 3h16l-1-3M7 17V9l2-4h6l2 4v8"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/></svg>, label: "Praha", value: "cca 80 km" },
-                { icon: <svg viewBox="0 0 24 24" style={s}><rect x="3" y="10" width="6" height="11"/><rect x="9" y="4" width="6" height="17"/><rect x="15" y="8" width="6" height="13"/></svg>, label: "Hradec Králové", value: "cca 45 km" },
-                { icon: <svg viewBox="0 0 24 24" style={s}><path d="M4 20L8 10l4 6 4-8 4 12"/></svg>, label: "Český ráj", value: "15 min" },
-                { icon: <svg viewBox="0 0 24 24" style={s}><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>, label: "Jičín — služby, školy", value: "10 min" },
-                { icon: <svg viewBox="0 0 24 24" style={s}><path d="M4 17V9h4l3-4h2l3 4h4v8"/><path d="M2 17h20"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/></svg>, label: "MHD zastávka", value: "3 min pěšky" },
-              ];
-              return locItems;
-            })().map((item, i) => (
+            {t.locationItems.map((item, i) => (
               <div key={i} style={{
                 display: "flex", justifyContent: "space-between", alignItems: "center",
                 padding: "16px 0", borderBottom: "1px solid rgba(0,0,0,0.06)",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  {item.icon}
+                  {locIcons[i]}
                   <span style={{ fontFamily: SANS, fontSize: 13.5, color: "#888" }}>{item.label}</span>
                 </div>
                 <span style={{ fontFamily: SANS, fontSize: 13.5, color: "#333", fontWeight: 500 }}>{item.value}</span>
@@ -644,6 +951,7 @@ function Location() {
 
 // ─── CONTACT ───
 function Contact() {
+  const t = useLang();
   const [ref, vis] = useInView();
   const [sent, setSent] = useState(false);
 
@@ -660,21 +968,17 @@ function Contact() {
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
       }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>Nečekejte, zavolejte ještě dnes</span>
+          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.contactTag}</span>
           <h2 style={{ fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300, color: "#fff", margin: "12px 0 0" }}>
-            Domluvte si <span style={{ fontStyle: "italic" }}>prohlídku</span>
+            {t.contactTitle1}<span style={{ fontStyle: "italic" }}>{t.contactTitle2}</span>
           </h2>
           <p style={{ fontFamily: SANS, fontSize: 13, color: "rgba(255,255,255,0.4)", marginTop: 12, maxWidth: 480, marginLeft: "auto", marginRight: "auto" }}>
-            Nemovitost s tímto potenciálem a za tuto cenu se na trhu dlouho neudrží.
+            {t.contactSub}
           </p>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 28, marginBottom: 44, textAlign: "center" }} className="ci">
-          {[
-            { label: "Telefon", value: "+420 737 373 430" },
-            { label: "Email", value: "info@vilavysokeveseli.cz" },
-            { label: "Lokalita", value: "1. máje, Vysoké Veselí" },
-          ].map((c, i) => (
+          {t.contactInfo.map((c, i) => (
             <div key={i}>
               <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 3, color: GOLD, textTransform: "uppercase", marginBottom: 6 }}>{c.label}</div>
               <div style={{ fontFamily: SANS, fontSize: 14, color: "rgba(255,255,255,0.7)" }}>{c.value}</div>
@@ -684,13 +988,13 @@ function Contact() {
 
         {!sent ? (
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }} className="cf">
-            <input placeholder="Jméno a příjmení" style={inputStyle}
+            <input placeholder={t.contactName} style={inputStyle}
               onFocus={e => e.target.style.borderColor = GOLD} onBlur={e => e.target.style.borderColor = "rgba(0,0,0,0.08)"} />
-            <input placeholder="Telefon" style={inputStyle}
+            <input placeholder={t.contactPhone} style={inputStyle}
               onFocus={e => e.target.style.borderColor = GOLD} onBlur={e => e.target.style.borderColor = "rgba(0,0,0,0.08)"} />
-            <input placeholder="Email" style={{ ...inputStyle, gridColumn: "span 2" }} className="cfs"
+            <input placeholder={t.contactEmail} style={{ ...inputStyle, gridColumn: "span 2" }} className="cfs"
               onFocus={e => e.target.style.borderColor = GOLD} onBlur={e => e.target.style.borderColor = "rgba(0,0,0,0.08)"} />
-            <textarea placeholder="Vaše zpráva — rád/a bych si domluvil/a prohlídku..." rows={5}
+            <textarea placeholder={t.contactMessage} rows={5}
               style={{ ...inputStyle, resize: "vertical", gridColumn: "span 2" }} className="cfs"
               onFocus={e => e.target.style.borderColor = GOLD} onBlur={e => e.target.style.borderColor = "rgba(0,0,0,0.08)"} />
             <button onClick={() => setSent(true)} style={{
@@ -700,14 +1004,14 @@ function Contact() {
             }} className="cfs"
               onMouseEnter={e => e.target.style.background = "#576a4a"}
               onMouseLeave={e => e.target.style.background = GOLD}>
-              Odeslat zprávu
+              {t.contactSend}
             </button>
           </div>
         ) : (
           <div style={{ textAlign: "center", padding: 48, border: "1px solid rgba(255,255,255,0.06)" }}>
             <div style={{ fontSize: 32, marginBottom: 14, color: GOLD }}>✓</div>
-            <p style={{ fontFamily: SERIF, fontSize: 24, color: "#fff", fontWeight: 300 }}>Děkujeme za váš zájem</p>
-            <p style={{ fontFamily: SANS, fontSize: 13, color: "rgba(255,255,255,0.5)", marginTop: 8 }}>Ozveme se vám co nejdříve.</p>
+            <p style={{ fontFamily: SERIF, fontSize: 24, color: "#fff", fontWeight: 300 }}>{t.contactThanks}</p>
+            <p style={{ fontFamily: SANS, fontSize: 13, color: "rgba(255,255,255,0.5)", marginTop: 8 }}>{t.contactThanksDesc}</p>
           </div>
         )}
       </div>
@@ -718,6 +1022,7 @@ function Contact() {
 
 // ─── FOOTER ───
 function Footer() {
+  const t = useLang();
   return (
     <footer style={{ background: DARK, padding: "40px clamp(20px,6vw,100px) 28px", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
       <div style={{
@@ -725,7 +1030,7 @@ function Footer() {
         display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12,
       }}>
         <span style={{ fontFamily: SERIF, fontSize: 18, fontWeight: 400, color: "rgba(255,255,255,0.6)", letterSpacing: 2 }}>VILA VESELÍ</span>
-        <span style={{ fontFamily: SANS, fontSize: 11, color: "rgba(255,255,255,0.2)", letterSpacing: 1 }}>© 2026 · Všechna práva vyhrazena</span>
+        <span style={{ fontFamily: SANS, fontSize: 11, color: "rgba(255,255,255,0.2)", letterSpacing: 1 }}>{t.footerRights}</span>
       </div>
     </footer>
   );
@@ -733,6 +1038,7 @@ function Footer() {
 
 // ─── STICKY CTA BAR ───
 function StickyBar() {
+  const t = useLang();
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const h = () => {
@@ -755,9 +1061,9 @@ function StickyBar() {
     }} className="sbar">
       <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
         <div>
-          <span style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 400, color: "#fff" }}>13 950 000 Kč</span>
+          <span style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 400, color: "#fff" }}>{t.stickyPrice}</span>
           <span style={{ fontFamily: SANS, fontSize: 10, color: "rgba(255,255,255,0.4)", marginLeft: 10, letterSpacing: 1 }}>
-            AKČNÍ CENA
+            {t.stickyBadge}
           </span>
         </div>
       </div>
@@ -765,7 +1071,7 @@ function StickyBar() {
         <span style={{
           fontFamily: SANS, fontSize: 11, color: "rgba(255,255,255,0.5)", letterSpacing: 1,
           display: "none",
-        }} className="sbar-txt">Ihned k nastěhování</span>
+        }} className="sbar-txt">{t.stickyReady}</span>
         <span onClick={() => scrollTo("contact")} style={{
           fontFamily: SANS, fontSize: 11, fontWeight: 500, letterSpacing: 2,
           textTransform: "uppercase", padding: "11px 24px",
@@ -773,7 +1079,7 @@ function StickyBar() {
         }}
           onMouseEnter={e => e.target.style.background = "#576a4a"}
           onMouseLeave={e => e.target.style.background = GOLD}>
-          Domluvit prohlídku
+          {t.stickyCta}
         </span>
       </div>
       <style>{`@media(min-width:640px){.sbar-txt{display:block!important}}`}</style>
@@ -784,6 +1090,7 @@ function StickyBar() {
 // ─── APP ───
 export default function App() {
   const [phase, setPhase] = useState(0);
+  const [lang, setLang] = useState("cs");
   // 0 = dark, 1 = text fades in, 2 = line draws, 3 = fade out splash, 4 = site visible
 
   useEffect(() => {
@@ -794,88 +1101,87 @@ export default function App() {
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
   }, []);
 
+  const t = T[lang];
+
   return (
-    <div style={{ margin: 0, padding: 0, background: DARK, overflowX: "hidden" }}>
-      {/* Splash screen */}
-      {phase < 4 && (
-        <div style={{
-          position: "fixed", inset: 0, zIndex: 9999,
-          background: "#0f1a15",
-          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-          opacity: phase >= 3 ? 0 : 1,
-          transition: "opacity 0.8s ease",
-        }}>
-          {/* Decorative icon - simple house/villa line art */}
-          <svg viewBox="0 0 60 50" style={{
-            width: 56, height: 46, stroke: GOLD, strokeWidth: 1.2, fill: "none",
-            strokeLinecap: "round", strokeLinejoin: "round",
-            opacity: phase >= 1 ? 1 : 0,
-            transform: phase >= 1 ? "translateY(0)" : "translateY(12px)",
-            transition: "all 1s cubic-bezier(0.22,1,0.36,1)",
-            marginBottom: 24,
-          }}>
-            <path d="M5 25 L30 8 L55 25" />
-            <path d="M10 25 L10 45 L50 45 L50 25" />
-            <path d="M22 45 L22 32 L38 32 L38 45" />
-            <path d="M15 20 L15 12 L22 12 L22 17" />
-          </svg>
-
-          {/* Title + underline */}
+    <LangContext.Provider value={lang}>
+      <div style={{ margin: 0, padding: 0, background: DARK, overflowX: "hidden" }}>
+        {/* Splash screen */}
+        {phase < 4 && (
           <div style={{
-            display: "inline-flex", flexDirection: "column", alignItems: "center",
-            opacity: phase >= 1 ? 1 : 0,
-            transform: phase >= 1 ? "translateY(0)" : "translateY(12px)",
-            transition: "all 1s cubic-bezier(0.22,1,0.36,1) 0.15s",
+            position: "fixed", inset: 0, zIndex: 9999,
+            background: "#0f1a15",
+            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+            opacity: phase >= 3 ? 0 : 1,
+            transition: "opacity 0.8s ease",
           }}>
-            <div style={{
-              fontFamily: SERIF, fontSize: "clamp(18px, 3vw, 28px)", fontWeight: 300,
-              color: "rgba(255,255,255,0.85)", letterSpacing: "clamp(8px, 1.5vw, 16px)",
-              textTransform: "uppercase", paddingBottom: 14,
+            <svg viewBox="0 0 60 50" style={{
+              width: 56, height: 46, stroke: GOLD, strokeWidth: 1.2, fill: "none",
+              strokeLinecap: "round", strokeLinejoin: "round",
+              opacity: phase >= 1 ? 1 : 0,
+              transform: phase >= 1 ? "translateY(0)" : "translateY(12px)",
+              transition: "all 1s cubic-bezier(0.22,1,0.36,1)",
+              marginBottom: 24,
             }}>
-              Vila Vysoké Veselí
-            </div>
-            {/* Animated underline - spans full text */}
+              <path d="M5 25 L30 8 L55 25" />
+              <path d="M10 25 L10 45 L50 45 L50 25" />
+              <path d="M22 45 L22 32 L38 32 L38 45" />
+              <path d="M15 20 L15 12 L22 12 L22 17" />
+            </svg>
+
             <div style={{
-              width: phase >= 2 ? "100%" : "0%", height: 1,
-              background: GOLD,
-              transition: "width 1s cubic-bezier(0.22,1,0.36,1)",
-            }} />
+              display: "inline-flex", flexDirection: "column", alignItems: "center",
+              opacity: phase >= 1 ? 1 : 0,
+              transform: phase >= 1 ? "translateY(0)" : "translateY(12px)",
+              transition: "all 1s cubic-bezier(0.22,1,0.36,1) 0.15s",
+            }}>
+              <div style={{
+                fontFamily: SERIF, fontSize: "clamp(18px, 3vw, 28px)", fontWeight: 300,
+                color: "rgba(255,255,255,0.85)", letterSpacing: "clamp(8px, 1.5vw, 16px)",
+                textTransform: "uppercase", paddingBottom: 14,
+              }}>
+                {t.splashTitle}
+              </div>
+              <div style={{
+                width: phase >= 2 ? "100%" : "0%", height: 1,
+                background: GOLD,
+                transition: "width 1s cubic-bezier(0.22,1,0.36,1)",
+              }} />
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Main site */}
-      <div style={{
-        opacity: phase >= 3 ? 1 : 0,
-        transition: "opacity 0.6s ease 0.2s",
-      }}>
-        <Nav />
-        <Hero ready={phase >= 4} />
-        <About />
-        <Gallery />
-        {/* Urgency marquee strip */}
+        {/* Main site */}
         <div style={{
-          background: GOLD, padding: "14px 0", overflow: "hidden", whiteSpace: "nowrap",
+          opacity: phase >= 3 ? 1 : 0,
+          transition: "opacity 0.6s ease 0.2s",
         }}>
+          <Nav lang={lang} setLang={setLang} />
+          <Hero ready={phase >= 4} />
+          <About />
+          <Gallery />
           <div style={{
-            display: "inline-block", animation: "marquee 20s linear infinite",
-            fontFamily: SANS, fontSize: 12, letterSpacing: 4, color: "#fff",
-            textTransform: "uppercase", fontWeight: 500,
+            background: GOLD, padding: "14px 0", overflow: "hidden", whiteSpace: "nowrap",
           }}>
-            {"  ✦  Ihned k nastěhování  ✦  Přímý prodej bez realitky  ✦  Akční cena  ✦  Pozemek 6 748 m²  ✦  6 chatek v ceně  ✦  Solární panely  ✦  Bazén  ✦  Ihned k nastěhování  ✦  Přímý prodej bez realitky  ✦  Akční cena  ✦  Pozemek 6 748 m²  ✦  6 chatek v ceně  ✦  Solární panely  ✦  Bazén  "}
+            <div style={{
+              display: "inline-block", animation: "marquee 20s linear infinite",
+              fontFamily: SANS, fontSize: 12, letterSpacing: 4, color: "#fff",
+              textTransform: "uppercase", fontWeight: 500,
+            }}>
+              {t.marquee}
+            </div>
           </div>
+          <Params />
+          <Potential />
+          <Location />
+          <Contact />
+          <Footer />
         </div>
-        <Params />
-        <Potential />
-        <Location />
-        <Contact />
-        <Footer />
+
+        <StickyBar />
+
+        <style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}`}</style>
       </div>
-
-      {/* Sticky bottom CTA bar */}
-      <StickyBar />
-
-      <style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}`}</style>
-    </div>
+    </LangContext.Provider>
   );
 }
