@@ -529,7 +529,7 @@ function Nav({ lang, setLang }) {
           <LangSwitcher lang={lang} setLang={setLang} />
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }} className="nb-wrap">
+        <div style={{ alignItems: "center", gap: 12 }} className="nb-wrap">
           <LangSwitcher lang={lang} setLang={setLang} />
           <div onClick={() => setOpen(!open)} style={{ display: "none", flexDirection: "column", gap: 5, cursor: "pointer", zIndex: 1001 }} className="nb">
             <span style={{ width: 26, height: 1.5, background: "#fff", transition: "all 0.3s", transform: open ? "rotate(45deg) translate(4.5px,4.5px)" : "none" }} />
