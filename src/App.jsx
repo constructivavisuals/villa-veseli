@@ -121,32 +121,20 @@ function Nav() {
 // ─── HERO ───
 function Hero() {
   const [loaded, setLoaded] = useState(false);
-  const [slide, setSlide] = useState(0);
 
   useEffect(() => { setTimeout(() => setLoaded(true), 200); }, []);
-  useEffect(() => {
-    const t = setInterval(() => setSlide(s => (s + 1) % 3), 6000);
-    return () => clearInterval(t);
-  }, []);
-
-  const heroImgs = [IMGS[0], IMGS[1], IMGS[2]];
 
   return (
     <section style={{ position: "relative", width: "100%", height: "100vh", minHeight: 600, overflow: "hidden", background: DARK }}>
-      {heroImgs.map((img, i) => (
-        <div key={i} style={{
-          position: "absolute", inset: 0,
-          opacity: slide === i ? 1 : 0,
-          transition: "opacity 1.8s ease",
-        }}>
-          <img src={img} style={{
-            width: "100%", height: "100%", objectFit: "cover",
-            filter: "brightness(0.38) saturate(0.9)",
-            transform: loaded ? "scale(1)" : "scale(1.08)",
-            transition: "transform 10s ease-out",
-          }} />
-        </div>
-      ))}
+      <video autoPlay muted loop playsInline style={{
+        position: "absolute", inset: 0,
+        width: "100%", height: "100%", objectFit: "cover",
+        filter: "brightness(0.38) saturate(0.9)",
+        transform: loaded ? "scale(1)" : "scale(1.08)",
+        transition: "transform 10s ease-out",
+      }}>
+        <source src="/images/video.mp4" type="video/mp4" />
+      </video>
 
       <div style={{
         position: "absolute", inset: 0,
@@ -197,19 +185,7 @@ function Hero() {
           400 m² · Pozemek 6 748 m²
         </p>
 
-        {/* Slide indicators */}
-        <div style={{
-          display: "flex", gap: 10, marginTop: 36,
-          opacity: loaded ? 1 : 0, transition: "opacity 1s ease 1.2s",
-        }}>
-          {[0,1,2].map(i => (
-            <div key={i} onClick={() => setSlide(i)} style={{
-              width: slide === i ? 32 : 8, height: 3, borderRadius: 2, cursor: "pointer",
-              background: slide === i ? GOLD : "rgba(255,255,255,0.3)",
-              transition: "all 0.5s ease",
-            }} />
-          ))}
-        </div>
+
 
         <div onClick={() => scrollTo("about")} style={{
           position: "absolute", bottom: 44, left: "50%", transform: "translateX(-50%)",
