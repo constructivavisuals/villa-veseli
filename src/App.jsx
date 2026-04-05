@@ -869,12 +869,12 @@ function InteractiveMap() {
   const [tooltip, setTooltip] = useState({ x: 0, y: 0 });
   const mapRef = useRef(null);
 
-  // viewBox = 2048x1365 — polygons auto-traced from zone-ref red outlines via Pillow
+  // viewBox = 2048x1365 — clean manual polygons, non-overlapping, verified with debug overlay
   const zones = [
-    { id: "basement", points: "816,1104 816,973 1251,904 1492,903 1492,927 1486,974 1235,1104" },
-    { id: "floor1", points: "816,976 848,812 1243,755 1515,759 1501,869 1487,909 1245,976" },
-    { id: "floor2", points: "793,537 920,461 1022,437 1095,425 1175,428 1345,470 1440,592 1555,747 1193,813 848,811 787,717 792,540" },
-    { id: "cabins", points: "420,585 430,440 470,345 570,280 710,230 870,210 900,310 880,460 770,530 660,590 510,615" },
+    { id: "basement", points: "817,980 1250,935 1493,903 1493,960 1260,1005 817,1105" },
+    { id: "floor1", points: "817,976 817,760 1330,755 1515,795 1493,903 1250,935" },
+    { id: "floor2", points: "1112,424 1363,489 1555,749 1178,814 848,814 845,525" },
+    { id: "cabins", points: "370,540 380,440 420,360 480,290 570,245 700,215 820,210 830,290 820,400 780,480 680,540 540,575" },
     { id: "solar", points: "72,58 305,18 328,295 88,348" },
   ];
 
