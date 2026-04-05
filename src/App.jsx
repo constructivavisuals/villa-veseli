@@ -854,12 +854,12 @@ function InteractiveMap() {
   const [tooltip, setTooltip] = useState({ x: 0, y: 0 });
   const mapRef = useRef(null);
 
-  // viewBox = 2048x1365 — measured directly from aerial-golden.jpg grid overlay
+  // viewBox = 2048x1365 — calibrated from live website screenshots
   const zones = [
-    { id: "basement", points: "1060,850 1470,810 1560,800 1560,870 1470,1020 1060,1060" },
-    { id: "floor1", points: "1060,850 1060,660 1470,620 1560,660 1560,800 1470,810" },
-    { id: "floor2", points: "1040,650 1200,480 1500,580 1560,440 1540,340 1200,320 990,380 980,520" },
-    { id: "cabins", points: "630,580 620,430 680,320 790,270 950,230 1010,320 980,460 900,540 750,590" },
+    { id: "basement", points: "1130,940 1500,900 1650,890 1650,955 1500,1040 1130,1070" },
+    { id: "floor1", points: "1130,940 1130,660 1490,625 1600,660 1650,890 1500,900" },
+    { id: "floor2", points: "1080,650 1230,480 1530,570 1600,430 1580,340 1230,320 1040,380 1030,520" },
+    { id: "cabins", points: "660,570 650,430 710,330 820,275 980,240 1040,330 1020,460 940,540 790,585" },
   ];
 
   const zoneImages = {
