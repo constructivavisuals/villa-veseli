@@ -913,8 +913,8 @@ function InteractiveMap() {
             filter: hovered ? "brightness(0.65)" : "brightness(1)",
             transition: "filter 0.4s ease",
           }} />
-          <svg viewBox="0 0 2048 1365" preserveAspectRatio="xMidYMid meet" style={{
-            position: "absolute", inset: 0, width: "100%", height: "100%",
+          <svg viewBox="0 0 2048 1365" preserveAspectRatio="none" style={{
+            position: "absolute", top: 0, left: 0, width: "100%", height: "100%",
           }}>
             {/* Bright overlay for hovered zone */}
             {hovered && (
@@ -927,6 +927,7 @@ function InteractiveMap() {
                 <image
                   href="/images/aerial-golden.jpg"
                   width="2048" height="1365"
+                  preserveAspectRatio="none"
                   clipPath={`url(#clip-${hovered})`}
                   style={{ filter: "brightness(1.15)" }}
                 />
