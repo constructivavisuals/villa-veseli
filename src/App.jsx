@@ -165,11 +165,6 @@ const T = {
         desc: "Každá chatka nabízí vlastní pokoj se dvěma lůžky a základním vybavením. Ideální pro pořádání dětských táborů, skupinových pobytů nebo pronájem.",
         extra: "Součástí areálu je bazén se zastřešením",
       },
-      solar: {
-        name: "Solární elektrárna",
-        title: "Solární elektrárna",
-        desc: "Fotovoltaická elektrárna na pozemku zajišťuje energetickou soběstačnost areálu a představuje dodatečný zdroj příjmů z prodeje přebytků do sítě.",
-      },
     },
     exploreCta: "Domluvit prohlídku",
     exploreClose: "Zavřít",
@@ -303,11 +298,6 @@ const T = {
         desc: "Each cabin offers its own room with two beds and basic amenities. Ideal for organizing children's camps, group stays, or rental.",
         extra: "The grounds include a covered swimming pool",
       },
-      solar: {
-        name: "Solar power plant",
-        title: "Solar power plant",
-        desc: "The photovoltaic power plant on the property ensures energy self-sufficiency and represents an additional source of income from selling surplus energy to the grid.",
-      },
     },
     exploreCta: "Book a viewing",
     exploreClose: "Close",
@@ -439,11 +429,6 @@ const T = {
         title: "6 separate Hütten",
         desc: "Jede Hütte bietet ein eigenes Zimmer mit zwei Betten und Grundausstattung. Ideal für Kindercamps, Gruppenaufenthalte oder Vermietung.",
         extra: "Zum Gelände gehört ein überdachter Swimmingpool",
-      },
-      solar: {
-        name: "Solaranlage",
-        title: "Solaranlage",
-        desc: "Die Photovoltaikanlage auf dem Grundstück sichert die Energieautarkie des Areals und stellt eine zusätzliche Einnahmequelle durch den Verkauf von Überschüssen ins Netz dar.",
       },
     },
     exploreCta: "Besichtigung vereinbaren",
@@ -869,13 +854,12 @@ function InteractiveMap() {
   const [tooltip, setTooltip] = useState({ x: 0, y: 0 });
   const mapRef = useRef(null);
 
-  // viewBox = 2048x1365 — clean manual polygons, non-overlapping, verified with debug overlay
+  // viewBox = 2048x1365 — measured directly from aerial-golden.jpg grid overlay
   const zones = [
-    { id: "basement", points: "817,980 1250,935 1493,903 1493,960 1260,1005 817,1105" },
-    { id: "floor1", points: "817,976 817,760 1330,755 1515,795 1493,903 1250,935" },
-    { id: "floor2", points: "1112,424 1363,489 1555,749 1178,814 848,814 845,525" },
-    { id: "cabins", points: "370,540 380,440 420,360 480,290 570,245 700,215 820,210 830,290 820,400 780,480 680,540 540,575" },
-    { id: "solar", points: "72,58 305,18 328,295 88,348" },
+    { id: "basement", points: "1060,850 1470,810 1560,800 1560,870 1470,1020 1060,1060" },
+    { id: "floor1", points: "1060,850 1060,660 1470,620 1560,660 1560,800 1470,810" },
+    { id: "floor2", points: "1040,650 1200,480 1500,580 1560,440 1540,340 1200,320 990,380 980,520" },
+    { id: "cabins", points: "630,580 620,430 680,320 790,270 950,230 1010,320 980,460 900,540 750,590" },
   ];
 
   const zoneImages = {
@@ -883,7 +867,6 @@ function InteractiveMap() {
     floor1: ["/images/kuchyn.jpg", "/images/kuchyn-wide.jpg"],
     floor2: ["/images/floorplan-3d.jpg", "/images/loznice-1.jpg", "/images/loznice-2.jpg", "/images/pokoj.jpg"],
     cabins: ["/images/chatky-bazen.jpg"],
-    solar: [],
   };
 
   const handleMouseMove = (e) => {
