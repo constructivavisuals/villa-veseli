@@ -727,15 +727,16 @@ function Gallery() {
   const handleTab = (tb) => { setTab(tb); setActive(0); };
 
   return (
-    <section id="gallery" ref={ref} style={{ background: DARK, padding: "clamp(64px,10vw,100px) 0" }}>
+    <section id="gallery" ref={ref} style={{ background: DARK, padding: "clamp(48px,6vw,80px) 0" }}>
       <div style={{
         maxWidth: 1300, margin: "0 auto", padding: "0 clamp(16px,3vw,48px)",
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: `all 1s ${EASE}`,
       }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 36, flexWrap: "wrap", gap: 20 }}>
+        {/* Header + tabs */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 20, flexWrap: "wrap", gap: 16 }}>
           <div>
             <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.galleryTag}</span>
-            <h2 style={{ fontFamily: SERIF, fontSize: "clamp(28px,3.5vw,46px)", fontWeight: 300, color: "#fff", margin: "8px 0 0" }}>
+            <h2 style={{ fontFamily: SERIF, fontSize: "clamp(24px,3vw,38px)", fontWeight: 300, color: "#fff", margin: "6px 0 0" }}>
               {t.galleryTitle1}<span style={{ fontStyle: "italic" }}>{t.galleryTitle2}</span>
             </h2>
           </div>
@@ -752,66 +753,70 @@ function Gallery() {
           </div>
         </div>
 
-        <div onClick={() => setLightbox(active)} style={{
-          width: "100%", aspectRatio: "21/10", overflow: "hidden", cursor: "zoom-in",
-          position: "relative", marginBottom: 4,
-        }} className="gfeat">
-          <img src={filtered[active]?.src} alt="" style={{
-            width: "100%", height: "100%", objectFit: "cover",
-            transition: "opacity 0.5s ease",
-          }} />
-          <div style={{
-            position: "absolute", bottom: 0, left: 0, right: 0,
-            padding: "48px 28px 20px",
-            background: "linear-gradient(transparent, rgba(0,0,0,0.5))",
-            display: "flex", justifyContent: "space-between", alignItems: "flex-end",
+        {/* Main image + side thumbnails */}
+        <div style={{ display: "flex", gap: 4 }} className="gg">
+          {/* Featured image */}
+          <div onClick={() => setLightbox(active)} style={{
+            flex: 1, aspectRatio: "4/3", overflow: "hidden", cursor: "zoom-in",
+            position: "relative",
           }}>
-            <span style={{ fontFamily: SANS, fontSize: 13, color: "rgba(255,255,255,0.8)", letterSpacing: 2, textTransform: "uppercase" }}>
-              {filtered[active]?.label}
-            </span>
-            <span style={{ fontFamily: SANS, fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
-              {active + 1} / {filtered.length}
-            </span>
-          </div>
-          {filtered.length > 1 && <>
-            <div onClick={e => { e.stopPropagation(); setActive((active - 1 + filtered.length) % filtered.length); }}
-              style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "15%", cursor: "w-resize",
-                display: "flex", alignItems: "center", justifyContent: "flex-start", paddingLeft: 16 }}>
-              <div style={{
-                width: 44, height: 44, borderRadius: "50%", background: "rgba(0,0,0,0.3)", backdropFilter: "blur(8px)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                color: "#fff", fontSize: 20, opacity: 0.7, transition: "opacity 0.3s",
-              }} onMouseEnter={e => e.currentTarget.style.opacity = 1} onMouseLeave={e => e.currentTarget.style.opacity = 0.7}>‹</div>
-            </div>
-            <div onClick={e => { e.stopPropagation(); setActive((active + 1) % filtered.length); }}
-              style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "15%", cursor: "e-resize",
-                display: "flex", alignItems: "center", justifyContent: "flex-end", paddingRight: 16 }}>
-              <div style={{
-                width: 44, height: 44, borderRadius: "50%", background: "rgba(0,0,0,0.3)", backdropFilter: "blur(8px)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                color: "#fff", fontSize: 20, opacity: 0.7, transition: "opacity 0.3s",
-              }} onMouseEnter={e => e.currentTarget.style.opacity = 1} onMouseLeave={e => e.currentTarget.style.opacity = 0.7}>›</div>
-            </div>
-          </>}
-        </div>
-
-        <div style={{
-          display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4,
-          scrollbarWidth: "none",
-        }}>
-          {filtered.map((p, i) => (
-            <div key={i} onClick={() => setActive(i)} style={{
-              flexShrink: 0, width: "clamp(80px,10vw,130px)", aspectRatio: "1/1",
-              overflow: "hidden", cursor: "pointer", position: "relative",
-              opacity: active === i ? 1 : 0.45,
-              transition: "opacity 0.3s ease",
+            <img src={filtered[active]?.src} alt="" style={{
+              width: "100%", height: "100%", objectFit: "cover",
+              transition: "opacity 0.5s ease",
+            }} />
+            <div style={{
+              position: "absolute", bottom: 0, left: 0, right: 0,
+              padding: "40px 20px 14px",
+              background: "linear-gradient(transparent, rgba(0,0,0,0.5))",
+              display: "flex", justifyContent: "space-between", alignItems: "flex-end",
             }}>
-              <img src={p.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              {active === i && <div style={{
-                position: "absolute", bottom: 0, left: 0, right: 0, height: 2, background: GOLD,
-              }} />}
+              <span style={{ fontFamily: SANS, fontSize: 12, color: "rgba(255,255,255,0.8)", letterSpacing: 2, textTransform: "uppercase" }}>
+                {filtered[active]?.label}
+              </span>
+              <span style={{ fontFamily: SANS, fontSize: 11, color: "rgba(255,255,255,0.4)" }}>
+                {active + 1} / {filtered.length}
+              </span>
             </div>
-          ))}
+            {filtered.length > 1 && <>
+              <div onClick={e => { e.stopPropagation(); setActive((active - 1 + filtered.length) % filtered.length); }}
+                style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "15%", cursor: "w-resize",
+                  display: "flex", alignItems: "center", justifyContent: "flex-start", paddingLeft: 12 }}>
+                <div style={{
+                  width: 38, height: 38, borderRadius: "50%", background: "rgba(0,0,0,0.3)", backdropFilter: "blur(8px)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  color: "#fff", fontSize: 18, opacity: 0.6, transition: "opacity 0.3s",
+                }} onMouseEnter={e => e.currentTarget.style.opacity = 1} onMouseLeave={e => e.currentTarget.style.opacity = 0.6}>‹</div>
+              </div>
+              <div onClick={e => { e.stopPropagation(); setActive((active + 1) % filtered.length); }}
+                style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "15%", cursor: "e-resize",
+                  display: "flex", alignItems: "center", justifyContent: "flex-end", paddingRight: 12 }}>
+                <div style={{
+                  width: 38, height: 38, borderRadius: "50%", background: "rgba(0,0,0,0.3)", backdropFilter: "blur(8px)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  color: "#fff", fontSize: 18, opacity: 0.6, transition: "opacity 0.3s",
+                }} onMouseEnter={e => e.currentTarget.style.opacity = 1} onMouseLeave={e => e.currentTarget.style.opacity = 0.6}>›</div>
+              </div>
+            </>}
+          </div>
+
+          {/* Side thumbnail strip */}
+          <div style={{
+            display: "flex", flexDirection: "column", gap: 4, overflowY: "auto",
+            width: 100, flexShrink: 0, scrollbarWidth: "none",
+          }} className="gside">
+            {filtered.map((p, i) => (
+              <div key={i} onClick={() => setActive(i)} style={{
+                width: 100, height: 72, overflow: "hidden", cursor: "pointer", position: "relative", flexShrink: 0,
+                opacity: active === i ? 1 : 0.4,
+                transition: "opacity 0.3s ease",
+              }}>
+                <img src={p.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                {active === i && <div style={{
+                  position: "absolute", top: 0, bottom: 0, left: 0, width: 2, background: GOLD,
+                }} />}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -833,8 +838,8 @@ function Gallery() {
       )}
 
       <style>{`
-        @media(max-width:768px){.gfeat{aspect-ratio:4/3!important}}
-        .thumbnail-strip::-webkit-scrollbar{display:none}
+        @media(max-width:768px){.gside{display:none!important}.gg{flex-direction:column}}
+        .gside::-webkit-scrollbar{display:none}
       `}</style>
     </section>
   );
