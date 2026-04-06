@@ -2,14 +2,14 @@ import { useState, useEffect, useRef, createContext, useContext } from "react";
 
 // Fonts
 const fontLink = document.createElement("link");
-fontLink.href = "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500&display=swap";
+fontLink.href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Raleway:wght@200;300;400;500;600&display=swap";
 fontLink.rel = "stylesheet";
 document.head.appendChild(fontLink);
 
-const SERIF = "'Montserrat', sans-serif";
-const SANS = "'Montserrat', sans-serif";
-const GOLD = "#6f7f5e";
-const DARK = "#0b0b0b";
+const SERIF = "'Cormorant Garamond', Georgia, serif";
+const SANS = "'Raleway', 'Helvetica Neue', sans-serif";
+const GOLD = "#c8a96e";
+const DARK = "#1a1714";
 
 // Images
 const IMGS = [
@@ -660,7 +660,7 @@ function About() {
   const t = useLang();
   const [ref, vis] = useInView();
   return (
-    <section id="about" ref={ref} style={{ background: "#f4f6f2", padding: "clamp(64px,10vw,140px) clamp(20px,6vw,100px)" }}>
+    <section id="about" ref={ref} style={{ background: "#f5f0e8", padding: "clamp(64px,10vw,140px) clamp(20px,6vw,100px)" }}>
       <div style={{
         maxWidth: 1200, margin: "0 auto",
         display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(32px,5vw,80px)", alignItems: "center",
@@ -672,14 +672,14 @@ function About() {
           </span>
           <h2 style={{
             fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300,
-            color: "#1a1a1a", margin: "14px 0 24px", lineHeight: 1.2,
+            color: "#1e1c18", margin: "14px 0 24px", lineHeight: 1.2,
           }}>
             {t.aboutTitle1}<span style={{ fontStyle: "italic" }}>{t.aboutTitle2}</span>
           </h2>
-          <p style={{ fontFamily: SANS, fontSize: 15, lineHeight: 1.85, color: "#666", fontWeight: 300, maxWidth: 520 }}>
+          <p style={{ fontFamily: SANS, fontSize: 15, lineHeight: 1.85, color: "#7a7168", fontWeight: 300, maxWidth: 520 }}>
             {t.aboutP1}
           </p>
-          <p style={{ fontFamily: SANS, fontSize: 15, lineHeight: 1.85, color: "#666", fontWeight: 300, maxWidth: 520, marginTop: 16 }}>
+          <p style={{ fontFamily: SANS, fontSize: 15, lineHeight: 1.85, color: "#7a7168", fontWeight: 300, maxWidth: 520, marginTop: 16 }}>
             {t.aboutP2}
           </p>
           <div style={{
@@ -1030,14 +1030,14 @@ function Params() {
   const [ref, vis] = useInView();
 
   return (
-    <section id="params" ref={ref} style={{ background: "#f4f6f2", padding: "clamp(64px,10vw,120px) clamp(20px,6vw,100px)" }}>
+    <section id="params" ref={ref} style={{ background: "#f5f0e8", padding: "clamp(64px,10vw,120px) clamp(20px,6vw,100px)" }}>
       <div style={{
         maxWidth: 1200, margin: "0 auto",
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
       }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
           <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.paramsTag}</span>
-          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300, color: "#1a1a1a", margin: "12px 0 0" }}>
+          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300, color: "#1e1c18", margin: "12px 0 0" }}>
             {t.paramsTitle1}<span style={{ fontStyle: "italic" }}>{t.paramsTitle2}</span>
           </h2>
         </div>
@@ -1061,9 +1061,9 @@ function Params() {
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "rgba(0,0,0,0.06)" }} className="fg">
           {t.paramsFeatures.map((f, i) => (
-            <div key={i} style={{ background: "#f4f6f2", padding: "22px 24px", display: "flex", alignItems: "center", gap: 12 }}>
+            <div key={i} style={{ background: "#f5f0e8", padding: "22px 24px", display: "flex", alignItems: "center", gap: 12 }}>
               <div style={{ width: 7, height: 7, background: GOLD, borderRadius: "50%", flexShrink: 0 }} />
-              <span style={{ fontFamily: SANS, fontSize: 13.5, fontWeight: 400, color: "#444" }}>{f}</span>
+              <span style={{ fontFamily: SANS, fontSize: 13.5, fontWeight: 400, color: "#5a5450" }}>{f}</span>
             </div>
           ))}
         </div>
@@ -1075,7 +1075,7 @@ function Params() {
           <div style={{
             position: "absolute", top: 12, right: 16,
             fontFamily: SANS, fontSize: 9, letterSpacing: 2, color: "#fff",
-            background: "#c0392b", padding: "5px 14px", textTransform: "uppercase", fontWeight: 600,
+            background: "#9e4a3a", padding: "5px 14px", textTransform: "uppercase", fontWeight: 600,
           }}>{t.paramsActionBadge}</div>
           <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>
             {t.paramsPriceTag}
@@ -1094,7 +1094,7 @@ function Params() {
             marginTop: 24, padding: "14px 32px", background: GOLD, cursor: "pointer",
             transition: "background 0.3s",
           }}
-            onMouseEnter={e => e.currentTarget.style.background = "#576a4a"}
+            onMouseEnter={e => e.currentTarget.style.background = "#b8935a"}
             onMouseLeave={e => e.currentTarget.style.background = GOLD}>
             <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 3, textTransform: "uppercase", fontWeight: 500, color: "#fff" }}>
               {t.paramsCta}
@@ -1165,7 +1165,7 @@ function Potential() {
 function Location() {
   const t = useLang();
   const [ref, vis] = useInView();
-  const s = { width: 20, height: 20, stroke: "#999", strokeWidth: 1.5, fill: "none", strokeLinecap: "round", strokeLinejoin: "round", flexShrink: 0 };
+  const s = { width: 20, height: 20, stroke: "#9a9088", strokeWidth: 1.5, fill: "none", strokeLinecap: "round", strokeLinejoin: "round", flexShrink: 0 };
   const locIcons = [
     <svg viewBox="0 0 24 24" style={s}><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>,
     <svg viewBox="0 0 24 24" style={s}><path d="M5 17h14M5 17l-1 3h16l-1-3M7 17V9l2-4h6l2 4v8"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/></svg>,
@@ -1176,20 +1176,20 @@ function Location() {
   ];
 
   return (
-    <section id="location" ref={ref} style={{ background: "#f4f6f2", padding: "clamp(64px,10vw,120px) clamp(20px,6vw,100px)" }}>
+    <section id="location" ref={ref} style={{ background: "#f5f0e8", padding: "clamp(64px,10vw,120px) clamp(20px,6vw,100px)" }}>
       <div style={{
         maxWidth: 1200, margin: "0 auto",
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
       }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.locationTag}</span>
-          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300, color: "#1a1a1a", margin: "12px 0 0" }}>
+          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300, color: "#1e1c18", margin: "12px 0 0" }}>
             {t.locationTitle1}<span style={{ fontStyle: "italic" }}>{t.locationTitle2}</span>
           </h2>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40, alignItems: "start" }} className="lg">
-          <div style={{ width: "100%", aspectRatio: "4/3", background: "#e8e4df", overflow: "hidden" }}>
+          <div style={{ width: "100%", aspectRatio: "4/3", background: "#e8e0d4", overflow: "hidden" }}>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5100!2d15.4072!3d50.3283!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470c2cd0a4e1a3b1%3A0x400af0f66159150!2sVysok%C3%A9+Vesel%C3%AD!5e0!3m2!1scs!2scz!4v1700000000000"
               style={{ width: "100%", height: "100%", border: 0, filter: "grayscale(0.6) contrast(1.05) brightness(0.95)" }}
@@ -1197,7 +1197,7 @@ function Location() {
             />
           </div>
           <div>
-            <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: "#666", fontWeight: 300, marginBottom: 28 }}>
+            <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: "#7a7168", fontWeight: 300, marginBottom: 28 }}>
               {t.locationDesc}
             </p>
             {t.locationItems.map((item, i) => (
@@ -1207,9 +1207,9 @@ function Location() {
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   {locIcons[i]}
-                  <span style={{ fontFamily: SANS, fontSize: 13.5, color: "#888" }}>{item.label}</span>
+                  <span style={{ fontFamily: SANS, fontSize: 13.5, color: "#8a8078" }}>{item.label}</span>
                 </div>
-                <span style={{ fontFamily: SANS, fontSize: 13.5, color: "#333", fontWeight: 500 }}>{item.value}</span>
+                <span style={{ fontFamily: SANS, fontSize: 13.5, color: "#3a3530", fontWeight: 500 }}>{item.value}</span>
               </div>
             ))}
           </div>
@@ -1228,8 +1228,8 @@ function Contact() {
 
   const inputStyle = {
     fontFamily: SANS, fontSize: 14, padding: "15px 18px",
-    border: "1px solid rgba(0,0,0,0.08)", background: "#fff",
-    outline: "none", transition: "border-color 0.3s", color: "#333", width: "100%", boxSizing: "border-box",
+    border: "1px solid rgba(200,169,110,0.15)", background: "rgba(255,255,255,0.06)",
+    outline: "none", transition: "border-color 0.3s", color: "#e8e0d4", width: "100%", boxSizing: "border-box",
   };
 
   return (
@@ -1273,7 +1273,7 @@ function Contact() {
               letterSpacing: 3, textTransform: "uppercase", padding: "17px 40px",
               background: GOLD, color: "#fff", border: "none", cursor: "pointer", transition: "background 0.3s",
             }} className="cfs"
-              onMouseEnter={e => e.target.style.background = "#576a4a"}
+              onMouseEnter={e => e.target.style.background = "#b8935a"}
               onMouseLeave={e => e.target.style.background = GOLD}>
               {t.contactSend}
             </button>
@@ -1348,7 +1348,7 @@ function StickyBar() {
           textTransform: "uppercase", padding: "11px 24px",
           background: GOLD, color: "#fff", cursor: "pointer", transition: "background 0.3s",
         }}
-          onMouseEnter={e => e.target.style.background = "#576a4a"}
+          onMouseEnter={e => e.target.style.background = "#b8935a"}
           onMouseLeave={e => e.target.style.background = GOLD}>
           {t.stickyCta}
         </span>
@@ -1381,7 +1381,7 @@ export default function App() {
         {phase < 4 && (
           <div style={{
             position: "fixed", inset: 0, zIndex: 9999,
-            background: "#0f1a15",
+            background: "#141210",
             display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
             opacity: phase >= 3 ? 0 : 1,
             transition: "opacity 0.8s ease",
