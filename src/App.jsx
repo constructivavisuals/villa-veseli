@@ -844,38 +844,141 @@ function Gallery() {
   );
 }
 
-// ─── INTERACTIVE MAP ───
-function InteractiveMap() {
-  const t = useLang();
-  const [ref, vis] = useInView(0.08);
-  const [hovered, setHovered] = useState(null);
-  const [active, setActive] = useState(null);
-  const [lightboxImg, setLightboxImg] = useState(null);
-  const [tooltip, setTooltip] = useState({ x: 0, y: 0 });
-  const mapRef = useRef(null);
+// ─── INTERACTIVE MAP (floor-hover) ───
+const ACCENT = "#c9a96e";
+const HOVER_C = "rgba(201,169,110,0.35)";
 
-  // viewBox = 2048x1365 — calibrated from live website screenshots
-  const zones = [
-    { id: "basement", points: "1130,940 1500,900 1650,890 1650,955 1500,1040 1130,1070" },
-    { id: "floor1", points: "1130,940 1130,660 1490,625 1600,660 1650,890 1500,900" },
-    { id: "floor2", points: "1080,650 1230,480 1530,570 1600,430 1580,340 1230,320 1040,380 1030,520" },
-    { id: "cabins", points: "660,570 650,430 710,330 820,275 980,240 1040,330 1020,460 940,540 790,585" },
+function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
+  const [hovered, setHovered] = useState(null);
+
+  const gradients = {};
+  if (layout === "vertical") {
+    zones.forEach(z => {
+      gradients[z.id] = `linear-gradient(to bottom,${z.before}${HOVER_C} ${z.top}%,${HOVER_C} ${z.bot}%,transparent ${z.bot}%)`;
+    });
+  } else {
+    zones.forEach(z => {
+      gradients[z.id] = `linear-gradient(to right,${z.before}${HOVER_C} ${z.left}%,${HOVER_C} ${z.right}%,transparent ${z.right}%)`;
+    });
+  }
+
+  const maskUrl = `url('/images/${imgSrc}')`;
+  const isV = layout === "vertical";
+
+  return (
+    <div>
+      <div style={{ position: "relative", display: "flex", alignItems: isV ? "flex-start" : "stretch", flexDirection: isV ? "row" : "column" }}>
+        <div style={{ position: "relative", flex: 1, background: "#e8e2d8" }}>
+          <img src={`/images/${imgSrc}`} alt="" style={{ width: "100%", display: "block", position: "relative", zIndex: 1 }} />
+          <div id={overlayId} style={{
+            position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 2, pointerEvents: "none",
+            WebkitMaskImage: maskUrl, maskImage: maskUrl,
+            WebkitMaskSize: "100% 100%", maskSize: "100% 100%",
+            WebkitMaskRepeat: "no-repeat", maskRepeat: "no-repeat",
+            background: hovered ? gradients[hovered] : "transparent",
+            transition: "background 0.3s",
+          }} />
+          {zones.map(z => (
+            <div key={z.id}>
+              <div style={{
+                position: "absolute", zIndex: 5, cursor: "pointer",
+                ...(isV ? { top: `${z.top}%`, height: `${z.bot - z.top}%`, left: 0, right: 0 } :
+                  { top: 0, height: "100%", left: `${z.left}%`, width: `${z.right - z.left}%` }),
+              }}
+                onMouseEnter={() => setHovered(z.id)}
+                onMouseLeave={() => setHovered(null)}
+              />
+              <div style={{
+                position: "absolute", zIndex: 10, pointerEvents: "none",
+                display: "flex", justifyContent: "center", alignItems: "center",
+                ...(isV ? { top: `${z.top}%`, height: `${z.bot - z.top}%`, left: 0, right: 0 } :
+                  { top: 0, height: "100%", left: `${z.left}%`, width: `${z.right - z.left}%` }),
+              }}>
+                <div style={{
+                  background: "rgba(15,14,13,0.92)", border: `1px solid ${ACCENT}`,
+                  padding: "9px 20px", borderRadius: 3, whiteSpace: "nowrap",
+                  fontFamily: SANS, fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: ACCENT,
+                  opacity: hovered === z.id ? 1 : 0, transition: "opacity 0.3s",
+                }}>{z.tooltip}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        {isV && (
+          <div style={{ width: 190, position: "relative", minHeight: 400 }}>
+            {labels.map(l => (
+              <div key={l.id} style={{
+                position: "absolute", top: `${l.top}%`, right: 0,
+                display: "flex", alignItems: "center", gap: 10, cursor: "pointer", whiteSpace: "nowrap",
+              }}
+                onMouseEnter={() => setHovered(l.id)}
+                onMouseLeave={() => setHovered(null)}
+              >
+                <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 1.5, color: hovered === l.id ? ACCENT : "#4a4540", transition: "color 0.3s" }}>{l.text}</span>
+                <span style={{ width: hovered === l.id ? 50 : 32, height: 1, background: hovered === l.id ? ACCENT : "#2a2520", transition: "all 0.3s" }} />
+                <span style={{ fontFamily: SERIF, fontSize: 24, fontWeight: 300, color: hovered === l.id ? ACCENT : "#2a2520", transition: "color 0.3s", minWidth: 26, textAlign: "right" }}>{l.num}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        {!isV && (
+          <div style={{ display: "flex", justifyContent: "center", gap: 60, marginTop: 20 }}>
+            {labels.map(l => (
+              <div key={l.id} style={{
+                display: "flex", flexDirection: "column", alignItems: "center", gap: 6, cursor: "pointer",
+              }}
+                onMouseEnter={() => setHovered(l.id)}
+                onMouseLeave={() => setHovered(null)}
+              >
+                <span style={{ fontFamily: SERIF, fontSize: 24, fontWeight: 300, color: hovered === l.id ? ACCENT : "#2a2520", transition: "color 0.3s" }}>{l.num}</span>
+                <span style={{ width: 1, height: hovered === l.id ? 40 : 28, background: hovered === l.id ? ACCENT : "#2a2520", transition: "all 0.3s" }} />
+                <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 1.5, color: hovered === l.id ? ACCENT : "#4a4540", transition: "color 0.3s" }}>{l.text}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <p style={{ textAlign: "center", marginTop: 16, fontFamily: SANS, fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: "#2a2520" }}>{hint}</p>
+    </div>
+  );
+}
+
+function InteractiveMap() {
+  const [ref, vis] = useInView(0.08);
+  const [tab, setTab] = useState("v");
+
+  const tabs = [
+    { id: "v", label: "Vila" },
+    { id: "c", label: "Chatka" },
+    { id: "t", label: "Tančírna" },
   ];
 
-  const zoneImages = {
-    basement: [],
-    floor1: ["/images/kuchyn.jpg", "/images/kuchyn-wide.jpg"],
-    floor2: ["/images/floorplan-3d.jpg", "/images/loznice-1.jpg", "/images/loznice-2.jpg", "/images/pokoj.jpg"],
-    cabins: ["/images/chatky-bazen.jpg"],
-  };
+  const vilaZones = [
+    { id: 3, top: 0, bot: 36, before: "", tooltip: "3. NP — Podkroví" },
+    { id: 2, top: 36, bot: 64, before: "transparent 36%,", tooltip: "2. NP" },
+    { id: 1, top: 64, bot: 100, before: "transparent 64%,", tooltip: "1. NP — Přízemí" },
+  ];
+  const vilaLabels = [
+    { id: 3, top: 14, text: "3. nadzemní podlaží", num: "03" },
+    { id: 2, top: 44, text: "2. nadzemní podlaží", num: "02" },
+    { id: 1, top: 76, text: "1. nadzemní podlaží", num: "01" },
+  ];
 
-  const handleMouseMove = (e) => {
-    if (!mapRef.current) return;
-    const rect = mapRef.current.getBoundingClientRect();
-    setTooltip({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
+  const chatkaZones = [
+    { id: 1, top: 0, bot: 100, before: "", tooltip: "Chatka — celá jednotka" },
+  ];
+  const chatkaLabels = [
+    { id: 1, top: 42, text: "Celá chatka", num: "01" },
+  ];
 
-  const zoneInfo = active ? t.exploreZones[active] : null;
+  const tancirnaZones = [
+    { id: 1, left: 0, right: 52, before: "", tooltip: "Tančírna" },
+    { id: 2, left: 52, right: 100, before: "transparent 52%,", tooltip: "Garáž" },
+  ];
+  const tancirnaLabels = [
+    { id: 1, text: "Tančírna", num: "01" },
+    { id: 2, text: "Garáž", num: "02" },
+  ];
 
   return (
     <section id="explore" ref={ref} style={{ background: DARK, padding: "clamp(64px,10vw,100px) 0" }}>
@@ -883,169 +986,40 @@ function InteractiveMap() {
         maxWidth: 1300, margin: "0 auto", padding: "0 clamp(16px,3vw,48px)",
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
       }}>
-        <div style={{ textAlign: "center", marginBottom: 36 }}>
-          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.exploreTag}</span>
-          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(28px,3.5vw,46px)", fontWeight: 300, color: "#fff", margin: "8px 0 0" }}>
-            <span style={{ fontStyle: "italic" }}>{t.exploreTitle1}</span>{t.exploreTitle2}
+        <div style={{ textAlign: "center", padding: "0 20px 24px" }}>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 300, fontSize: "clamp(28px,3.5vw,36px)", letterSpacing: 6, textTransform: "uppercase", color: ACCENT }}>
+            Nabídka
           </h2>
+          <p style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "#5a5550", marginTop: 8 }}>
+            Vyberte objekt a podlaží
+          </p>
         </div>
 
-        <div ref={mapRef} onMouseMove={handleMouseMove} style={{ position: "relative", width: "100%", cursor: "default" }}>
-          <img src="/images/aerial-golden.jpg" alt="" style={{
-            width: "100%", display: "block",
-            filter: hovered ? "brightness(0.65)" : "brightness(1)",
-            transition: "filter 0.4s ease",
-          }} />
-          <svg viewBox="0 0 2048 1365" preserveAspectRatio="none" style={{
-            position: "absolute", top: 0, left: 0, width: "100%", height: "100%",
-          }}>
-            {/* Bright overlay for hovered zone */}
-            {hovered && (
-              <>
-                <defs>
-                  <clipPath id={`clip-${hovered}`}>
-                    <polygon points={zones.find(z => z.id === hovered)?.points} />
-                  </clipPath>
-                </defs>
-                <image
-                  href="/images/aerial-golden.jpg"
-                  width="2048" height="1365"
-                  preserveAspectRatio="none"
-                  clipPath={`url(#clip-${hovered})`}
-                  style={{ filter: "brightness(1.15)" }}
-                />
-              </>
-            )}
-            {zones.map(z => {
-              const isActive = hovered === z.id || active === z.id;
-              return (
-                <polygon
-                  key={z.id}
-                  points={z.points}
-                  style={{
-                    fill: isActive ? "rgba(255,255,255,0.15)" : "transparent",
-                    stroke: isActive ? "rgba(255,255,255,0.85)" : "transparent",
-                    strokeWidth: 2,
-                    cursor: "pointer",
-                    transition: "fill 0.3s, stroke 0.3s",
-                  }}
-                  onMouseEnter={() => setHovered(z.id)}
-                  onMouseLeave={() => setHovered(null)}
-                  onClick={() => setActive(z.id)}
-                />
-              );
-            })}
-          </svg>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 36, flexWrap: "wrap", gap: 0 }}>
+          {tabs.map((t, i) => (
+            <span key={t.id} onClick={() => setTab(t.id)} style={{
+              padding: "11px 28px", fontFamily: SANS, fontSize: 11, letterSpacing: 2, textTransform: "uppercase",
+              cursor: "pointer", border: `1px solid ${tab === t.id ? ACCENT : "#2a2520"}`,
+              background: tab === t.id ? ACCENT : "transparent",
+              color: tab === t.id ? "#0f0e0d" : "#8a7e6e",
+              transition: "all 0.3s",
+              borderRadius: i === 0 ? "4px 0 0 4px" : i === tabs.length - 1 ? "0 4px 4px 0" : 0,
+            }}>{t.label}</span>
+          ))}
+        </div>
 
-          {/* Tooltip */}
-          {hovered && !active && (
-            <div style={{
-              position: "absolute",
-              left: tooltip.x + 16, top: tooltip.y - 12,
-              background: "rgba(0,0,0,0.85)", backdropFilter: "blur(8px)",
-              padding: "6px 14px", pointerEvents: "none",
-              border: "1px solid rgba(255,255,255,0.3)",
-            }}>
-              <span style={{ fontFamily: SANS, fontSize: 11, color: "#fff", letterSpacing: 1.5, textTransform: "uppercase", fontWeight: 500 }}>
-                {t.exploreZones[hovered]?.name}
-              </span>
-            </div>
+        <div style={{ maxWidth: 860, margin: "0 auto" }}>
+          {tab === "v" && (
+            <FloorSection imgSrc="vila.png" overlayId="vo" zones={vilaZones} labels={vilaLabels} layout="vertical" hint="Najeďte myší na podlaží" />
+          )}
+          {tab === "c" && (
+            <FloorSection imgSrc="chatka.png" overlayId="co" zones={chatkaZones} labels={chatkaLabels} layout="vertical" hint="Najeďte myší pro zvýraznění" />
+          )}
+          {tab === "t" && (
+            <FloorSection imgSrc="tancirna.png" overlayId="to" zones={tancirnaZones} labels={tancirnaLabels} layout="horizontal" hint="Najeďte myší na zónu" />
           )}
         </div>
-
-        <p style={{ fontFamily: SANS, fontSize: 12, color: "rgba(255,255,255,0.3)", marginTop: 14, textAlign: "center", letterSpacing: 1 }}>
-          {t.exploreHint}
-        </p>
-
-        {/* Detail panel */}
-        {active && (
-          <div style={{
-            position: "fixed", top: 0, right: 0, bottom: 0, zIndex: 2000,
-            width: "min(440px, 100vw)", background: "rgba(17,17,17,0.97)",
-            backdropFilter: "blur(16px)",
-            borderLeft: "1px solid rgba(255,255,255,0.06)",
-            overflowY: "auto", padding: "24px",
-            animation: "slideIn 0.3s ease",
-          }}>
-            <div onClick={() => setActive(null)} style={{
-              position: "sticky", top: 0, textAlign: "right", paddingBottom: 16, cursor: "pointer", zIndex: 1,
-            }}>
-              <span style={{ fontFamily: SANS, fontSize: 12, color: "rgba(255,255,255,0.5)", letterSpacing: 2 }}>
-                {t.exploreClose} ✕
-              </span>
-            </div>
-
-            <h3 style={{ fontFamily: SERIF, fontSize: 26, fontWeight: 300, color: "#fff", marginBottom: 20 }}>
-              {zoneInfo?.title}
-            </h3>
-
-            <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: "rgba(255,255,255,0.6)", fontWeight: 300, marginBottom: 20 }}>
-              {zoneInfo?.desc}
-            </p>
-
-            {/* Extra note for cabins */}
-            {active === "cabins" && zoneInfo?.extra && (
-              <div style={{
-                marginBottom: 20, padding: "14px 18px", background: "rgba(111,127,94,0.15)",
-                borderLeft: `3px solid ${GOLD}`,
-              }}>
-                <span style={{ fontFamily: SANS, fontSize: 13, color: "rgba(255,255,255,0.7)" }}>
-                  {zoneInfo.extra}
-                </span>
-              </div>
-            )}
-
-            {/* Photos grid */}
-            {zoneImages[active]?.length > 0 && (
-              <div style={{ display: "grid", gridTemplateColumns: zoneImages[active].length > 1 ? "1fr 1fr" : "1fr", gap: 8 }}>
-                {zoneImages[active].map((img, i) => (
-                  <img key={i} src={img} alt="" style={{
-                    width: "100%", aspectRatio: "4/3", objectFit: "cover", cursor: "pointer",
-                  }} onClick={() => setLightboxImg(img)} />
-                ))}
-              </div>
-            )}
-
-            {/* CTA button */}
-            <div onClick={() => { setActive(null); setTimeout(() => scrollTo("contact"), 300); }} style={{
-              display: "inline-flex", alignItems: "center", gap: 8,
-              marginTop: 28, padding: "14px 28px", background: GOLD, cursor: "pointer",
-              transition: "background 0.3s",
-            }}
-              onMouseEnter={e => e.currentTarget.style.background = "#576a4a"}
-              onMouseLeave={e => e.currentTarget.style.background = GOLD}>
-              <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 3, textTransform: "uppercase", fontWeight: 500, color: "#fff" }}>
-                {t.exploreCta}
-              </span>
-              <span style={{ color: "#fff", fontSize: 14 }}>→</span>
-            </div>
-          </div>
-        )}
-
-        {/* Backdrop */}
-        {active && (
-          <div onClick={() => setActive(null)} style={{
-            position: "fixed", inset: 0, zIndex: 1999, background: "rgba(0,0,0,0.6)",
-          }} />
-        )}
-
-        {/* Lightbox */}
-        {lightboxImg && (
-          <div onClick={() => setLightboxImg(null)} style={{
-            position: "fixed", inset: 0, zIndex: 3000, background: "rgba(0,0,0,0.94)",
-            backdropFilter: "blur(12px)", display: "flex", alignItems: "center", justifyContent: "center",
-            cursor: "zoom-out", padding: 20,
-          }}>
-            <img src={lightboxImg} style={{ maxWidth: "92vw", maxHeight: "88vh", objectFit: "contain" }} />
-            <div style={{ position: "absolute", top: 20, right: 24, fontFamily: SANS, fontSize: 13, color: "#fff", cursor: "pointer", letterSpacing: 3 }}>
-              ✕
-            </div>
-          </div>
-        )}
       </div>
-      <style>{`
-        @keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
-      `}</style>
     </section>
   );
 }
