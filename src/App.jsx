@@ -9,7 +9,9 @@ document.head.appendChild(fontLink);
 const SERIF = "'Cormorant Garamond', Georgia, serif";
 const SANS = "'Raleway', 'Helvetica Neue', sans-serif";
 const GOLD = "#c8a96e";
-const DARK = "#1a1714";
+const DARK = "#151312";
+const PILL = { borderRadius: 100, padding: "14px 32px", fontFamily: "'Raleway', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: 2.5, textTransform: "uppercase", cursor: "pointer", transition: "all 0.6s cubic-bezier(.16,1,.3,1)", border: "none" };
+const EASE = "cubic-bezier(.16,1,.3,1)";
 
 // Images
 const IMGS = [
@@ -516,9 +518,7 @@ function Nav({ lang, setLang }) {
             </span>
           ))}
           <span onClick={() => scrollTo("contact")} style={{
-            fontFamily: SANS, fontSize: 11, fontWeight: 500, color: DARK, background: "#fff",
-            padding: "10px 22px", letterSpacing: 2, textTransform: "uppercase", cursor: "pointer",
-            transition: "all 0.3s",
+            ...PILL, color: DARK, background: "#fff", padding: "10px 24px",
           }} onMouseEnter={e => { e.target.style.background = GOLD; e.target.style.color = "#fff"; }}
             onMouseLeave={e => { e.target.style.background = "#fff"; e.target.style.color = DARK; }}>
             {t.navCta}
@@ -613,7 +613,7 @@ function Hero({ ready }) {
           <div style={{ textAlign: "center" }}>
             <h1 style={{
               fontFamily: SERIF, fontWeight: 300, color: "#fff",
-              fontSize: "clamp(38px,7.5vw,96px)", lineHeight: 1.05, margin: 0, letterSpacing: 1,
+              fontSize: "clamp(42px,8vw,110px)", lineHeight: 1, margin: 0, letterSpacing: "-0.02em",
             }}>
               {t.heroTitle1}<br />
               <span style={{ fontStyle: "italic", fontWeight: 400, color: GOLD }}>{t.heroTitle2}</span>
@@ -660,18 +660,18 @@ function About() {
   const t = useLang();
   const [ref, vis] = useInView();
   return (
-    <section id="about" ref={ref} style={{ background: "#f5f0e8", padding: "clamp(64px,10vw,140px) clamp(20px,6vw,100px)" }}>
+    <section id="about" ref={ref} style={{ background: "#f5f0e8", padding: "clamp(80px,12vw,160px) clamp(24px,6vw,100px)" }}>
       <div style={{
         maxWidth: 1200, margin: "0 auto",
         display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(32px,5vw,80px)", alignItems: "center",
-        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(40px)", transition: "all 1s ease",
+        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(40px)", transition: `all 1.2s ${EASE}`,
       }} className="ag">
         <div>
           <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>
             {t.aboutTag}
           </span>
           <h2 style={{
-            fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300,
+            fontFamily: SERIF, fontSize: "clamp(32px,4.5vw,56px)", fontWeight: 300,
             color: "#1e1c18", margin: "14px 0 24px", lineHeight: 1.2,
           }}>
             {t.aboutTitle1}<span style={{ fontStyle: "italic" }}>{t.aboutTitle2}</span>
@@ -683,16 +683,12 @@ function About() {
             {t.aboutP2}
           </p>
           <div style={{
-            display: "inline-flex", alignItems: "center", gap: 10, marginTop: 28,
-            padding: "14px 28px", border: `1px solid ${GOLD}`, cursor: "pointer",
-            transition: "all 0.3s",
+            ...PILL, display: "inline-flex", alignItems: "center", gap: 10, marginTop: 32,
+            background: GOLD, color: "#fff",
           }} onClick={() => scrollTo("contact")}
-            onMouseEnter={e => { e.currentTarget.style.background = GOLD; e.currentTarget.style.color = "#fff"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = DARK; }}>
-            <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 3, textTransform: "uppercase", fontWeight: 500 }}>
-              {t.aboutCta}
-            </span>
-            <span style={{ fontSize: 16 }}>→</span>
+            onMouseEnter={e => { e.currentTarget.style.background = "#b8935a"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = GOLD; }}>
+            {t.aboutCta} <span style={{ fontSize: 14 }}>→</span>
           </div>
         </div>
 
@@ -734,7 +730,7 @@ function Gallery() {
     <section id="gallery" ref={ref} style={{ background: DARK, padding: "clamp(64px,10vw,100px) 0" }}>
       <div style={{
         maxWidth: 1300, margin: "0 auto", padding: "0 clamp(16px,3vw,48px)",
-        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
+        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: `all 1s ${EASE}`,
       }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 36, flexWrap: "wrap", gap: 20 }}>
           <div>
@@ -984,7 +980,7 @@ function InteractiveMap() {
     <section id="explore" ref={ref} style={{ background: DARK, padding: "clamp(64px,10vw,100px) 0" }}>
       <div style={{
         maxWidth: 1300, margin: "0 auto", padding: "0 clamp(16px,3vw,48px)",
-        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
+        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: `all 1s ${EASE}`,
       }}>
         <div style={{ textAlign: "center", padding: "0 20px 24px" }}>
           <h2 style={{ fontFamily: SERIF, fontWeight: 300, fontSize: "clamp(28px,3.5vw,36px)", letterSpacing: 6, textTransform: "uppercase", color: ACCENT }}>
@@ -1030,14 +1026,14 @@ function Params() {
   const [ref, vis] = useInView();
 
   return (
-    <section id="params" ref={ref} style={{ background: "#f5f0e8", padding: "clamp(64px,10vw,120px) clamp(20px,6vw,100px)" }}>
+    <section id="params" ref={ref} style={{ background: "#f5f0e8", padding: "clamp(80px,12vw,160px) clamp(24px,6vw,100px)" }}>
       <div style={{
         maxWidth: 1200, margin: "0 auto",
-        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
+        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: `all 1s ${EASE}`,
       }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
           <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.paramsTag}</span>
-          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300, color: "#1e1c18", margin: "12px 0 0" }}>
+          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px,4.5vw,56px)", fontWeight: 300, color: "#1e1c18", margin: "12px 0 0", letterSpacing: "-0.01em" }}>
             {t.paramsTitle1}<span style={{ fontStyle: "italic" }}>{t.paramsTitle2}</span>
           </h2>
         </div>
@@ -1090,16 +1086,12 @@ function Params() {
             {t.paramsMortgage}
           </p>
           <div onClick={() => scrollTo("contact")} style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            marginTop: 24, padding: "14px 32px", background: GOLD, cursor: "pointer",
-            transition: "background 0.3s",
+            ...PILL, display: "inline-flex", alignItems: "center", gap: 8,
+            marginTop: 28, background: GOLD, color: "#fff",
           }}
             onMouseEnter={e => e.currentTarget.style.background = "#b8935a"}
             onMouseLeave={e => e.currentTarget.style.background = GOLD}>
-            <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 3, textTransform: "uppercase", fontWeight: 500, color: "#fff" }}>
-              {t.paramsCta}
-            </span>
-            <span style={{ color: "#fff", fontSize: 14 }}>→</span>
+            {t.paramsCta} <span style={{ fontSize: 14 }}>→</span>
           </div>
         </div>
       </div>
@@ -1123,7 +1115,7 @@ function Potential() {
   return (
     <section id="potential" ref={ref} style={{
       position: "relative", overflow: "hidden",
-      background: DARK, padding: "clamp(64px,10vw,120px) clamp(20px,6vw,100px)",
+      background: DARK, padding: "clamp(80px,12vw,160px) clamp(24px,6vw,100px)",
     }}>
       <div style={{
         position: "absolute", inset: 0, opacity: 0.06,
@@ -1132,11 +1124,11 @@ function Potential() {
       }} />
       <div style={{
         position: "relative", zIndex: 1, maxWidth: 1200, margin: "0 auto",
-        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
+        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: `all 1s ${EASE}`,
       }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
           <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.potentialTag}</span>
-          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300, color: "#fff", margin: "12px 0 0" }}>
+          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px,4.5vw,56px)", fontWeight: 300, color: "#fff", margin: "12px 0 0", letterSpacing: "-0.01em" }}>
             {t.potentialTitle1}<span style={{ fontStyle: "italic" }}>{t.potentialTitle2}</span>
           </h2>
         </div>
@@ -1176,14 +1168,14 @@ function Location() {
   ];
 
   return (
-    <section id="location" ref={ref} style={{ background: "#f5f0e8", padding: "clamp(64px,10vw,120px) clamp(20px,6vw,100px)" }}>
+    <section id="location" ref={ref} style={{ background: "#f5f0e8", padding: "clamp(80px,12vw,160px) clamp(24px,6vw,100px)" }}>
       <div style={{
         maxWidth: 1200, margin: "0 auto",
-        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
+        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: `all 1s ${EASE}`,
       }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.locationTag}</span>
-          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300, color: "#1e1c18", margin: "12px 0 0" }}>
+          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px,4.5vw,56px)", fontWeight: 300, color: "#1e1c18", margin: "12px 0 0", letterSpacing: "-0.01em" }}>
             {t.locationTitle1}<span style={{ fontStyle: "italic" }}>{t.locationTitle2}</span>
           </h2>
         </div>
@@ -1233,14 +1225,14 @@ function Contact() {
   };
 
   return (
-    <section id="contact" ref={ref} style={{ background: DARK, padding: "clamp(64px,10vw,120px) clamp(20px,6vw,100px)" }}>
+    <section id="contact" ref={ref} style={{ background: DARK, padding: "clamp(80px,12vw,160px) clamp(24px,6vw,100px)" }}>
       <div style={{
         maxWidth: 800, margin: "0 auto",
-        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease",
+        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: `all 1s ${EASE}`,
       }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.contactTag}</span>
-          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(30px,4vw,50px)", fontWeight: 300, color: "#fff", margin: "12px 0 0" }}>
+          <h2 style={{ fontFamily: SERIF, fontSize: "clamp(32px,4.5vw,56px)", fontWeight: 300, color: "#fff", margin: "12px 0 0", letterSpacing: "-0.01em" }}>
             {t.contactTitle1}<span style={{ fontStyle: "italic" }}>{t.contactTitle2}</span>
           </h2>
           <p style={{ fontFamily: SANS, fontSize: 13, color: "rgba(255,255,255,0.4)", marginTop: 12, maxWidth: 480, marginLeft: "auto", marginRight: "auto" }}>
@@ -1269,9 +1261,8 @@ function Contact() {
               style={{ ...inputStyle, resize: "vertical", gridColumn: "span 2" }} className="cfs"
               onFocus={e => e.target.style.borderColor = GOLD} onBlur={e => e.target.style.borderColor = "rgba(0,0,0,0.08)"} />
             <button onClick={() => setSent(true)} style={{
-              gridColumn: "span 2", fontFamily: SANS, fontSize: 12, fontWeight: 500,
-              letterSpacing: 3, textTransform: "uppercase", padding: "17px 40px",
-              background: GOLD, color: "#fff", border: "none", cursor: "pointer", transition: "background 0.3s",
+              ...PILL, gridColumn: "span 2", padding: "17px 40px",
+              background: GOLD, color: "#fff",
             }} className="cfs"
               onMouseEnter={e => e.target.style.background = "#b8935a"}
               onMouseLeave={e => e.target.style.background = GOLD}>
@@ -1344,9 +1335,8 @@ function StickyBar() {
           display: "none",
         }} className="sbar-txt">{t.stickyReady}</span>
         <span onClick={() => scrollTo("contact")} style={{
-          fontFamily: SANS, fontSize: 11, fontWeight: 500, letterSpacing: 2,
-          textTransform: "uppercase", padding: "11px 24px",
-          background: GOLD, color: "#fff", cursor: "pointer", transition: "background 0.3s",
+          ...PILL, padding: "11px 24px",
+          background: GOLD, color: "#fff",
         }}
           onMouseEnter={e => e.target.style.background = "#b8935a"}
           onMouseLeave={e => e.target.style.background = GOLD}>
