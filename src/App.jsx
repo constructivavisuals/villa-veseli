@@ -727,9 +727,9 @@ function Gallery() {
   const handleTab = (tb) => { setTab(tb); setActive(0); };
 
   return (
-    <section id="gallery" ref={ref} style={{ background: DARK, padding: "32px 0" }}>
+    <section id="gallery" ref={ref} style={{ background: DARK, padding: "40px 0" }}>
       <div style={{
-        maxWidth: 900, margin: "0 auto", padding: "0 clamp(16px,3vw,48px)",
+        maxWidth: 1060, margin: "0 auto", padding: "0 clamp(16px,3vw,48px)",
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: `all 1s ${EASE}`,
       }}>
         {/* Header + tabs */}
@@ -802,11 +802,11 @@ function Gallery() {
           {/* Side thumbnail strip */}
           <div style={{
             display: "flex", flexDirection: "column", gap: 4, overflowY: "auto",
-            width: 80, flexShrink: 0, scrollbarWidth: "none",
+            width: 90, flexShrink: 0, scrollbarWidth: "none",
           }} className="gside">
             {filtered.map((p, i) => (
               <div key={i} onClick={() => setActive(i)} style={{
-                width: 80, height: 56, overflow: "hidden", cursor: "pointer", position: "relative", flexShrink: 0,
+                width: 90, height: 64, overflow: "hidden", cursor: "pointer", position: "relative", flexShrink: 0,
                 opacity: active === i ? 1 : 0.4,
                 transition: "opacity 0.3s ease",
               }}>
