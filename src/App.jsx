@@ -977,7 +977,7 @@ function InteractiveMap() {
   ];
 
   return (
-    <section id="explore" ref={ref} style={{ background: "#f5f0e8", padding: "clamp(80px,12vw,160px) 0" }}>
+    <section id="explore" ref={ref} style={{ background: "#e8e2d8", padding: "clamp(80px,12vw,160px) 0" }}>
       <div style={{
         maxWidth: 1300, margin: "0 auto", padding: "0 clamp(16px,3vw,48px)",
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: `all 1s ${EASE}`,
