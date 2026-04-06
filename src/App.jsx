@@ -901,7 +901,7 @@ function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
           ))}
         </div>
         {isV && (
-          <div style={{ width: 190, position: "relative", minHeight: 400 }}>
+          <div style={{ width: 170, position: "relative", minHeight: 300 }}>
             {labels.map(l => (
               <div key={l.id} style={{
                 position: "absolute", top: `${l.top}%`, right: 0,
@@ -977,21 +977,21 @@ function InteractiveMap() {
   ];
 
   return (
-    <section id="explore" ref={ref} style={{ background: "#e8e2d8", padding: "clamp(80px,12vw,160px) 0" }}>
+    <section id="explore" ref={ref} style={{ background: "#e8e2d8", padding: "40px 0 32px" }}>
       <div style={{
         maxWidth: 1300, margin: "0 auto", padding: "0 clamp(16px,3vw,48px)",
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: `all 1s ${EASE}`,
       }}>
-        <div style={{ textAlign: "center", padding: "0 20px 24px" }}>
-          <h2 style={{ fontFamily: SERIF, fontWeight: 300, fontSize: "clamp(28px,3.5vw,36px)", letterSpacing: 6, textTransform: "uppercase", color: ACCENT }}>
+        <div style={{ textAlign: "center", padding: "0 20px 12px" }}>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 300, fontSize: "clamp(24px,3vw,32px)", letterSpacing: 6, textTransform: "uppercase", color: ACCENT }}>
             Nabídka
           </h2>
-          <p style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "#9a9088", marginTop: 8 }}>
+          <p style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "#9a9088", marginTop: 6 }}>
             Vyberte objekt a podlaží
           </p>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 36, flexWrap: "wrap", gap: 0 }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 20, flexWrap: "wrap", gap: 0 }}>
           {tabs.map((t, i) => (
             <span key={t.id} onClick={() => setTab(t.id)} style={{
               padding: "11px 28px", fontFamily: SANS, fontSize: 11, letterSpacing: 2, textTransform: "uppercase",
@@ -1004,7 +1004,7 @@ function InteractiveMap() {
           ))}
         </div>
 
-        <div style={{ maxWidth: 860, margin: "0 auto" }}>
+        <div style={{ maxWidth: 760, margin: "0 auto" }}>
           {tab === "v" && (
             <FloorSection imgSrc="vila.png" overlayId="vo" zones={vilaZones} labels={vilaLabels} layout="vertical" hint="Najeďte myší na podlaží" />
           )}
