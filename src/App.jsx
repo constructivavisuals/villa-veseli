@@ -868,7 +868,7 @@ function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
 
   return (
     <div>
-      <div style={{ position: "relative", display: "flex", alignItems: "flex-start" }}>
+      <div style={{ position: "relative", display: "flex", alignItems: "flex-start" }} className="fs-wrap">
         <div style={{ position: "relative", flex: 1, background: "#e8e2d8" }}>
           <img src={`/images/${imgSrc}`} alt="" style={{ width: "100%", display: "block", position: "relative", zIndex: 1 }} />
           <div id={overlayId} style={{
@@ -905,7 +905,8 @@ function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
             </div>
           ))}
         </div>
-        <div style={{ width: 170, position: "relative", minHeight: 200 }}>
+        {/* Desktop labels — right side */}
+        <div style={{ width: 170, position: "relative", minHeight: 200 }} className="fs-labels-desk">
           {labels.map(l => (
             <div key={l.id} style={{
               position: "absolute", top: `${l.top}%`, right: 0,
@@ -921,7 +922,20 @@ function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
           ))}
         </div>
       </div>
+      {/* Mobile labels — below image */}
+      <div className="fs-labels-mob" style={{ display: "none", justifyContent: "center", gap: 24, marginTop: 12, flexWrap: "wrap" }}>
+        {labels.map(l => (
+          <span key={l.id} style={{
+            fontFamily: SANS, fontSize: 10, letterSpacing: 1.5, textTransform: "uppercase",
+            color: hovered === l.id ? ACCENT : "#7a7168", transition: "color 0.3s", cursor: "pointer",
+          }}
+            onMouseEnter={() => setHovered(l.id)}
+            onMouseLeave={() => setHovered(null)}
+          >{l.num} — {l.text}</span>
+        ))}
+      </div>
       <p style={{ textAlign: "center", marginTop: 8, fontFamily: SANS, fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: "#b5aea6" }}>{hint}</p>
+      <style>{`@media(max-width:768px){.fs-labels-desk{display:none!important}.fs-labels-mob{display:flex!important}}`}</style>
     </div>
   );
 }
@@ -1135,7 +1149,7 @@ function Potential() {
           ))}
         </div>
       </div>
-      <style>{`@media(max-width:768px){.pg{grid-template-columns:1fr 1fr!important}}`}</style>
+      <style>{`@media(max-width:768px){.pg{grid-template-columns:1fr 1fr!important}}@media(max-width:480px){.pg{grid-template-columns:1fr!important}}`}</style>
     </section>
   );
 }
