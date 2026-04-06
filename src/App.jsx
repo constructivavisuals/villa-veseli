@@ -918,23 +918,23 @@ function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
           </div>
         )}
         {!isV && (
-          <div style={{ display: "flex", justifyContent: "center", gap: 60, marginTop: 20 }}>
+          <div style={{ display: "flex", justifyContent: "center", gap: 40, marginTop: 10 }}>
             {labels.map(l => (
               <div key={l.id} style={{
-                display: "flex", flexDirection: "column", alignItems: "center", gap: 6, cursor: "pointer",
+                display: "flex", flexDirection: "column", alignItems: "center", gap: 4, cursor: "pointer",
               }}
                 onMouseEnter={() => setHovered(l.id)}
                 onMouseLeave={() => setHovered(null)}
               >
-                <span style={{ fontFamily: SERIF, fontSize: 24, fontWeight: 300, color: hovered === l.id ? ACCENT : "#2a2520", transition: "color 0.3s" }}>{l.num}</span>
-                <span style={{ width: 1, height: hovered === l.id ? 40 : 28, background: hovered === l.id ? ACCENT : "#2a2520", transition: "all 0.3s" }} />
-                <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 1.5, color: hovered === l.id ? ACCENT : "#4a4540", transition: "color 0.3s" }}>{l.text}</span>
+                <span style={{ fontFamily: SERIF, fontSize: 18, fontWeight: 300, color: hovered === l.id ? ACCENT : "#2a2520", transition: "color 0.3s" }}>{l.num}</span>
+                <span style={{ width: 1, height: hovered === l.id ? 24 : 16, background: hovered === l.id ? ACCENT : "#2a2520", transition: "all 0.3s" }} />
+                <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 1.5, color: hovered === l.id ? ACCENT : "#4a4540", transition: "color 0.3s" }}>{l.text}</span>
               </div>
             ))}
           </div>
         )}
       </div>
-      <p style={{ textAlign: "center", marginTop: 16, fontFamily: SANS, fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: "#2a2520" }}>{hint}</p>
+      <p style={{ textAlign: "center", marginTop: 8, fontFamily: SANS, fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: "#b5aea6" }}>{hint}</p>
     </div>
   );
 }
@@ -977,24 +977,24 @@ function InteractiveMap() {
   ];
 
   return (
-    <section id="explore" ref={ref} style={{ background: "#e8e2d8", padding: "40px 0 32px" }}>
+    <section id="explore" ref={ref} style={{ background: "#e8e2d8", padding: "28px 0 20px" }}>
       <div style={{
         maxWidth: 1300, margin: "0 auto", padding: "0 clamp(16px,3vw,48px)",
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: `all 1s ${EASE}`,
       }}>
-        <div style={{ textAlign: "center", padding: "0 20px 12px" }}>
-          <h2 style={{ fontFamily: SERIF, fontWeight: 300, fontSize: "clamp(24px,3vw,32px)", letterSpacing: 6, textTransform: "uppercase", color: ACCENT }}>
+        <div style={{ textAlign: "center", padding: "0 20px 6px" }}>
+          <h2 style={{ fontFamily: SERIF, fontWeight: 300, fontSize: "clamp(20px,2.5vw,26px)", letterSpacing: 5, textTransform: "uppercase", color: ACCENT, margin: 0 }}>
             Nabídka
           </h2>
-          <p style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "#9a9088", marginTop: 6 }}>
+          <p style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 3, textTransform: "uppercase", color: "#9a9088", marginTop: 4 }}>
             Vyberte objekt a podlaží
           </p>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 20, flexWrap: "wrap", gap: 0 }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 12, flexWrap: "wrap", gap: 0 }}>
           {tabs.map((t, i) => (
             <span key={t.id} onClick={() => setTab(t.id)} style={{
-              padding: "11px 28px", fontFamily: SANS, fontSize: 11, letterSpacing: 2, textTransform: "uppercase",
+              padding: "9px 24px", fontFamily: SANS, fontSize: 10, letterSpacing: 2, textTransform: "uppercase",
               cursor: "pointer", border: `1px solid ${tab === t.id ? ACCENT : "#d5cec4"}`,
               background: tab === t.id ? ACCENT : "transparent",
               color: tab === t.id ? "#fff" : "#7a7168",
@@ -1004,7 +1004,7 @@ function InteractiveMap() {
           ))}
         </div>
 
-        <div style={{ maxWidth: 760, margin: "0 auto" }}>
+        <div style={{ maxWidth: 700, margin: "0 auto" }}>
           {tab === "v" && (
             <FloorSection imgSrc="vila.png" overlayId="vo" zones={vilaZones} labels={vilaLabels} layout="vertical" hint="Najeďte myší na podlaží" />
           )}
