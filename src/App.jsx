@@ -863,7 +863,7 @@ function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
 
   return (
     <div>
-      <div style={{ position: "relative", display: "flex", alignItems: isV ? "flex-start" : "stretch", flexDirection: isV ? "row" : "column" }}>
+      <div style={{ position: "relative", display: "flex", alignItems: "flex-start" }}>
         <div style={{ position: "relative", flex: 1, background: "#e8e2d8" }}>
           <img src={`/images/${imgSrc}`} alt="" style={{ width: "100%", display: "block", position: "relative", zIndex: 1 }} />
           <div id={overlayId} style={{
@@ -900,39 +900,21 @@ function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
             </div>
           ))}
         </div>
-        {isV && (
-          <div style={{ width: 170, position: "relative", minHeight: 300 }}>
-            {labels.map(l => (
-              <div key={l.id} style={{
-                position: "absolute", top: `${l.top}%`, right: 0,
-                display: "flex", alignItems: "center", gap: 10, cursor: "pointer", whiteSpace: "nowrap",
-              }}
-                onMouseEnter={() => setHovered(l.id)}
-                onMouseLeave={() => setHovered(null)}
-              >
-                <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 1.5, color: hovered === l.id ? ACCENT : "#4a4540", transition: "color 0.3s" }}>{l.text}</span>
-                <span style={{ width: hovered === l.id ? 50 : 32, height: 1, background: hovered === l.id ? ACCENT : "#2a2520", transition: "all 0.3s" }} />
-                <span style={{ fontFamily: SERIF, fontSize: 24, fontWeight: 300, color: hovered === l.id ? ACCENT : "#2a2520", transition: "color 0.3s", minWidth: 26, textAlign: "right" }}>{l.num}</span>
-              </div>
-            ))}
-          </div>
-        )}
-        {!isV && (
-          <div style={{ display: "flex", justifyContent: "center", gap: 40, marginTop: 10 }}>
-            {labels.map(l => (
-              <div key={l.id} style={{
-                display: "flex", flexDirection: "column", alignItems: "center", gap: 4, cursor: "pointer",
-              }}
-                onMouseEnter={() => setHovered(l.id)}
-                onMouseLeave={() => setHovered(null)}
-              >
-                <span style={{ fontFamily: SERIF, fontSize: 18, fontWeight: 300, color: hovered === l.id ? ACCENT : "#2a2520", transition: "color 0.3s" }}>{l.num}</span>
-                <span style={{ width: 1, height: hovered === l.id ? 24 : 16, background: hovered === l.id ? ACCENT : "#2a2520", transition: "all 0.3s" }} />
-                <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 1.5, color: hovered === l.id ? ACCENT : "#4a4540", transition: "color 0.3s" }}>{l.text}</span>
-              </div>
-            ))}
-          </div>
-        )}
+        <div style={{ width: 170, position: "relative", minHeight: 200 }}>
+          {labels.map(l => (
+            <div key={l.id} style={{
+              position: "absolute", top: `${l.top}%`, right: 0,
+              display: "flex", alignItems: "center", gap: 10, cursor: "pointer", whiteSpace: "nowrap",
+            }}
+              onMouseEnter={() => setHovered(l.id)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 1.5, color: hovered === l.id ? ACCENT : "#4a4540", transition: "color 0.3s" }}>{l.text}</span>
+              <span style={{ width: hovered === l.id ? 50 : 32, height: 1, background: hovered === l.id ? ACCENT : "#2a2520", transition: "all 0.3s" }} />
+              <span style={{ fontFamily: SERIF, fontSize: 24, fontWeight: 300, color: hovered === l.id ? ACCENT : "#2a2520", transition: "color 0.3s", minWidth: 26, textAlign: "right" }}>{l.num}</span>
+            </div>
+          ))}
+        </div>
       </div>
       <p style={{ textAlign: "center", marginTop: 8, fontFamily: SANS, fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: "#b5aea6" }}>{hint}</p>
     </div>
@@ -972,8 +954,8 @@ function InteractiveMap() {
     { id: 2, left: 52, right: 100, before: "transparent 52%,", tooltip: "Garáž" },
   ];
   const tancirnaLabels = [
-    { id: 1, text: "Tančírna", num: "01" },
-    { id: 2, text: "Garáž", num: "02" },
+    { id: 1, top: 30, text: "Tančírna", num: "01" },
+    { id: 2, top: 60, text: "Garáž", num: "02" },
   ];
 
   return (
@@ -994,7 +976,7 @@ function InteractiveMap() {
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 12, flexWrap: "wrap", gap: 0 }}>
           {tabs.map((t, i) => (
             <span key={t.id} onClick={() => setTab(t.id)} style={{
-              padding: "9px 24px", fontFamily: SANS, fontSize: 10, letterSpacing: 2, textTransform: "uppercase",
+              padding: "10px 30px", fontFamily: SANS, fontSize: 11, letterSpacing: 2, textTransform: "uppercase",
               cursor: "pointer", border: `1px solid ${tab === t.id ? ACCENT : "#d5cec4"}`,
               background: tab === t.id ? ACCENT : "transparent",
               color: tab === t.id ? "#fff" : "#7a7168",
@@ -1004,7 +986,7 @@ function InteractiveMap() {
           ))}
         </div>
 
-        <div style={{ maxWidth: 700, margin: "0 auto" }}>
+        <div style={{ maxWidth: 820, margin: "0 auto" }}>
           {tab === "v" && (
             <FloorSection imgSrc="vila.png" overlayId="vo" zones={vilaZones} labels={vilaLabels} layout="vertical" hint="Najeďte myší na podlaží" />
           )}
