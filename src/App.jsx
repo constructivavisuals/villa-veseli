@@ -762,7 +762,7 @@ function Gallery() {
           }}>
             <img src={filtered[active]?.src} alt="" style={{
               width: "100%", height: "100%", objectFit: "cover",
-              transition: "opacity 0.5s ease",
+              transition: "opacity 0.15s ease",
             }} />
             <div style={{
               position: "absolute", bottom: 0, left: 0, right: 0,
@@ -808,7 +808,7 @@ function Gallery() {
               <div key={i} onClick={() => setActive(i)} style={{
                 width: 90, height: 64, overflow: "hidden", cursor: "pointer", position: "relative", flexShrink: 0,
                 opacity: active === i ? 1 : 0.4,
-                transition: "opacity 0.3s ease",
+                transition: "opacity 0.15s ease",
               }}>
                 <img src={p.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 {active === i && <div style={{
