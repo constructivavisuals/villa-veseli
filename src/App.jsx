@@ -170,6 +170,17 @@ const T = {
     },
     exploreCta: "Domluvit prohlídku",
     exploreClose: "Zavřít",
+    offerTitle: "Nabídka",
+    offerSub: "Vyberte objekt a podlaží",
+    offerTabs: ["Vila", "Chatka", "Tančírna"],
+    offerHintVila: "Najeďte myší na podlaží",
+    offerHintChatka: "Najeďte myší pro zvýraznění",
+    offerHintTanc: "Najeďte myší na zónu",
+    vilaFloors: ["1. nadzemní podlaží", "2. nadzemní podlaží", "3. nadzemní podlaží"],
+    vilaTooltips: ["1. NP — Přízemí", "2. NP", "3. NP — Podkroví"],
+    chatkaLabel: "Celá chatka",
+    chatkaTooltip: "Chatka — celá jednotka",
+    tancLabels: ["Tančírna", "Garáž"],
     // Splash
     splashTitle: "Vila Vysoké Veselí",
   },
@@ -303,6 +314,17 @@ const T = {
     },
     exploreCta: "Book a viewing",
     exploreClose: "Close",
+    offerTitle: "Offer",
+    offerSub: "Select a building and floor",
+    offerTabs: ["Villa", "Cabin", "Dance hall"],
+    offerHintVila: "Hover over a floor",
+    offerHintChatka: "Hover to highlight",
+    offerHintTanc: "Hover over a zone",
+    vilaFloors: ["1st floor", "2nd floor", "3rd floor"],
+    vilaTooltips: ["1st floor — Ground", "2nd floor", "3rd floor — Attic"],
+    chatkaLabel: "Entire cabin",
+    chatkaTooltip: "Cabin — entire unit",
+    tancLabels: ["Dance hall", "Garage"],
     splashTitle: "Vila Vysoké Veselí",
   },
   de: {
@@ -435,6 +457,17 @@ const T = {
     },
     exploreCta: "Besichtigung vereinbaren",
     exploreClose: "Schließen",
+    offerTitle: "Angebot",
+    offerSub: "Wählen Sie ein Gebäude und Stockwerk",
+    offerTabs: ["Villa", "Hütte", "Tanzsaal"],
+    offerHintVila: "Fahren Sie mit der Maus über ein Stockwerk",
+    offerHintChatka: "Zum Hervorheben mit der Maus darüberfahren",
+    offerHintTanc: "Fahren Sie mit der Maus über eine Zone",
+    vilaFloors: ["1. Obergeschoss", "2. Obergeschoss", "3. Obergeschoss"],
+    vilaTooltips: ["1. OG — Erdgeschoss", "2. OG", "3. OG — Dachgeschoss"],
+    chatkaLabel: "Gesamte Hütte",
+    chatkaTooltip: "Hütte — gesamte Einheit",
+    tancLabels: ["Tanzsaal", "Garage"],
     splashTitle: "Vila Vysoké Veselí",
   },
 };
@@ -941,40 +974,41 @@ function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
 }
 
 function InteractiveMap() {
+  const t = useLang();
   const [ref, vis] = useInView(0.08);
   const [tab, setTab] = useState("v");
 
-  const tabs = [
-    { id: "v", label: "Vila" },
-    { id: "c", label: "Chatka" },
-    { id: "t", label: "Tančírna" },
+  const tabDefs = [
+    { id: "v", label: t.offerTabs[0] },
+    { id: "c", label: t.offerTabs[1] },
+    { id: "t", label: t.offerTabs[2] },
   ];
 
   const vilaZones = [
-    { id: 3, top: 0, bot: 36, before: "", tooltip: "3. NP — Podkroví" },
-    { id: 2, top: 36, bot: 64, before: "transparent 36%,", tooltip: "2. NP" },
-    { id: 1, top: 64, bot: 100, before: "transparent 64%,", tooltip: "1. NP — Přízemí" },
+    { id: 3, top: 0, bot: 36, before: "", tooltip: t.vilaTooltips[2] },
+    { id: 2, top: 36, bot: 64, before: "transparent 36%,", tooltip: t.vilaTooltips[1] },
+    { id: 1, top: 64, bot: 100, before: "transparent 64%,", tooltip: t.vilaTooltips[0] },
   ];
   const vilaLabels = [
-    { id: 3, top: 14, text: "3. nadzemní podlaží", num: "03" },
-    { id: 2, top: 44, text: "2. nadzemní podlaží", num: "02" },
-    { id: 1, top: 76, text: "1. nadzemní podlaží", num: "01" },
+    { id: 3, top: 14, text: t.vilaFloors[2], num: "03" },
+    { id: 2, top: 44, text: t.vilaFloors[1], num: "02" },
+    { id: 1, top: 76, text: t.vilaFloors[0], num: "01" },
   ];
 
   const chatkaZones = [
-    { id: 1, top: 0, bot: 100, before: "", tooltip: "Chatka — celá jednotka" },
+    { id: 1, top: 0, bot: 100, before: "", tooltip: t.chatkaTooltip },
   ];
   const chatkaLabels = [
-    { id: 1, top: 42, text: "Celá chatka", num: "01" },
+    { id: 1, top: 42, text: t.chatkaLabel, num: "01" },
   ];
 
   const tancirnaZones = [
-    { id: 1, left: 0, right: 52, before: "", tooltip: "Tančírna" },
-    { id: 2, left: 52, right: 100, before: "transparent 52%,", tooltip: "Garáž" },
+    { id: 1, left: 0, right: 52, before: "", tooltip: t.tancLabels[0] },
+    { id: 2, left: 52, right: 100, before: "transparent 52%,", tooltip: t.tancLabels[1] },
   ];
   const tancirnaLabels = [
-    { id: 1, top: 30, text: "Tančírna", num: "01" },
-    { id: 2, top: 60, text: "Garáž", num: "02" },
+    { id: 1, top: 30, text: t.tancLabels[0], num: "01" },
+    { id: 2, top: 60, text: t.tancLabels[1], num: "02" },
   ];
 
   return (
@@ -985,35 +1019,35 @@ function InteractiveMap() {
       }}>
         <div style={{ textAlign: "center", padding: "0 20px 6px" }}>
           <h2 style={{ fontFamily: SERIF, fontWeight: 300, fontSize: "clamp(20px,2.5vw,26px)", letterSpacing: 5, textTransform: "uppercase", color: ACCENT, margin: 0 }}>
-            Nabídka
+            {t.offerTitle}
           </h2>
           <p style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 3, textTransform: "uppercase", color: "#9a9088", marginTop: 4 }}>
-            Vyberte objekt a podlaží
+            {t.offerSub}
           </p>
         </div>
 
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 12, flexWrap: "wrap", gap: 0 }}>
-          {tabs.map((t, i) => (
-            <span key={t.id} onClick={() => setTab(t.id)} style={{
+          {tabDefs.map((td, i) => (
+            <span key={td.id} onClick={() => setTab(td.id)} style={{
               padding: "10px 30px", fontFamily: SANS, fontSize: 11, letterSpacing: 2, textTransform: "uppercase",
-              cursor: "pointer", border: `1px solid ${tab === t.id ? ACCENT : "#d5cec4"}`,
-              background: tab === t.id ? ACCENT : "transparent",
-              color: tab === t.id ? "#fff" : "#7a7168",
+              cursor: "pointer", border: `1px solid ${tab === td.id ? ACCENT : "#d5cec4"}`,
+              background: tab === td.id ? ACCENT : "transparent",
+              color: tab === td.id ? "#fff" : "#7a7168",
               transition: "all 0.3s",
-              borderRadius: i === 0 ? "4px 0 0 4px" : i === tabs.length - 1 ? "0 4px 4px 0" : 0,
-            }}>{t.label}</span>
+              borderRadius: i === 0 ? "4px 0 0 4px" : i === tabDefs.length - 1 ? "0 4px 4px 0" : 0,
+            }}>{td.label}</span>
           ))}
         </div>
 
         <div style={{ maxWidth: 820, margin: "0 auto" }}>
           {tab === "v" && (
-            <FloorSection imgSrc="vila.png" overlayId="vo" zones={vilaZones} labels={vilaLabels} layout="vertical" hint="Najeďte myší na podlaží" />
+            <FloorSection imgSrc="vila.png" overlayId="vo" zones={vilaZones} labels={vilaLabels} layout="vertical" hint={t.offerHintVila} />
           )}
           {tab === "c" && (
-            <FloorSection imgSrc="chatka.png" overlayId="co" zones={chatkaZones} labels={chatkaLabels} layout="vertical" hint="Najeďte myší pro zvýraznění" />
+            <FloorSection imgSrc="chatka.png" overlayId="co" zones={chatkaZones} labels={chatkaLabels} layout="vertical" hint={t.offerHintChatka} />
           )}
           {tab === "t" && (
-            <FloorSection imgSrc="tancirna.png" overlayId="to" zones={tancirnaZones} labels={tancirnaLabels} layout="horizontal" hint="Najeďte myší na zónu" />
+            <FloorSection imgSrc="tancirna.png" overlayId="to" zones={tancirnaZones} labels={tancirnaLabels} layout="horizontal" hint={t.offerHintTanc} />
           )}
         </div>
       </div>
