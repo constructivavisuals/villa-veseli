@@ -727,13 +727,13 @@ function Gallery() {
   const handleTab = (tb) => { setTab(tb); setActive(0); };
 
   return (
-    <section id="gallery" ref={ref} style={{ background: DARK, padding: "clamp(48px,6vw,80px) 0" }}>
+    <section id="gallery" ref={ref} style={{ background: DARK, padding: "32px 0" }}>
       <div style={{
-        maxWidth: 1300, margin: "0 auto", padding: "0 clamp(16px,3vw,48px)",
+        maxWidth: 900, margin: "0 auto", padding: "0 clamp(16px,3vw,48px)",
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: `all 1s ${EASE}`,
       }}>
         {/* Header + tabs */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 20, flexWrap: "wrap", gap: 16 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 14, flexWrap: "wrap", gap: 12 }}>
           <div>
             <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: GOLD, textTransform: "uppercase", fontWeight: 500 }}>{t.galleryTag}</span>
             <h2 style={{ fontFamily: SERIF, fontSize: "clamp(24px,3vw,38px)", fontWeight: 300, color: "#fff", margin: "6px 0 0" }}>
@@ -757,7 +757,7 @@ function Gallery() {
         <div style={{ display: "flex", gap: 4 }} className="gg">
           {/* Featured image */}
           <div onClick={() => setLightbox(active)} style={{
-            flex: 1, aspectRatio: "4/3", overflow: "hidden", cursor: "zoom-in",
+            flex: 1, aspectRatio: "16/10", overflow: "hidden", cursor: "zoom-in",
             position: "relative",
           }}>
             <img src={filtered[active]?.src} alt="" style={{
@@ -802,11 +802,11 @@ function Gallery() {
           {/* Side thumbnail strip */}
           <div style={{
             display: "flex", flexDirection: "column", gap: 4, overflowY: "auto",
-            width: 100, flexShrink: 0, scrollbarWidth: "none",
+            width: 80, flexShrink: 0, scrollbarWidth: "none",
           }} className="gside">
             {filtered.map((p, i) => (
               <div key={i} onClick={() => setActive(i)} style={{
-                width: 100, height: 72, overflow: "hidden", cursor: "pointer", position: "relative", flexShrink: 0,
+                width: 80, height: 56, overflow: "hidden", cursor: "pointer", position: "relative", flexShrink: 0,
                 opacity: active === i ? 1 : 0.4,
                 transition: "opacity 0.3s ease",
               }}>
