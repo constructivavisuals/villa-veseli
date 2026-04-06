@@ -2,12 +2,12 @@ import { useState, useEffect, useRef, createContext, useContext } from "react";
 
 // Fonts
 const fontLink = document.createElement("link");
-fontLink.href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Raleway:wght@200;300;400;500;600&display=swap";
+fontLink.href = "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap";
 fontLink.rel = "stylesheet";
 document.head.appendChild(fontLink);
 
-const SERIF = "'Cormorant Garamond', Georgia, serif";
-const SANS = "'Raleway', 'Helvetica Neue', sans-serif";
+const SERIF = "'Montserrat', sans-serif";
+const SANS = "'Montserrat', sans-serif";
 const GOLD = "#c8a96e";
 const DARK = "#151312";
 const PILL = { borderRadius: 100, padding: "14px 32px", fontFamily: "'Raleway', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: 2.5, textTransform: "uppercase", cursor: "pointer", transition: "all 0.6s cubic-bezier(.16,1,.3,1)", border: "none" };
