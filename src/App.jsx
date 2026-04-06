@@ -977,7 +977,7 @@ function InteractiveMap() {
   ];
 
   return (
-    <section id="explore" ref={ref} style={{ background: DARK, padding: "clamp(64px,10vw,100px) 0" }}>
+    <section id="explore" ref={ref} style={{ background: "#f5f0e8", padding: "clamp(80px,12vw,160px) 0" }}>
       <div style={{
         maxWidth: 1300, margin: "0 auto", padding: "0 clamp(16px,3vw,48px)",
         opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(30px)", transition: `all 1s ${EASE}`,
@@ -986,7 +986,7 @@ function InteractiveMap() {
           <h2 style={{ fontFamily: SERIF, fontWeight: 300, fontSize: "clamp(28px,3.5vw,36px)", letterSpacing: 6, textTransform: "uppercase", color: ACCENT }}>
             Nabídka
           </h2>
-          <p style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "#5a5550", marginTop: 8 }}>
+          <p style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "#9a9088", marginTop: 8 }}>
             Vyberte objekt a podlaží
           </p>
         </div>
@@ -995,9 +995,9 @@ function InteractiveMap() {
           {tabs.map((t, i) => (
             <span key={t.id} onClick={() => setTab(t.id)} style={{
               padding: "11px 28px", fontFamily: SANS, fontSize: 11, letterSpacing: 2, textTransform: "uppercase",
-              cursor: "pointer", border: `1px solid ${tab === t.id ? ACCENT : "#2a2520"}`,
+              cursor: "pointer", border: `1px solid ${tab === t.id ? ACCENT : "#d5cec4"}`,
               background: tab === t.id ? ACCENT : "transparent",
-              color: tab === t.id ? "#0f0e0d" : "#8a7e6e",
+              color: tab === t.id ? "#fff" : "#7a7168",
               transition: "all 0.3s",
               borderRadius: i === 0 ? "4px 0 0 4px" : i === tabs.length - 1 ? "0 4px 4px 0" : 0,
             }}>{t.label}</span>
