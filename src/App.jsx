@@ -184,8 +184,8 @@ const T = {
     detailClose: "Zavřít detail",
     zoneDetails: {
       v: {
-        1: "Vstupní hala se schodištěm, prostorná kuchyň s jídelnou, obývací pokoj, pracovna a koupelna.",
-        2: "Tři ložnice, kulečníkový sál, dvě koupelny a balkón s výhledem do zahrady.",
+        1: "Společenská místnost s kulečníkem a stolním tenisem, prostorná kuchyně, venkovní kuchyně a zimní zahrada s výstupem na terasu.",
+        2: "Tři ložnice, dvě koupelny a balkón s výhledem do zahrady.",
         3: "Potenciál rozvoje podkroví do budoucna — prostor pro další ložnice nebo ateliér.",
       },
       c: {
@@ -343,8 +343,8 @@ const T = {
     detailClose: "Close detail",
     zoneDetails: {
       v: {
-        1: "Entrance hall with staircase, spacious kitchen with dining area, living room, study, and bathroom.",
-        2: "Three bedrooms, billiard room, two bathrooms, and balcony with garden views.",
+        1: "Common room with billiard and table tennis, spacious kitchen, outdoor kitchen and a winter garden opening onto the terrace.",
+        2: "Three bedrooms, two bathrooms and a balcony with garden views.",
         3: "Future development potential of the attic — space for additional bedrooms or a studio.",
       },
       c: {
@@ -501,8 +501,8 @@ const T = {
     detailClose: "Detail schließen",
     zoneDetails: {
       v: {
-        1: "Eingangshalle mit Treppe, geräumige Küche mit Essbereich, Wohnzimmer, Arbeitszimmer und Badezimmer.",
-        2: "Drei Schlafzimmer, Billardraum, zwei Badezimmer und Balkon mit Gartenblick.",
+        1: "Gemeinschaftsraum mit Billard und Tischtennis, geräumige Küche, Außenküche und Wintergarten mit Zugang zur Terrasse.",
+        2: "Drei Schlafzimmer, zwei Badezimmer und Balkon mit Gartenblick.",
         3: "Künftiges Ausbaupotenzial des Dachgeschosses — Platz für weitere Schlafzimmer oder ein Atelier.",
       },
       c: {
