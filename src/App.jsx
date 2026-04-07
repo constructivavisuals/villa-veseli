@@ -48,9 +48,9 @@ const T = {
     heroScroll: "Scrollujte dolů",
     // About
     aboutTag: "Exkluzivní nabídka · Ihned k nastěhování",
-    aboutTitle1: "Cihlová vila s ",
+    aboutTitle1: "Elegantní vila s ",
     aboutTitle2: "výjimečným potenciálem",
-    aboutP1: "Unikátní cihlová vila v osobním vlastnictví ve Vysokém Veselí. Nemovitost o zastavěné ploše 400 m² se nachází na výjimečně prostorném pozemku o rozloze 6 748 m² a je ve velmi dobrém stavu, připravená k okamžitému nastěhování.",
+    aboutP1: "Unikátní elegantní vila v osobním vlastnictví ve Vysokém Veselí. Nemovitost o zastavěné ploše 400 m² se nachází na výjimečně prostorném pozemku o rozloze 6 748 m² a je ve velmi dobrém stavu, připravená k okamžitému nastěhování.",
     aboutP2: "Na pozemku se nachází 6 samostatných chatek — ideální pro pořádání dětských táborů, skupinových pobytů či jiných volnočasových aktivit. Nemovitost nabízí garáž, sklep 20 m², balkón a terasu s výhledem do okolní přírody.",
     aboutCta: "Domluvit prohlídku",
     aboutPrice: "13 950 000 Kč",
