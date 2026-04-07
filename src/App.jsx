@@ -730,7 +730,7 @@ function About() {
             width: "100%", height: "clamp(380px,50vw,580px)", objectFit: "cover",
           }} />
           <div style={{
-            position: "absolute", bottom: -16, left: -16, background: GOLD, padding: "18px 26px",
+            position: "absolute", top: -16, right: -16, background: GOLD, padding: "18px 26px",
           }} className="ab">
             <span style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 600, color: "#fff", display: "block" }}>{t.aboutPrice}</span>
             <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 3, color: "rgba(255,255,255,0.75)", textTransform: "uppercase" }}>
@@ -739,7 +739,7 @@ function About() {
           </div>
         </div>
       </div>
-      <style>{`@media(max-width:768px){.ag{grid-template-columns:1fr!important}.ab{bottom:-8px!important;left:8px!important}}`}</style>
+      <style>{`@media(max-width:768px){.ag{grid-template-columns:1fr!important}.ab{top:-8px!important;right:8px!important}}`}</style>
     </section>
   );
 }
