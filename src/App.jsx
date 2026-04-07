@@ -163,7 +163,7 @@ const T = {
       cabins: {
         name: "Chatky",
         title: "6 samostatných chatek",
-        desc: "Každá chatka nabízí vlastní pokoj se dvěma lůžky a základním vybavením. Ideální pro pořádání dětských táborů, skupinových pobytů nebo pronájem.",
+        desc: "Každá chatka nabízí vlastní pokoj se čtyřmi lůžky a základním vybavením. Ideální pro pořádání dětských táborů, skupinových pobytů nebo pronájem.",
         extra: "Součástí areálu je bazén se zastřešením",
       },
     },
@@ -189,7 +189,7 @@ const T = {
         3: "Potenciál rozvoje podkroví do budoucna — prostor pro další ložnice nebo ateliér.",
       },
       c: {
-        1: "Samostatná chatka s vlastním pokojem, dvěma lůžky a základním vybavením. Ideální pro tábory a skupinové pobyty.",
+        1: "Samostatná chatka s vlastním pokojem, čtyřmi lůžky a základním vybavením. Ideální pro tábory a skupinové pobyty.",
       },
       t: {
         1: "Tančírna — prostorný sál vhodný pro pořádání akcí, oslav nebo skupinových aktivit.",
@@ -322,7 +322,7 @@ const T = {
       cabins: {
         name: "Cabins",
         title: "6 separate cabins",
-        desc: "Each cabin offers its own room with two beds and basic amenities. Ideal for organizing children's camps, group stays, or rental.",
+        desc: "Each cabin offers its own room with four beds and basic amenities. Ideal for organizing children's camps, group stays, or rental.",
         extra: "The grounds include a covered swimming pool",
       },
     },
@@ -348,7 +348,7 @@ const T = {
         3: "Future development potential of the attic — space for additional bedrooms or a studio.",
       },
       c: {
-        1: "Standalone cabin with its own room, two beds, and basic amenities. Ideal for camps and group stays.",
+        1: "Standalone cabin with its own room, four beds, and basic amenities. Ideal for camps and group stays.",
       },
       t: {
         1: "Dance hall — a spacious venue suitable for events, celebrations or group activities.",
@@ -480,7 +480,7 @@ const T = {
       cabins: {
         name: "Hütten",
         title: "6 separate Hütten",
-        desc: "Jede Hütte bietet ein eigenes Zimmer mit zwei Betten und Grundausstattung. Ideal für Kindercamps, Gruppenaufenthalte oder Vermietung.",
+        desc: "Jede Hütte bietet ein eigenes Zimmer mit vier Betten und Grundausstattung. Ideal für Kindercamps, Gruppenaufenthalte oder Vermietung.",
         extra: "Zum Gelände gehört ein überdachter Swimmingpool",
       },
     },
@@ -506,7 +506,7 @@ const T = {
         3: "Künftiges Ausbaupotenzial des Dachgeschosses — Platz für weitere Schlafzimmer oder ein Atelier.",
       },
       c: {
-        1: "Eigenständige Hütte mit eigenem Zimmer, zwei Betten und Grundausstattung. Ideal für Lager und Gruppenaufenthalte.",
+        1: "Eigenständige Hütte mit eigenem Zimmer, vier Betten und Grundausstattung. Ideal für Lager und Gruppenaufenthalte.",
       },
       t: {
         1: "Tanzsaal — ein geräumiger Saal für Veranstaltungen, Feiern oder Gruppenaktivitäten.",
