@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 .vercel
 public/images/video-original.mp4
+
+# Local working files (references, prompts, experiments)
+floor-hover.html
+prompt-interactive-map*.txt
+zone-ref-page*.png

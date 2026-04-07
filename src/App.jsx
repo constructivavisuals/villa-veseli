@@ -187,7 +187,7 @@ const T = {
       v: {
         1: "Vstupní hala se schodištěm, prostorná kuchyň s jídelnou, obývací pokoj, pracovna a koupelna.",
         2: "Tři ložnice, kulečníkový sál, dvě koupelny a balkón s výhledem do zahrady.",
-        3: "Potenciál rozvoje podkroví do budoucna — prostor pro další ložnice, ateliér nebo wellness.",
+        3: "Potenciál rozvoje podkroví do budoucna — prostor pro další ložnice nebo ateliér.",
       },
       c: {
         1: "Samostatná chatka s vlastním pokojem, dvěma lůžky a základním vybavením. Ideální pro tábory a skupinové pobyty.",
@@ -347,7 +347,7 @@ const T = {
       v: {
         1: "Entrance hall with staircase, spacious kitchen with dining area, living room, study, and bathroom.",
         2: "Three bedrooms, billiard room, two bathrooms, and balcony with garden views.",
-        3: "Future development potential of the attic — space for additional bedrooms, a studio or a wellness area.",
+        3: "Future development potential of the attic — space for additional bedrooms or a studio.",
       },
       c: {
         1: "Standalone cabin with its own room, two beds, and basic amenities. Ideal for camps and group stays.",
@@ -506,7 +506,7 @@ const T = {
       v: {
         1: "Eingangshalle mit Treppe, geräumige Küche mit Essbereich, Wohnzimmer, Arbeitszimmer und Badezimmer.",
         2: "Drei Schlafzimmer, Billardraum, zwei Badezimmer und Balkon mit Gartenblick.",
-        3: "Künftiges Ausbaupotenzial des Dachgeschosses — Platz für weitere Schlafzimmer, ein Atelier oder einen Wellnessbereich.",
+        3: "Künftiges Ausbaupotenzial des Dachgeschosses — Platz für weitere Schlafzimmer oder ein Atelier.",
       },
       c: {
         1: "Eigenständige Hütte mit eigenem Zimmer, zwei Betten und Grundausstattung. Ideal für Lager und Gruppenaufenthalte.",
