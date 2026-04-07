@@ -181,6 +181,22 @@ const T = {
     chatkaLabel: "Celá chatka",
     chatkaTooltip: "Chatka — celá jednotka",
     tancLabels: ["Tančírna", "Garáž"],
+    detailPhotos: "Fotografie",
+    detailClose: "Zavřít detail",
+    zoneDetails: {
+      v: {
+        1: "Vstupní hala se schodištěm, prostorná kuchyň s jídelnou, obývací pokoj, pracovna a koupelna.",
+        2: "Tři ložnice, kulečníkový sál, dvě koupelny a balkón s výhledem do zahrady.",
+        3: "Podkroví s dalšími prostory pro odpočinek a uskladnění.",
+      },
+      c: {
+        1: "Samostatná chatka s vlastním pokojem, dvěma lůžky a základním vybavením. Ideální pro tábory a skupinové pobyty.",
+      },
+      t: {
+        1: "Tančírna — prostorný sál vhodný pro pořádání akcí, oslav nebo skupinových aktivit.",
+        2: "Garáž — krytý prostor pro vozidla nebo uskladnění.",
+      },
+    },
     // Splash
     splashTitle: "Vila Vysoké Veselí",
   },
@@ -325,6 +341,22 @@ const T = {
     chatkaLabel: "Entire cabin",
     chatkaTooltip: "Cabin — entire unit",
     tancLabels: ["Dance hall", "Garage"],
+    detailPhotos: "Photos",
+    detailClose: "Close detail",
+    zoneDetails: {
+      v: {
+        1: "Entrance hall with staircase, spacious kitchen with dining area, living room, study, and bathroom.",
+        2: "Three bedrooms, billiard room, two bathrooms, and balcony with garden views.",
+        3: "Attic with additional space for relaxation and storage.",
+      },
+      c: {
+        1: "Standalone cabin with its own room, two beds, and basic amenities. Ideal for camps and group stays.",
+      },
+      t: {
+        1: "Dance hall — a spacious venue suitable for events, celebrations or group activities.",
+        2: "Garage — covered space for vehicles or storage.",
+      },
+    },
     splashTitle: "Vila Vysoké Veselí",
   },
   de: {
@@ -468,6 +500,22 @@ const T = {
     chatkaLabel: "Gesamte Hütte",
     chatkaTooltip: "Hütte — gesamte Einheit",
     tancLabels: ["Tanzsaal", "Garage"],
+    detailPhotos: "Fotos",
+    detailClose: "Detail schließen",
+    zoneDetails: {
+      v: {
+        1: "Eingangshalle mit Treppe, geräumige Küche mit Essbereich, Wohnzimmer, Arbeitszimmer und Badezimmer.",
+        2: "Drei Schlafzimmer, Billardraum, zwei Badezimmer und Balkon mit Gartenblick.",
+        3: "Dachgeschoss mit zusätzlichem Raum zum Entspannen und Lagern.",
+      },
+      c: {
+        1: "Eigenständige Hütte mit eigenem Zimmer, zwei Betten und Grundausstattung. Ideal für Lager und Gruppenaufenthalte.",
+      },
+      t: {
+        1: "Tanzsaal — ein geräumiger Saal für Veranstaltungen, Feiern oder Gruppenaktivitäten.",
+        2: "Garage — überdachter Raum für Fahrzeuge oder Lagerung.",
+      },
+    },
     splashTitle: "Vila Vysoké Veselí",
   },
 };
@@ -886,8 +934,9 @@ function Gallery() {
 const ACCENT = "#c9a96e";
 const HOVER_C = "rgba(201,169,110,0.35)";
 
-function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
+function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint, selectedId, onSelect }) {
   const [hovered, setHovered] = useState(null);
+  const active = selectedId || hovered;
 
   const gradients = {};
   if (layout === "vertical") {
@@ -913,7 +962,7 @@ function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
             WebkitMaskImage: maskUrl, maskImage: maskUrl,
             WebkitMaskSize: "100% 100%", maskSize: "100% 100%",
             WebkitMaskRepeat: "no-repeat", maskRepeat: "no-repeat",
-            background: hovered ? gradients[hovered] : "transparent",
+            background: active ? gradients[active] : "transparent",
             transition: "background 0.3s",
           }} />
           {zones.map(z => (
@@ -925,6 +974,7 @@ function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
               }}
                 onMouseEnter={() => setHovered(z.id)}
                 onMouseLeave={() => setHovered(null)}
+                onClick={() => onSelect && onSelect(z.id)}
               />
               <div style={{
                 position: "absolute", zIndex: 10, pointerEvents: "none",
@@ -936,7 +986,7 @@ function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
                   background: "rgba(15,14,13,0.92)", border: `1px solid ${ACCENT}`,
                   padding: "9px 20px", borderRadius: 3, whiteSpace: "nowrap",
                   fontFamily: SANS, fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: ACCENT,
-                  opacity: hovered === z.id ? 1 : 0, transition: "opacity 0.3s",
+                  opacity: active === z.id ? 1 : 0, transition: "opacity 0.3s",
                 }}>{z.tooltip}</div>
               </div>
             </div>
@@ -951,10 +1001,11 @@ function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
             }}
               onMouseEnter={() => setHovered(l.id)}
               onMouseLeave={() => setHovered(null)}
+              onClick={() => onSelect && onSelect(l.id)}
             >
-              <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 1.5, color: hovered === l.id ? ACCENT : "#4a4540", transition: "color 0.3s" }}>{l.text}</span>
-              <span style={{ width: hovered === l.id ? 50 : 32, height: 1, background: hovered === l.id ? ACCENT : "#2a2520", transition: "all 0.3s" }} />
-              <span style={{ fontFamily: SERIF, fontSize: 24, fontWeight: 300, color: hovered === l.id ? ACCENT : "#2a2520", transition: "color 0.3s", minWidth: 26, textAlign: "right" }}>{l.num}</span>
+              <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 1.5, color: active === l.id ? ACCENT : "#4a4540", transition: "color 0.3s" }}>{l.text}</span>
+              <span style={{ width: active === l.id ? 50 : 32, height: 1, background: active === l.id ? ACCENT : "#2a2520", transition: "all 0.3s" }} />
+              <span style={{ fontFamily: SERIF, fontSize: 24, fontWeight: 300, color: active === l.id ? ACCENT : "#2a2520", transition: "color 0.3s", minWidth: 26, textAlign: "right" }}>{l.num}</span>
             </div>
           ))}
         </div>
@@ -964,10 +1015,11 @@ function FloorSection({ imgSrc, overlayId, zones, labels, layout, hint }) {
         {labels.map(l => (
           <span key={l.id} style={{
             fontFamily: SANS, fontSize: 10, letterSpacing: 1.5, textTransform: "uppercase",
-            color: hovered === l.id ? ACCENT : "#7a7168", transition: "color 0.3s", cursor: "pointer",
+            color: active === l.id ? ACCENT : "#7a7168", transition: "color 0.3s", cursor: "pointer",
           }}
             onMouseEnter={() => setHovered(l.id)}
             onMouseLeave={() => setHovered(null)}
+            onClick={() => onSelect && onSelect(l.id)}
           >{l.num} — {l.text}</span>
         ))}
       </div>
@@ -981,6 +1033,11 @@ function InteractiveMap() {
   const t = useLang();
   const [ref, vis] = useInView(0.08);
   const [tab, setTab] = useState("v");
+  const [selectedId, setSelectedId] = useState(null);
+
+  const switchTab = (id) => { setTab(id); setSelectedId(null); };
+  const handleSelect = (id) => setSelectedId(prev => prev === id ? null : id);
+  const closeDetail = () => setSelectedId(null);
 
   const tabDefs = [
     { id: "v", label: t.offerTabs[0] },
@@ -1032,7 +1089,7 @@ function InteractiveMap() {
 
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 12, flexWrap: "wrap", gap: 0 }}>
           {tabDefs.map((td, i) => (
-            <span key={td.id} onClick={() => setTab(td.id)} style={{
+            <span key={td.id} onClick={() => switchTab(td.id)} style={{
               padding: "10px 30px", fontFamily: SANS, fontSize: 11, letterSpacing: 2, textTransform: "uppercase",
               cursor: "pointer", border: `1px solid ${tab === td.id ? ACCENT : "#d5cec4"}`,
               background: tab === td.id ? ACCENT : "transparent",
@@ -1043,19 +1100,91 @@ function InteractiveMap() {
           ))}
         </div>
 
-        <div style={{ maxWidth: 820, margin: "0 auto" }}>
-          {tab === "v" && (
-            <FloorSection imgSrc="vila.png" overlayId="vo" zones={vilaZones} labels={vilaLabels} layout="vertical" hint={t.offerHintVila} />
-          )}
-          {tab === "c" && (
-            <FloorSection imgSrc="chatka.png" overlayId="co" zones={chatkaZones} labels={chatkaLabels} layout="vertical" hint={t.offerHintChatka} />
-          )}
-          {tab === "t" && (
-            <FloorSection imgSrc="tancirna.png" overlayId="to" zones={tancirnaZones} labels={tancirnaLabels} layout="horizontal" hint={t.offerHintTanc} />
+        <div className="im-grid" style={{
+          maxWidth: selectedId ? 1280 : 820,
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: selectedId ? "minmax(0,1fr) minmax(0,1fr)" : "1fr",
+          gap: selectedId ? 32 : 0,
+          alignItems: "start",
+          transition: `all 0.55s ${EASE}`,
+        }}>
+          <div style={{ minWidth: 0 }}>
+            {tab === "v" && (
+              <FloorSection imgSrc="vila.png" overlayId="vo" zones={vilaZones} labels={vilaLabels} layout="vertical" hint={t.offerHintVila} selectedId={selectedId} onSelect={handleSelect} />
+            )}
+            {tab === "c" && (
+              <FloorSection imgSrc="chatka.png" overlayId="co" zones={chatkaZones} labels={chatkaLabels} layout="vertical" hint={t.offerHintChatka} selectedId={selectedId} onSelect={handleSelect} />
+            )}
+            {tab === "t" && (
+              <FloorSection imgSrc="tancirna.png" overlayId="to" zones={tancirnaZones} labels={tancirnaLabels} layout="horizontal" hint={t.offerHintTanc} selectedId={selectedId} onSelect={handleSelect} />
+            )}
+          </div>
+          {selectedId && (
+            <DetailPanel
+              tab={tab}
+              zoneId={selectedId}
+              labels={tab === "v" ? vilaLabels : tab === "c" ? chatkaLabels : tancirnaLabels}
+              onClose={closeDetail}
+            />
           )}
         </div>
       </div>
+      <style>{`@media(max-width:900px){.im-grid{grid-template-columns:1fr!important;max-width:820px!important}}`}</style>
     </section>
+  );
+}
+
+function DetailPanel({ tab, zoneId, labels, onClose }) {
+  const t = useLang();
+  const label = labels.find(l => l.id === zoneId);
+  const desc = t.zoneDetails?.[tab]?.[zoneId] || "";
+  const photoCount = 4;
+
+  return (
+    <div style={{
+      minWidth: 0,
+      background: "#fff",
+      padding: "28px 30px 32px",
+      border: "1px solid rgba(0,0,0,0.06)",
+      animation: "dpSlide 0.5s ease both",
+      position: "relative",
+    }}>
+      <div onClick={onClose} title={t.detailClose} style={{
+        position: "absolute", top: 12, right: 12, width: 30, height: 30,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        cursor: "pointer", color: "#7a7168", fontSize: 18, fontFamily: SANS,
+      }}>×</div>
+
+      <div style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 3, color: GOLD, textTransform: "uppercase", marginBottom: 6 }}>
+        {label?.num}
+      </div>
+      <h3 style={{
+        fontFamily: SERIF, fontSize: 24, fontWeight: 400, color: "#1e1c18",
+        margin: 0, letterSpacing: "-0.01em",
+      }}>{label?.text}</h3>
+      <div style={{ width: 36, height: 1, background: ACCENT, margin: "14px 0 18px" }} />
+      <p style={{ fontFamily: SANS, fontSize: 13.5, lineHeight: 1.7, color: "#5a5450", margin: 0 }}>
+        {desc}
+      </p>
+
+      <div style={{ marginTop: 22, fontFamily: SANS, fontSize: 9, letterSpacing: 2.5, color: "#9a9088", textTransform: "uppercase" }}>
+        {t.detailPhotos}
+      </div>
+      <div style={{
+        marginTop: 10, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8,
+      }}>
+        {Array.from({ length: photoCount }).map((_, i) => (
+          <div key={i} style={{
+            background: "#e8e2d8", aspectRatio: "4/3",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontFamily: SANS, fontSize: 9, letterSpacing: 2, color: "#b5aea6", textTransform: "uppercase",
+          }}>{`Foto ${i + 1}`}</div>
+        ))}
+      </div>
+
+      <style>{`@keyframes dpSlide{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}`}</style>
+    </div>
   );
 }
 
