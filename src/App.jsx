@@ -185,7 +185,7 @@ const T = {
     zoneDetails: {
       v: {
         1: "Společenská místnost s kulečníkem a stolním tenisem, prostorná kuchyně, venkovní kuchyně a zimní zahrada s výstupem na terasu.",
-        2: "Tři ložnice, dvě koupelny a balkón s výhledem do zahrady.",
+        2: "Tři ložnice, koupelna s odděleným záchodem a balkón s výhledem do zahrady.",
         3: "Potenciál rozvoje podkroví do budoucna — prostor pro další ložnice nebo ateliér.",
       },
       c: {
@@ -344,7 +344,7 @@ const T = {
     zoneDetails: {
       v: {
         1: "Common room with billiard and table tennis, spacious kitchen, outdoor kitchen and a winter garden opening onto the terrace.",
-        2: "Three bedrooms, two bathrooms and a balcony with garden views.",
+        2: "Three bedrooms, a bathroom with separate toilet and a balcony with garden views.",
         3: "Future development potential of the attic — space for additional bedrooms or a studio.",
       },
       c: {
@@ -502,7 +502,7 @@ const T = {
     zoneDetails: {
       v: {
         1: "Gemeinschaftsraum mit Billard und Tischtennis, geräumige Küche, Außenküche und Wintergarten mit Zugang zur Terrasse.",
-        2: "Drei Schlafzimmer, zwei Badezimmer und Balkon mit Gartenblick.",
+        2: "Drei Schlafzimmer, ein Badezimmer mit separater Toilette und Balkon mit Gartenblick.",
         3: "Künftiges Ausbaupotenzial des Dachgeschosses — Platz für weitere Schlafzimmer oder ein Atelier.",
       },
       c: {
