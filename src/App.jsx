@@ -542,14 +542,17 @@ function Nav({ lang, setLang }) {
         }}>Vila Veselí</div>
 
         <div style={{ display: "flex", gap: 28, alignItems: "center" }} className="nd">
-          {t.navLinks.map(l => (
-            <span key={l.id} onClick={() => scrollTo(l.id)} style={{
-              fontFamily: SANS, fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.6)",
-              letterSpacing: 2.5, textTransform: "uppercase", cursor: "pointer", transition: "color 0.3s",
-            }} onMouseEnter={e => e.target.style.color = "#fff"} onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.6)"}>
-              {l.label}
-            </span>
-          ))}
+          {t.navLinks.map(l => {
+            const collapsible = ["params", "potential", "location"].includes(l.id);
+            return (
+              <span key={l.id} onClick={() => scrollTo(l.id)} className={collapsible ? "nd-extra" : ""} style={{
+                fontFamily: SANS, fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.6)",
+                letterSpacing: 2.5, textTransform: "uppercase", cursor: "pointer", transition: "color 0.3s",
+              }} onMouseEnter={e => e.target.style.color = "#fff"} onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.6)"}>
+                {l.label}
+              </span>
+            );
+          })}
           <span onClick={() => scrollTo("contact")} style={{
             ...PILL, color: DARK, background: "#fff", padding: "10px 24px",
           }} onMouseEnter={e => { e.target.style.background = GOLD; e.target.style.color = "#fff"; }}
@@ -582,7 +585,8 @@ function Nav({ lang, setLang }) {
 
       <style>{`
         .nb-wrap{display:none}
-        @media(max-width:768px){.nd{display:none!important}.nb-wrap{display:flex!important}.nb{display:flex!important}}
+        @media(max-width:1280px){.nd-extra{display:none!important}}
+        @media(max-width:1024px){.nd{display:none!important}.nb-wrap{display:flex!important}.nb{display:flex!important}}
       `}</style>
     </>
   );
