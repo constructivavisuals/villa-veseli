@@ -51,7 +51,7 @@ const T = {
     aboutTitle1: "Elegantní vila s ",
     aboutTitle2: "výjimečným potenciálem",
     aboutP1: "Unikátní elegantní vila v osobním vlastnictví ve Vysokém Veselí. Nemovitost o zastavěné ploše 400 m² se nachází na výjimečně prostorném pozemku o rozloze 6 748 m² a je ve velmi dobrém stavu, připravená k okamžitému nastěhování.",
-    aboutP2: "Na pozemku se nachází 6 samostatných chatek — ideální pro pořádání dětských táborů, skupinových pobytů či jiných volnočasových aktivit. Nemovitost nabízí garáž, sklep 20 m², balkón a terasu s výhledem do okolní přírody.",
+    aboutP2: "Na pozemku se nachází 6 samostatných chatek — ideální pro pořádání dětských táborů, skupinových pobytů či jiných volnočasových aktivit. Nemovitost nabízí garáž, balkón a terasu s výhledem do okolní přírody.",
     aboutCta: "Domluvit prohlídku",
     aboutPrice: "13 950 000 Kč",
     aboutPriceSub: "Akční cena · Přímý prodej",
@@ -77,12 +77,11 @@ const T = {
       { value: "400", unit: "m²", label: "Zastavěná plocha" },
       { value: "6 748", unit: "m²", label: "Pozemek" },
       { value: "6", unit: "", label: "Chatek na pozemku" },
-      { value: "20", unit: "m²", label: "Sklep" },
     ],
     paramsFeatures: [
       "Cihlová stavba", "Osobní vlastnictví", "Garáž + venkovní parkování",
-      "Balkón 10 m²", "Terasa 10 m²", "Sklep 20 m²",
-      "Solární panely", "Bazén se zastřešením", "6 samostatných chatek",
+      "Balkón 10 m²", "Terasa 10 m²", "Solární panely",
+      "Bazén se zastřešením", "6 samostatných chatek",
     ],
     paramsActionBadge: "Akční cena",
     paramsPriceTag: "Cena nemovitosti",
@@ -220,7 +219,7 @@ const T = {
     aboutTitle1: "Brick villa with ",
     aboutTitle2: "exceptional potential",
     aboutP1: "A unique brick villa in private ownership in Vysoké Veselí. The property with a built-up area of 400 m² is situated on an exceptionally spacious plot of 6,748 m² and is in very good condition, ready for immediate move-in.",
-    aboutP2: "The grounds include 6 separate cabins — ideal for organizing children's camps, group stays, or other recreational activities. The property offers a garage, 20 m² cellar, balcony, and terrace with views of the surrounding nature.",
+    aboutP2: "The grounds include 6 separate cabins — ideal for organizing children's camps, group stays, or other recreational activities. The property offers a garage, balcony, and terrace with views of the surrounding nature.",
     aboutCta: "Book a viewing",
     aboutPrice: "€569,000",
     aboutPriceSub: "Special price · Direct sale",
@@ -244,12 +243,11 @@ const T = {
       { value: "400", unit: "m²", label: "Built-up area" },
       { value: "6,748", unit: "m²", label: "Land" },
       { value: "6", unit: "", label: "Cabins on premises" },
-      { value: "20", unit: "m²", label: "Cellar" },
     ],
     paramsFeatures: [
       "Brick construction", "Private ownership", "Garage + outdoor parking",
-      "Balcony 10 m²", "Terrace 10 m²", "Cellar 20 m²",
-      "Solar panels", "Covered swimming pool", "6 separate cabins",
+      "Balcony 10 m²", "Terrace 10 m²", "Solar panels",
+      "Covered swimming pool", "6 separate cabins",
     ],
     paramsActionBadge: "Special price",
     paramsPriceTag: "Property price",
@@ -379,7 +377,7 @@ const T = {
     aboutTitle1: "Ziegelvilla mit ",
     aboutTitle2: "außergewöhnlichem Potenzial",
     aboutP1: "Einzigartige Ziegelvilla in Privatbesitz in Vysoké Veselí. Das Gebäude mit einer bebauten Fläche von 400 m² befindet sich auf einem außergewöhnlich großzügigen Grundstück von 6.748 m² und ist in sehr gutem Zustand, sofort bezugsfertig.",
-    aboutP2: "Auf dem Grundstück befinden sich 6 separate Hütten — ideal für die Organisation von Kindercamps, Gruppenaufenthalten oder anderen Freizeitaktivitäten. Die Immobilie bietet eine Garage, einen 20 m² Keller, einen Balkon und eine Terrasse mit Blick auf die umliegende Natur.",
+    aboutP2: "Auf dem Grundstück befinden sich 6 separate Hütten — ideal für die Organisation von Kindercamps, Gruppenaufenthalten oder anderen Freizeitaktivitäten. Die Immobilie bietet eine Garage, einen Balkon und eine Terrasse mit Blick auf die umliegende Natur.",
     aboutCta: "Besichtigung vereinbaren",
     aboutPrice: "569.000 €",
     aboutPriceSub: "Aktionspreis · Direktverkauf",
@@ -403,12 +401,11 @@ const T = {
       { value: "400", unit: "m²", label: "Bebaute Fläche" },
       { value: "6.748", unit: "m²", label: "Grundstück" },
       { value: "6", unit: "", label: "Hütten auf dem Gelände" },
-      { value: "20", unit: "m²", label: "Keller" },
     ],
     paramsFeatures: [
       "Ziegelbau", "Privatbesitz", "Garage + Außenparkplatz",
-      "Balkon 10 m²", "Terrasse 10 m²", "Keller 20 m²",
-      "Solarpanele", "Pool mit Überdachung", "6 separate Hütten",
+      "Balkon 10 m²", "Terrasse 10 m²", "Solarpanele",
+      "Pool mit Überdachung", "6 separate Hütten",
     ],
     paramsActionBadge: "Aktionspreis",
     paramsPriceTag: "Immobilienpreis",
@@ -1246,7 +1243,7 @@ function Params() {
           </h2>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 3, marginBottom: 56 }} className="sg">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 3, marginBottom: 56 }} className="sg">
           {t.paramsStats.map((s, i) => (
             <div key={i} style={{
               background: DARK, padding: "clamp(28px,3vw,48px) 20px", textAlign: "center",
