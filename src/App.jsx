@@ -643,10 +643,10 @@ function Nav({ lang, setLang }) {
 // ─── HERO ───
 function Hero({ ready }) {
   const t = useLang();
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(true);
   const videoRef = useRef(null);
 
-  useEffect(() => { setTimeout(() => setLoaded(true), 200); }, []);
+  useEffect(() => { setLoaded(true); }, []);
   useEffect(() => {
     if (ready && videoRef.current) {
       videoRef.current.currentTime = 0;
