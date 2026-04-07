@@ -1101,11 +1101,11 @@ function InteractiveMap() {
         </div>
 
         <div className="im-grid" style={{
-          maxWidth: selectedId ? 1280 : 820,
+          maxWidth: selectedId ? 1260 : 820,
           margin: "0 auto",
           display: "grid",
-          gridTemplateColumns: selectedId ? "minmax(0,1fr) minmax(0,1fr)" : "1fr",
-          gap: selectedId ? 32 : 0,
+          gridTemplateColumns: selectedId ? "minmax(0,1.7fr) minmax(0,1fr)" : "1fr",
+          gap: selectedId ? 28 : 0,
           alignItems: "start",
           transition: `all 0.55s ${EASE}`,
         }}>
@@ -1145,7 +1145,7 @@ function DetailPanel({ tab, zoneId, labels, onClose }) {
     <div style={{
       minWidth: 0,
       background: "#fff",
-      padding: "28px 30px 32px",
+      padding: "22px 24px 26px",
       border: "1px solid rgba(0,0,0,0.06)",
       animation: "dpSlide 0.5s ease both",
       position: "relative",
@@ -1160,19 +1160,19 @@ function DetailPanel({ tab, zoneId, labels, onClose }) {
         {label?.num}
       </div>
       <h3 style={{
-        fontFamily: SERIF, fontSize: 24, fontWeight: 400, color: "#1e1c18",
+        fontFamily: SERIF, fontSize: 20, fontWeight: 400, color: "#1e1c18",
         margin: 0, letterSpacing: "-0.01em",
       }}>{label?.text}</h3>
-      <div style={{ width: 36, height: 1, background: ACCENT, margin: "14px 0 18px" }} />
-      <p style={{ fontFamily: SANS, fontSize: 13.5, lineHeight: 1.7, color: "#5a5450", margin: 0 }}>
+      <div style={{ width: 32, height: 1, background: ACCENT, margin: "12px 0 14px" }} />
+      <p style={{ fontFamily: SANS, fontSize: 12.5, lineHeight: 1.65, color: "#5a5450", margin: 0 }}>
         {desc}
       </p>
 
-      <div style={{ marginTop: 22, fontFamily: SANS, fontSize: 9, letterSpacing: 2.5, color: "#9a9088", textTransform: "uppercase" }}>
+      <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 9, letterSpacing: 2.5, color: "#9a9088", textTransform: "uppercase" }}>
         {t.detailPhotos}
       </div>
       <div style={{
-        marginTop: 10, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8,
+        marginTop: 8, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6,
       }}>
         {Array.from({ length: photoCount }).map((_, i) => (
           <div key={i} style={{
