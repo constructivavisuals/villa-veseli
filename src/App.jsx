@@ -187,14 +187,14 @@ const T = {
       v: {
         1: "Vstupní hala se schodištěm, prostorná kuchyň s jídelnou, obývací pokoj, pracovna a koupelna.",
         2: "Tři ložnice, kulečníkový sál, dvě koupelny a balkón s výhledem do zahrady.",
-        3: "Podkroví s dalšími prostory pro odpočinek a uskladnění.",
+        3: "Potenciál rozvoje podkroví do budoucna — prostor pro další ložnice, ateliér nebo wellness.",
       },
       c: {
         1: "Samostatná chatka s vlastním pokojem, dvěma lůžky a základním vybavením. Ideální pro tábory a skupinové pobyty.",
       },
       t: {
         1: "Tančírna — prostorný sál vhodný pro pořádání akcí, oslav nebo skupinových aktivit.",
-        2: "Garáž — krytý prostor pro vozidla nebo uskladnění.",
+        2: "3 parkovací stání s možností montáže wallboxu a nabíjení ze solárních panelů.",
       },
     },
     // Splash
@@ -347,14 +347,14 @@ const T = {
       v: {
         1: "Entrance hall with staircase, spacious kitchen with dining area, living room, study, and bathroom.",
         2: "Three bedrooms, billiard room, two bathrooms, and balcony with garden views.",
-        3: "Attic with additional space for relaxation and storage.",
+        3: "Future development potential of the attic — space for additional bedrooms, a studio or a wellness area.",
       },
       c: {
         1: "Standalone cabin with its own room, two beds, and basic amenities. Ideal for camps and group stays.",
       },
       t: {
         1: "Dance hall — a spacious venue suitable for events, celebrations or group activities.",
-        2: "Garage — covered space for vehicles or storage.",
+        2: "3 parking spaces with the option to install a wallbox and charge from solar panels.",
       },
     },
     splashTitle: "Vila Vysoké Veselí",
@@ -506,14 +506,14 @@ const T = {
       v: {
         1: "Eingangshalle mit Treppe, geräumige Küche mit Essbereich, Wohnzimmer, Arbeitszimmer und Badezimmer.",
         2: "Drei Schlafzimmer, Billardraum, zwei Badezimmer und Balkon mit Gartenblick.",
-        3: "Dachgeschoss mit zusätzlichem Raum zum Entspannen und Lagern.",
+        3: "Künftiges Ausbaupotenzial des Dachgeschosses — Platz für weitere Schlafzimmer, ein Atelier oder einen Wellnessbereich.",
       },
       c: {
         1: "Eigenständige Hütte mit eigenem Zimmer, zwei Betten und Grundausstattung. Ideal für Lager und Gruppenaufenthalte.",
       },
       t: {
         1: "Tanzsaal — ein geräumiger Saal für Veranstaltungen, Feiern oder Gruppenaktivitäten.",
-        2: "Garage — überdachter Raum für Fahrzeuge oder Lagerung.",
+        2: "3 Stellplätze mit Möglichkeit zur Installation einer Wallbox und zum Laden über Solaranlage.",
       },
     },
     splashTitle: "Vila Vysoké Veselí",
@@ -1072,6 +1072,39 @@ function InteractiveMap() {
     { id: 2, top: 60, text: t.tancLabels[1], num: "02" },
   ];
 
+  const zonePhotos = {
+    v: {
+      1: [
+        "/images/zones/vila-1np/557568302_122140870538877118_2774337223395014435_n.jpg",
+        "/images/zones/vila-1np/557632439_122140871834877118_6564612978025454102_n.jpg",
+        "/images/zones/vila-1np/557636413_122140870694877118_7861972565968505390_n.jpg",
+        "/images/zones/vila-1np/558925128_122140871204877118_8236531290329141108_n.jpg",
+      ],
+      2: [
+        "/images/zones/vila_2np/557438375_122140870826877118_3668121059606371721_n.jpg",
+        "/images/zones/vila_2np/557619572_122140870892877118_5568019515803571071_n.jpg",
+        "/images/zones/vila_2np/557775068_122140870754877118_8692541834197967658_n.jpg",
+        "/images/zones/vila_2np/558872566_122140872038877118_2796167888955488449_n.jpg",
+      ],
+      3: [],
+    },
+    c: {
+      1: [
+        "/images/zones/chatka/557352074_122140871510877118_4492430648180782683_n.jpg",
+        "/images/zones/chatka/557638682_122140872242877118_7230311047051353957_n.jpg",
+        "/images/zones/chatka/557683675_122140870322877118_9012676440516515287_n.jpg",
+        "/images/zones/chatka/558989931_122140870388877118_6552438920735856264_n.jpg",
+      ],
+    },
+    t: {
+      1: [
+        "/images/zones/tancirna/557595251_122140871270877118_3863918512020702932_n.jpg",
+        "/images/zones/tancirna/558340611_122140871354877118_355013300316956061_n.jpg",
+      ],
+      2: [],
+    },
+  };
+
   return (
     <section id="explore" ref={ref} style={{ background: "#e8e2d8", padding: "56px 0 20px" }}>
       <div style={{
@@ -1125,6 +1158,7 @@ function InteractiveMap() {
               tab={tab}
               zoneId={selectedId}
               labels={tab === "v" ? vilaLabels : tab === "c" ? chatkaLabels : tancirnaLabels}
+              photos={zonePhotos[tab]?.[selectedId] || []}
               onClose={closeDetail}
             />
           )}
@@ -1135,11 +1169,11 @@ function InteractiveMap() {
   );
 }
 
-function DetailPanel({ tab, zoneId, labels, onClose }) {
+function DetailPanel({ tab, zoneId, labels, photos = [], onClose }) {
   const t = useLang();
   const label = labels.find(l => l.id === zoneId);
   const desc = t.zoneDetails?.[tab]?.[zoneId] || "";
-  const photoCount = 4;
+  const hasPhotos = photos.length > 0;
 
   return (
     <div style={{
@@ -1168,20 +1202,26 @@ function DetailPanel({ tab, zoneId, labels, onClose }) {
         {desc}
       </p>
 
-      <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 9, letterSpacing: 2.5, color: "#9a9088", textTransform: "uppercase" }}>
-        {t.detailPhotos}
-      </div>
-      <div style={{
-        marginTop: 8, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6,
-      }}>
-        {Array.from({ length: photoCount }).map((_, i) => (
-          <div key={i} style={{
-            background: "#e8e2d8", aspectRatio: "4/3",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontFamily: SANS, fontSize: 9, letterSpacing: 2, color: "#b5aea6", textTransform: "uppercase",
-          }}>{`Foto ${i + 1}`}</div>
-        ))}
-      </div>
+      {hasPhotos && (
+        <>
+          <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 9, letterSpacing: 2.5, color: "#9a9088", textTransform: "uppercase" }}>
+            {t.detailPhotos}
+          </div>
+          <div style={{
+            marginTop: 8, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6,
+          }}>
+            {photos.map((src, i) => (
+              <div key={i} style={{
+                background: "#e8e2d8", aspectRatio: "4/3", overflow: "hidden",
+              }}>
+                <img src={src} alt="" loading="lazy" style={{
+                  width: "100%", height: "100%", objectFit: "cover", display: "block",
+                }} />
+              </div>
+            ))}
+          </div>
+        </>
+      )}
 
       <style>{`@keyframes dpSlide{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}`}</style>
     </div>
