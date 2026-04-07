@@ -633,7 +633,7 @@ function Nav({ lang, setLang }) {
 
       <style>{`
         .nb-wrap{display:none}
-        @media(max-width:1280px){.nd-extra{display:none!important}}
+        @media(max-width:1440px){.nd-extra{display:none!important}}
         @media(max-width:1024px){.nd{display:none!important}.nb-wrap{display:flex!important}.nb{display:flex!important}}
       `}</style>
     </>
